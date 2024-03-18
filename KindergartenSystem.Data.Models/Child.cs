@@ -23,14 +23,14 @@ namespace KindergartenSystem.Data.Models
         [MaxLength(ImageUrlMaxLength)]
         public string ImageUrl { get; set; } = string.Empty;
         [Required]
-        public int KindergartenGroupId { get; set; }
-        [ForeignKey(nameof(KindergartenGroupId))]
-        public KindergartenGroup KindergartenGroup { get; set; } = null!;
+        public int ClassGroupId { get; set; }
+        [ForeignKey(nameof(ClassGroupId))]
+        public ClassGroup ClassGroup { get; set; } = null!;
         [Required]
-        public int ParentId { get; set; }
+        public Guid ParentId { get; set; }
         [ForeignKey(nameof(ParentId))]
         public Parent Parent { get; set; } = null!;
-        public ICollection<Teacher> Teachers { get; set; } = new List<Teacher>();
+        //public ICollection<Teacher> Teachers { get; set; } = new List<Teacher>();
 
     }
 }

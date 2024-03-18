@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace KindergartenSystem.Common
+﻿namespace KindergartenSystem.Common
 {
     public static class EntityValidationConstants
     {
@@ -23,10 +17,10 @@ namespace KindergartenSystem.Common
             public const int MinNumber = 1;
             public const int MaxNumber = 4;
         }
-        public static class KindergartenGroup
+        public static class ClassGroup
         {
-            public const int NameMinLength = 2;
-            public const int NameMaxLength = 30;
+            public const int TitleMinLength = 2;
+            public const int TitleMaxLength = 30;
         }
         public static class Child
         {
