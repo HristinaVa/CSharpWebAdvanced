@@ -17,6 +17,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\KindergartenSystem.Common\KindergartenSystem.Common.csproj" />
+    <ProjectReference Include="..\KindergartenSystem.Data.Models\KindergartenSystem.Data.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

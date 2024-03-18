@@ -16,6 +16,6 @@ namespace KindergartenSystem.Data.Models
         [ForeignKey(nameof(AgeGroupId))]
         public AgeGroup AgeGroup { get; set; } = null!;
         public ICollection<Child> Children { get; set; } = new List<Child>();
-       // public ICollection<Teacher> Teachers { get; set; } = new List<Teacher>();
+        public ICollection<Teacher> Teachers { get; set; } = new List<Teacher>();
     }
 }

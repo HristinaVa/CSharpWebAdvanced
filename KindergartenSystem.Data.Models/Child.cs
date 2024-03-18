@@ -18,7 +18,7 @@ namespace KindergartenSystem.Data.Models
         [MaxLength(NameMaxLength)]
         public string LastName { get; set; } = string.Empty;
         [Required]
-        public DateOnly DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
         [Required]
         [MaxLength(ImageUrlMaxLength)]
         public string ImageUrl { get; set; } = string.Empty;
