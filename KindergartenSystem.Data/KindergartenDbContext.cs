@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KindergartenSystem.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class KindergartenDbContext : IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public KindergartenDbContext(DbContextOptions<KindergartenDbContext> options)
             : base(options)
         {
         }
