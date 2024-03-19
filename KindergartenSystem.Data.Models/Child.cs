@@ -4,8 +4,14 @@ using static KindergartenSystem.Common.EntityValidationConstants.Child;
 
 namespace KindergartenSystem.Data.Models
 {
+    
     public class Child
     {
+        public Child()
+        {
+            Id = Guid.NewGuid();
+        }
+
         [Key]
         public Guid Id { get; set; }
         [Required]

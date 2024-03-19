@@ -18,6 +18,60 @@ namespace KindergartenSystem.Data.Configurations
                 .WithMany(c => c.ClassGroups)
                 .HasForeignKey(c => c.AgeGroupId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasData(GenerateClassGroups());
+        }
+        private ClassGroup[] GenerateClassGroups()
+        {
+            ICollection<ClassGroup> classGroups = new HashSet<ClassGroup>();
+            ClassGroup classGroup;
+            classGroup = new ClassGroup()
+            {
+                Id = 1,
+                Title = "Zvezdichka",
+                AgeGroupId = 1
+
+            };
+            classGroups.Add(classGroup);
+
+            classGroup = new ClassGroup()
+            {
+                Id = 2,
+                Title = "Mecho Puh",
+                AgeGroupId = 2
+
+            };
+            classGroups.Add(classGroup);
+
+
+            classGroup = new ClassGroup()
+            {
+                Id = 3,
+                Title = "Pinokio",
+                AgeGroupId = 3
+
+            };
+            classGroups.Add(classGroup);
+
+            classGroup = new ClassGroup()
+            {
+                Id = 4,
+                Title = "Rusalka",
+                AgeGroupId = 4
+
+            };
+            classGroups.Add(classGroup);
+
+            classGroup = new ClassGroup()
+            {
+                Id = 5,
+                Title = "Chaika",
+                AgeGroupId = 4
+
+            };
+            classGroups.Add(classGroup);
+            return classGroups.ToArray();
+
         }
     }
 }

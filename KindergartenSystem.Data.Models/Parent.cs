@@ -8,6 +8,10 @@ namespace KindergartenSystem.Data.Models
 {
     public class Parent
     {
+        public Parent()
+        {
+            Id = Guid.NewGuid();
+        }
         [Key]
         public Guid Id { get; set; }
         [Required]
