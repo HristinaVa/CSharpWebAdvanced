@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static KindergartenSystem.Common.EntityValidationConstants.Teacher;
 
@@ -15,8 +17,8 @@ namespace KindergartenSystem.Data.Models
         [MaxLength(ImageUrlMaxLength)]
         public string ImageUrl { get; set; } = string.Empty;
         [Required]
-        [Phone]
-        public string Phone { get; set; } = string.Empty;
+        [MaxLength(PhoneNumberMaxLength)]
+        public string PhoneNumber { get; set; } = string.Empty;
         [Required]
         [EmailAddress]
         public string EmailAddress { get; set; } = string.Empty;
@@ -24,5 +26,11 @@ namespace KindergartenSystem.Data.Models
         public int ClassGroupId { get; set; }
         [ForeignKey(nameof(ClassGroupId))]
         public ClassGroup ClassGroup { get; set; } = null!;
+        [Required]
+        [Comment("User Identifier")]
+        public string UserId { get; set; } = string.Empty;
+
+        [ForeignKey(nameof(UserId))]
+        public IdentityUser User { get; set; } = null!;
     }
 }

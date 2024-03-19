@@ -11,14 +11,17 @@ namespace KindergartenSystem.Data.Models
         [MaxLength(NameMaxLength)]
         public string Name { get; set; } = string.Empty;
         [Required]
-        [Phone]
-        public string Phone { get; set; } = string.Empty;
+        [MaxLength(PhoneNumberMaxLength)]
+        public string PhoneNumber { get; set; } = string.Empty;
         [Required]
         [MaxLength(AddressMaxLength)]
         public string Address { get; set; } = string.Empty;
         [Required]
         [MaxLength(PrincipalNameMaxLength)]
         public string Principal { get; set; } =string.Empty;
+        [Required]
+        [MaxLength(EmailAddressMaxLength)]
+        public string EmailAddress { get; set; } = string.Empty;
         public ICollection<AgeGroup> AgeGroups { get; set; } = new List<AgeGroup>();
     }
 }
