@@ -22,6 +22,7 @@ namespace KindergartenSystem.Data.Models
         [Required]
         [MaxLength(EmailAddressMaxLength)]
         public string EmailAddress { get; set; } = string.Empty;
+        public ICollection<Image>? Images { get; set; }
         public ICollection<AgeGroup> AgeGroups { get; set; } = new List<AgeGroup>();
     }
 }

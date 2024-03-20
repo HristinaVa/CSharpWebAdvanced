@@ -4,6 +4,7 @@ using KindergartenSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KindergartenSystem.Data.Migrations
 {
     [DbContext(typeof(KindergartenDbContext))]
-    partial class KindergartenDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240320141614_AddingImages")]
+    partial class AddingImages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,7 +42,7 @@ namespace KindergartenSystem.Data.Migrations
 
                     b.HasIndex("KindergartenId");
 
-                    b.ToTable("AgeGroups", (string)null);
+                    b.ToTable("AgeGroups");
 
                     b.HasData(
                         new
@@ -110,7 +112,7 @@ namespace KindergartenSystem.Data.Migrations
 
                     b.HasIndex("ParentId");
 
-                    b.ToTable("Children", (string)null);
+                    b.ToTable("Children");
 
                     b.HasData(
                         new
@@ -146,7 +148,7 @@ namespace KindergartenSystem.Data.Migrations
 
                     b.HasIndex("AgeGroupId");
 
-                    b.ToTable("ClassGroups", (string)null);
+                    b.ToTable("ClassGroups");
 
                     b.HasData(
                         new
@@ -199,7 +201,7 @@ namespace KindergartenSystem.Data.Migrations
 
                     b.HasIndex("KindergartenId");
 
-                    b.ToTable("Image", (string)null);
+                    b.ToTable("Image");
                 });
 
             modelBuilder.Entity("KindergartenSystem.Data.Models.Kindergarten", b =>
@@ -237,7 +239,7 @@ namespace KindergartenSystem.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Kindergartens", (string)null);
+                    b.ToTable("Kindergartens");
 
                     b.HasData(
                         new
@@ -291,7 +293,7 @@ namespace KindergartenSystem.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Parents", (string)null);
+                    b.ToTable("Parents");
                 });
 
             modelBuilder.Entity("KindergartenSystem.Data.Models.Teacher", b =>
@@ -333,7 +335,7 @@ namespace KindergartenSystem.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Teachers", (string)null);
+                    b.ToTable("Teachers");
 
                     b.HasData(
                         new

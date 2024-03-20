@@ -55,5 +55,10 @@
             public const int EmailAddressMaxLength = 256;
 
         }
+        public static class Image
+        {
+            public const int ImageUrlMaxLength = 2048;
+
+        }
     }
 }

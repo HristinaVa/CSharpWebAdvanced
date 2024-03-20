@@ -29,6 +29,7 @@ namespace KindergartenSystem.Data.Configurations
                 Principal = "P.Petrova",
                 EmailAddress = "zaiobaio@zaiobaio.com"
             };
+           
             kindergartens.Add(kindergarten);
            
             return kindergartens.ToArray();
