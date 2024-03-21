@@ -24,5 +24,6 @@ namespace KindergartenSystem.Data
         public DbSet<Child> Children { get; set; } = null!;
         public DbSet<Parent> Parents { get; set; } = null!;
         public DbSet<Teacher> Teachers { get; set; } = null!;
+        public DbSet<Image>? Image { get; set; } 
     }
 }
