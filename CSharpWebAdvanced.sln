@@ -3,19 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KindergartenSystem.Web", "KindergartenSystem.Web\KindergartenSystem.Web.csproj", "{58011BD9-5E00-4F3B-8B42-3A1E2746E544}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KindergartenSystem.Web", "KindergartenSystem.Web\KindergartenSystem.Web.csproj", "{58011BD9-5E00-4F3B-8B42-3A1E2746E544}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KindergartenSystem.Common", "KindergartenSystem.Common\KindergartenSystem.Common.csproj", "{0E8E94D9-772D-49C7-B684-67E8B42C8B86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KindergartenSystem.Common", "KindergartenSystem.Common\KindergartenSystem.Common.csproj", "{0E8E94D9-772D-49C7-B684-67E8B42C8B86}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{84AC7105-826B-40F2-A9B7-D4CC56F04987}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{FBEB43B5-51A8-44C2-B332-974DD7B9F935}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KindergartenSystem.Data", "KindergartenSystem.Data\KindergartenSystem.Data.csproj", "{DF7A8A34-8FD1-4438-838A-4F23562AA9F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KindergartenSystem.Data", "KindergartenSystem.Data\KindergartenSystem.Data.csproj", "{DF7A8A34-8FD1-4438-838A-4F23562AA9F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KindergartenSystem.Data.Models", "KindergartenSystem.Data.Models\KindergartenSystem.Data.Models.csproj", "{4EF1548C-594E-478D-A66F-CCE817B40B64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KindergartenSystem.Data.Models", "KindergartenSystem.Data.Models\KindergartenSystem.Data.Models.csproj", "{4EF1548C-594E-478D-A66F-CCE817B40B64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KindergartenSystem.Web.ViewModels", "KindergartenSystem.Web.ViewModels\KindergartenSystem.Web.ViewModels.csproj", "{1C6FFD11-A1D0-4D52-BB26-850E8AD2240C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KindergartenSystem.Web.ViewModels", "KindergartenSystem.Web.ViewModels\KindergartenSystem.Web.ViewModels.csproj", "{1C6FFD11-A1D0-4D52-BB26-850E8AD2240C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{B6151A98-6F1D-49AE-BAED-035A439B1488}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KindergartenSystem.Services.Data", "KindergartenSystem.Services.Data\KindergartenSystem.Services.Data.csproj", "{0EE25CE0-4F91-48BD-8A0F-9DDDCFCFF775}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KindergartenSystem.Web.Infrastructure", "KindergartenSystem.Web.Infrastructure\KindergartenSystem.Web.Infrastructure.csproj", "{9B5B186D-CCCF-4DE7-9E71-8D705630A249}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +49,14 @@ Global
 		{1C6FFD11-A1D0-4D52-BB26-850E8AD2240C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C6FFD11-A1D0-4D52-BB26-850E8AD2240C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C6FFD11-A1D0-4D52-BB26-850E8AD2240C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EE25CE0-4F91-48BD-8A0F-9DDDCFCFF775}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EE25CE0-4F91-48BD-8A0F-9DDDCFCFF775}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EE25CE0-4F91-48BD-8A0F-9DDDCFCFF775}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EE25CE0-4F91-48BD-8A0F-9DDDCFCFF775}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B5B186D-CCCF-4DE7-9E71-8D705630A249}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B5B186D-CCCF-4DE7-9E71-8D705630A249}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B5B186D-CCCF-4DE7-9E71-8D705630A249}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B5B186D-CCCF-4DE7-9E71-8D705630A249}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,6 +66,8 @@ Global
 		{DF7A8A34-8FD1-4438-838A-4F23562AA9F5} = {FBEB43B5-51A8-44C2-B332-974DD7B9F935}
 		{4EF1548C-594E-478D-A66F-CCE817B40B64} = {FBEB43B5-51A8-44C2-B332-974DD7B9F935}
 		{1C6FFD11-A1D0-4D52-BB26-850E8AD2240C} = {84AC7105-826B-40F2-A9B7-D4CC56F04987}
+		{0EE25CE0-4F91-48BD-8A0F-9DDDCFCFF775} = {B6151A98-6F1D-49AE-BAED-035A439B1488}
+		{9B5B186D-CCCF-4DE7-9E71-8D705630A249} = {84AC7105-826B-40F2-A9B7-D4CC56F04987}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE63E015-41F5-4502-A043-DBE2FD1B7706}

@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using KindergartenSystem.Data;
+using KindergartenSystem.Services.Data.Interfaces;
+using KindergartenSystem.Services.Data;
+using KindergartenSystem.Web.Infrastructure.Extensions;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +21,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     options.Password.RequiredLength = builder.Configuration.GetValue<int>("Identity:Password:RequiredLength");
 })
     .AddEntityFrameworkStores<KindergartenDbContext>();
+
+builder.Services.AddApplicationServices(typeof(IKindergartenService));
 
 builder.Services.AddControllersWithViews();
 

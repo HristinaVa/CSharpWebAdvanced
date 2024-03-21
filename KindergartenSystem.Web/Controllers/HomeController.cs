@@ -1,19 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using KindergartenSystem.Web.ViewModels;
+using KindergartenSystem.Services.Data.Interfaces;
+using KindergartenSystem.Web.ViewModels.Home;
+using KindergartenSystem.Services.Data;
+
 
 
 namespace KindergartenSystem.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public HomeController()
+        private readonly IKindergartenService _kindergartenService;
+
+        public HomeController(IKindergartenService kindergartenService)
         {
+            _kindergartenService = kindergartenService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            IEnumerable<ImageViewModel> viewModel = await _kindergartenService.AboutInfoAsync();
+            return View(viewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
