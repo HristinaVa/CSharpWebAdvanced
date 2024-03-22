@@ -26,6 +26,7 @@ builder.Services.AddApplicationServices(typeof(IKindergartenService));
 
 builder.Services.AddControllersWithViews();
 
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

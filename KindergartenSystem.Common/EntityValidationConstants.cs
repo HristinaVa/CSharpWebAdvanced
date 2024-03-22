@@ -53,6 +53,7 @@
             public const int PhoneNumberMaxLength = 13;
             public const int PhoneNumberMinLength = 9;
             public const int EmailAddressMaxLength = 256;
+            public const int EmailAddressMinLength = 5;
 
         }
         public static class Image
