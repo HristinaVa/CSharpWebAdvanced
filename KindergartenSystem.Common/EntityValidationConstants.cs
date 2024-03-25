@@ -28,8 +28,12 @@
         }
         public static class Child
         {
-            public const int NameMinLength = 2;
-            public const int NameMaxLength = 30;
+            public const int FirstNameMinLength = 2;
+            public const int FirstNameMaxLength = 30;
+            public const int MiddleNameMinLength = 2;
+            public const int MiddleNameMaxLength = 30;
+            public const int LastNameMinLength = 2;
+            public const int LastNameMaxLength = 30;
             public const int ImageUrlMaxLength = 2048;
             public const string DateOfBirthFormat = "dd/MM/yyyy";
 

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KindergartenSystem.Web.Controllers
 {
+    [Authorize]
     public class ParentController : Controller
     {
         private readonly IParentService _parentService;
@@ -16,6 +17,7 @@ namespace KindergartenSystem.Web.Controllers
             _parentService = parenttService; 
         
         }
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> IAmParent()
         {

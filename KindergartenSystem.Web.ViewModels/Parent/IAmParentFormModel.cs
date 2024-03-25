@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Net;
-using System.Net.Mail;
 using static KindergartenSystem.Common.EntityValidationConstants.Parent;
 
 namespace KindergartenSystem.Web.ViewModels.Parent

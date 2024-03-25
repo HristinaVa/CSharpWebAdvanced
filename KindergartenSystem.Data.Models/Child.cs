@@ -15,13 +15,13 @@ namespace KindergartenSystem.Data.Models
         [Key]
         public Guid Id { get; set; }
         [Required]
-        [MaxLength(NameMaxLength)]
+        [MaxLength(FirstNameMaxLength)]
         public string FirstName { get; set; } = string.Empty;
         [Required]
-        [MaxLength(NameMaxLength)]
+        [MaxLength(MiddleNameMaxLength)]
         public string MiddleName { get; set; } = string.Empty;
         [Required]
-        [MaxLength(NameMaxLength)]
+        [MaxLength(LastNameMaxLength)]
         public string LastName { get; set; } = string.Empty;
         [Required]
         public DateTime DateOfBirth { get; set; }

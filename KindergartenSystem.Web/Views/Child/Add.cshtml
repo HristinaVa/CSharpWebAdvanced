@@ -1,0 +1,61 @@
+﻿@model ChildFormModel
+@{
+    ViewBag.Title = "Add Child";
+}
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+@if (!ViewData.ModelState.IsValid && ViewData.ModelState["Error"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewData.ModelState["Error"].Errors.First().ErrorMessage
+    </div>
+}
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" class="form-control">
+                <span asp-validation-for="FirstName" class="small textdanger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MiddleName"></label>
+                <input asp-for="MiddleName" class="form-control">
+                <span asp-validation-for="MiddleName" class="small textdanger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" class="form-control">
+                <span asp-validation-for="LastName" class="small textdanger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfBirth"></label>
+                <input asp-for="DateOfBirth" class="form-control"
+                       placeholder="dd/MM/yyyy">
+                <span asp-validation-for="DateOfBirth" class="small textdanger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl"></label>
+                <input asp-for="ImageUrl" class="form-control"
+                       placeholder="https://...">
+                <span asp-validation-for="ImageUrl" class="small textdanger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClassGroupId"></label>
+                <select asp-for="ClassGroupId" class="form-control">
+                    @foreach (var classGroup in Model.ClassGroups)
+                    {
+                        <option value="@classGroup.Id">@classGroup.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="ClassGroupId" class="small textdanger"></span>
+            </div>
+            <div class="text-center">
+                <input class="btn btn-primary mt-3" type="submit" value="Save" />
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
