@@ -23,6 +23,7 @@ namespace KindergartenSystem.Web.ViewModels.Child
         [Display(Name = "Фамилия")]
         public string LastName { get; set; } = string.Empty;
         [Required]
+        [DataType(DataType.Date)]
         [Display(Name = "Дата на раждане")]
         public string DateOfBirth { get; set; }= null!;
         [Required]

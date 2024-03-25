@@ -26,7 +26,7 @@ namespace KindergartenSystem.Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
             ChildFormModel model = new ChildFormModel()
-            {
+            {  
                 ClassGroups = await _classGroupService.GetClassGroupsAsync()
             };
             return View(model);
