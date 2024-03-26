@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using static KindergartenSystem.Common.EntityValidationConstants.Child;
 using KindergartenSystem.Web.ViewModels.ClassGroup;
+using KindergartenSystem.Web.ViewModels.Parent;
 
 
 namespace KindergartenSystem.Web.ViewModels.Child
@@ -22,14 +23,21 @@ namespace KindergartenSystem.Web.ViewModels.Child
         [StringLength(LastNameMaxLength, MinimumLength = LastNameMinLength)]
         [Display(Name = "Фамилия")]
         public string LastName { get; set; } = string.Empty;
-        [Required]
+        [Required(ErrorMessage = "Invalid format")]
         [DataType(DataType.Date)]
         [Display(Name = "Дата на раждане")]
-        public string DateOfBirth { get; set; }= null!;
-        [Required]
+        public DateTime DateOfBirth { get; set; }
+        [Required(AllowEmptyStrings = false)]
         [StringLength(ImageUrlMaxLength)]
         [Display(Name = "Снимка")]
         public string ImageUrl { get; set; } = string.Empty;
+
+       // public string ParentPhone { get; set; }
+        [Required]
+        [Phone]
+        [Display(Name = "Телефон на родител")]
+        public string ParentPhone { get; set; } = null!;
+
         [Display(Name = "Група")]
         public int ClassGroupId { get; set; }
         public IEnumerable<ClassGroupSelectModel> ClassGroups { get; set; } = new HashSet<ClassGroupSelectModel>();

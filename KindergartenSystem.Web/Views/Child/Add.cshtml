@@ -30,8 +30,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="DateOfBirth"></label>
-                <input asp-for="DateOfBirth" class="form-control"
-                       placeholder="dd/MM/yyyy">
+                <input asp-for="DateOfBirth" class="form-control">
                 <span asp-validation-for="DateOfBirth" class="small textdanger"></span>
             </div>
             <div class="form-group">
@@ -39,6 +38,11 @@
                 <input asp-for="ImageUrl" class="form-control"
                        placeholder="https://...">
                 <span asp-validation-for="ImageUrl" class="small textdanger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParentPhone"></label>
+                <input asp-for="ParentPhone" class="form-control">
+                <span asp-validation-for="ParentPhone" class="small textdanger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ClassGroupId"></label>

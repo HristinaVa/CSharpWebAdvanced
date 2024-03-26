@@ -12,6 +12,13 @@ namespace KindergartenSystem.Services.Data
         {
             _dbContext = dbContext;
         }
+
+        public async Task<bool> ExistsById(int id)
+        {
+            var result = await _dbContext.ClassGroups.AnyAsync(x => x.Id == id);
+            return result;
+        }
+
         public async Task<IEnumerable<ClassGroupSelectModel>> GetClassGroupsAsync()
         {
             IEnumerable<ClassGroupSelectModel> getClassGroups = await _dbContext.ClassGroups

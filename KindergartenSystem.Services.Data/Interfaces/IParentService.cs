@@ -13,5 +13,6 @@ namespace KindergartenSystem.Services.Data.Interfaces
 
         Task<bool> ParentExistsByPhoneNumberAsync(string phoneNumber);
         Task Create(string userId, IAmParentFormModel model);
+        Task<string> GetParentIdByPhoneAsync(string phone);
     }
 }
