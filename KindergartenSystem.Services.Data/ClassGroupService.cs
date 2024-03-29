@@ -1,6 +1,8 @@
 ﻿using KindergartenSystem.Data;
+using KindergartenSystem.Data.Models;
 using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Web.ViewModels.ClassGroup;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace KindergartenSystem.Services.Data
@@ -12,10 +14,20 @@ namespace KindergartenSystem.Services.Data
         {
             _dbContext = dbContext;
         }
+       
+        public async Task<IEnumerable<string>> AllClassGroupsTitlesAsync()
+        {
+            
+            IEnumerable<string> classGroupTitles = await _dbContext.ClassGroups
+                .Select(x => x.Title).ToArrayAsync();    
+            
+            return classGroupTitles;
+        }
 
         public async Task<bool> ExistsById(int id)
         {
             var result = await _dbContext.ClassGroups.AnyAsync(x => x.Id == id);
+            
             return result;
         }
 
@@ -27,6 +39,7 @@ namespace KindergartenSystem.Services.Data
                                 Id = x.Id,
                                 Name = x.Title
                             }).ToArrayAsync();
+            
             return getClassGroups;
         }
     }

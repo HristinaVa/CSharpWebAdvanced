@@ -1,0 +1,100 @@
+﻿@model AllChildrenByGroupQueryModel
+
+@{
+    ViewBag.Title = "All Children";
+}
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+<form method="get">
+    <div class="row">
+        <div class="form-group col-md-1 d-flex justify-content-between">
+            <div class="form-group">
+                <label asp-for="AgeGroup"></label>
+                <select asp-for="AgeGroup" class="form-control">
+                    <option value="">All</option>
+                    @foreach (var ageGroup in Model.AgeGroups)
+                    {
+                        <option value="@ageGroup">@ageGroup</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-md-4 d-flex justify-content-between">
+            <div class="form-group">
+                <label asp-for="ClassGroup"></label>
+                <select asp-for="ClassGroup" class="form-control">
+                    <option value="">All</option>
+                    @foreach (var classGroup in Model.ClassGroups)
+                    {
+                        <option value="@classGroup">@classGroup</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ChildrenPerPage"></label>
+                <select asp-for="ChildrenPerPage" class="form-control">
+                    <option value="9">9</option>
+                    <option value="12">12</option>
+                    <option value="18">18</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label asp-for="SearchText"></label>
+                <input asp-for="SearchText" class="form-control" placeholder="...">
+            </div>
+
+        </div>
+        
+        <div class="col-md-3">
+            <div class="form-group mt-4 p-2">
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@{
+    var previousPage = Model.CurrentPage - 1;
+    if (previousPage < 1)
+    {
+        previousPage = 1;
+    }
+    var maxPage = Math.Ceiling((double)Model.AllChildren /
+    Model.ChildrenPerPage);
+}
+<div class="row mb-5">
+    <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-start">
+        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" :
+string.Empty)"
+           asp-controller="Child"
+           asp-action="AllChildren"
+           asp-route-currentPage="@previousPage"
+           asp-route-ageGroup="@Model.AgeGroup"
+           asp-route-classGroup="@Model.ClassGroup"
+           asp-route-searchText="@Model.SearchText"><<</a>
+    </div>
+    @{
+        var shouldButtonBeDisabled = Model.CurrentPage == maxPage ||
+        !Model.Children.Any();
+    }
+    <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-primary
+ @(shouldButtonBeDisabled ? "disabled" : string.Empty)"
+           asp-controller="Child"
+           asp-action="AllChildren"
+           asp-route-currentPage="@(Model.CurrentPage + 1)"
+           asp-route-ageGroup="@Model.AgeGroup"
+           asp-route-classGroup="@Model.ClassGroup"
+           asp-route-searchText="@Model.SearchText">>></a>
+    </div>
+</div>
+@if (!Model.Children.Any())
+{
+    <h2 class="text-center">No childen found by the given criteria!</h2>
+}
+<div class="row">
+    @foreach (var child in Model.Children)
+    {
+        <partial name="_ChildPartial" model="@child" />
+    }
+</div>

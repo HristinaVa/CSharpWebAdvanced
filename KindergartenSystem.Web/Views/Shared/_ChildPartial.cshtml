@@ -1,0 +1,28 @@
+﻿@model AllChildrenByGroupViewModel
+
+<div class="col-md-4">
+    <div class="card mb-3">
+        <img class="card-img-top" src="@Model.ImageUrl" alt="House Image">
+        <div class="card-body text-center">
+            <h4>@Model.FirstName @Model.MiddleName @Model.LastName</h4>
+            <h6>ClassGroup: @Model.ClassGroupName</h6>
+            <h6>Teacher: @Model.Teacher</h6>
+            <h6>Parent: <b>@Model.ParentName</b></h6>
+            <br />
+            <a asp-controller="Child" asp-action="Details" asp-route-id="@Model.Id"
+               class="btn btn-success">Details</a>
+            <a asp-controller="Child" asp-action="AddItem" asp-route-id="@Model.Id"
+               class="btn btn-success">Add</a>
+            @if (this.User.Identity?.IsAuthenticated ?? false)
+            {
+                <a asp-controller="Child" asp-action="Edit" asp-route-id="@Model.Id"
+                   class="btn btn-warning">Edit</a>
+                <a asp-controller="Child" asp-action="Delete" asp-routeid="@Model.Id"
+                   class="btn btn-danger">Delete</a>
+
+                <p></p>
+               
+            }
+        </div>
+    </div>
+</div>

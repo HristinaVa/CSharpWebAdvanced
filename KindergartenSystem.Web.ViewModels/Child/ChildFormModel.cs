@@ -10,6 +10,10 @@ namespace KindergartenSystem.Web.ViewModels.Child
 {
     public class ChildFormModel
     {
+        public ChildFormModel()
+        {
+            DateOfBirth = DateTime.UtcNow;
+        }
         [Required]
         [StringLength(FirstNameMaxLength, MinimumLength = FirstNameMinLength)]
         [Display(Name = "Име")]
@@ -26,7 +30,8 @@ namespace KindergartenSystem.Web.ViewModels.Child
         [Required(ErrorMessage = "Invalid format")]
         [DataType(DataType.Date)]
         [Display(Name = "Дата на раждане")]
-        public DateTime DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }// = DateTime.Parse(DateOfBirthFormat);
+        
         [Required(AllowEmptyStrings = false)]
         [StringLength(ImageUrlMaxLength)]
         [Display(Name = "Снимка")]

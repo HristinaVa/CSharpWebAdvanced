@@ -1,9 +1,11 @@
 ﻿using KindergartenSystem.Services.Data.Interfaces;
+using KindergartenSystem.Services.Data.Models.Child;
 using KindergartenSystem.Web.Infrastructure.Extensions;
 using KindergartenSystem.Web.ViewModels.Child;
 using KindergartenSystem.Web.ViewModels.ClassGroup;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace KindergartenSystem.Web.Controllers
 {
@@ -14,12 +16,15 @@ namespace KindergartenSystem.Web.Controllers
         private readonly ITeacherService _teacherService;
         private readonly IChildService _childService;
         private readonly IParentService _parentService;
-        public ChildController(IClassGroupService classGroupService, ITeacherService teacherService, IChildService childService, IParentService parentService)
+        private readonly IAgeGroupService _ageGroupService;
+        public ChildController(IClassGroupService classGroupService, ITeacherService teacherService, 
+            IChildService childService, IParentService parentService, IAgeGroupService ageGroupService)
         {
             _classGroupService = classGroupService;
             _teacherService = teacherService;
             _childService = childService;
             _parentService = parentService;
+            _ageGroupService = ageGroupService;
         }
         [HttpGet]
         public async Task<IActionResult> Add()
@@ -74,5 +79,20 @@ namespace KindergartenSystem.Web.Controllers
             }
             return RedirectToAction("Index", "Home");//for now
         }
+        [HttpGet]
+        public async Task<IActionResult> AllChildren([FromQuery]AllChildrenByGroupQueryModel model)
+        {
+            AllChildrenServiceModel serviceModel = await _childService.AllChildrenAsync(model);
+
+            model.Children = serviceModel.Children;
+            model.AllChildren = serviceModel.AllChilderenCount;
+            model.AgeGroups = await _ageGroupService.AllAgeGroupNumbersAsync();
+            model.ClassGroups = await _classGroupService.AllClassGroupsTitlesAsync();
+            
+
+
+            return View(model);
+        }
+        
     }
 }

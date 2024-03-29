@@ -24,6 +24,7 @@
     <ProjectReference Include="..\KindergartenSystem.Common\KindergartenSystem.Common.csproj" />
     <ProjectReference Include="..\KindergartenSystem.Data.Models\KindergartenSystem.Data.Models.csproj" />
     <ProjectReference Include="..\KindergartenSystem.Data\KindergartenSystem.Data.csproj" />
+    <ProjectReference Include="..\KindergartenSystem.Services.Data.Models\KindergartenSystem.Services.Data.Models.csproj" />
     <ProjectReference Include="..\KindergartenSystem.Services.Data\KindergartenSystem.Services.Data.csproj" />
     <ProjectReference Include="..\KindergartenSystem.Web.Infrastructure\KindergartenSystem.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\KindergartenSystem.Web.ViewModels\KindergartenSystem.Web.ViewModels.csproj" />
