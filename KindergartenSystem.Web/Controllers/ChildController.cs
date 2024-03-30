@@ -93,6 +93,25 @@ namespace KindergartenSystem.Web.Controllers
 
             return View(model);
         }
-        
+        [HttpGet]
+        public async Task<IActionResult> Mine()
+        {
+            List<AllChildrenByGroupViewModel> myChildren = new List<AllChildrenByGroupViewModel>();
+            var userId = User.GetId();
+            var isTeacher = await _teacherService.TeacherExistsByUserId(userId);
+            if (isTeacher)
+            {
+                var teacherId = await _teacherService.GetTeacherByUserId(userId);
+                myChildren.AddRange(await _childService.AllByTeachersAsync(teacherId));
+            }
+            else
+            {
+                var parentId = await _parentService.GetParentIdByUserAsync(userId);              
+                    myChildren.AddRange(await _childService.AllByParentsAsync(parentId));
+
+            }
+            return View(myChildren);
+
+        }
     }
 }

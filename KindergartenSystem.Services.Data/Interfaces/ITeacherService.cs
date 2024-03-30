@@ -11,5 +11,7 @@ namespace KindergartenSystem.Services.Data.Interfaces
         Task<bool> TeacherExistsByUserId(string userId);
 
         Task<bool> TeacherExistsByPhoneNumberAsync(string phoneNumber);
+        Task<string> GetTeacherByUserId(string userId);
+
     }
 }

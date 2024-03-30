@@ -1,0 +1,21 @@
+﻿@model List<AllChildrenByGroupViewModel>
+@{
+    ViewData["Title"] = "My Children";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr/>
+
+@if (!Model.Any())
+{
+    <h2 class="text-center">The list is empty!</h2>
+}
+else
+{
+    <div class="row">
+        @foreach (AllChildrenByGroupViewModel child in Model)
+        {
+            <partial name="_ChildPartial" model="child"/>
+        }
+    </div>
+}

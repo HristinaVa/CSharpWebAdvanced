@@ -4,7 +4,8 @@ using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Services.Data.Models.Child;
 using KindergartenSystem.Web.ViewModels.Child;
 using Microsoft.EntityFrameworkCore;
-using static KindergartenSystem.Common.EntityValidationConstants.Child;
+//using static KindergartenSystem.Common.EntityValidationConstants;
+//using static KindergartenSystem.Common.EntityValidationConstants.Child;
 
 namespace KindergartenSystem.Services.Data
 {
@@ -16,10 +17,50 @@ namespace KindergartenSystem.Services.Data
             _dbContext = dbContext;   
         }
 
+        public async Task<IEnumerable<AllChildrenByGroupViewModel>> AllByParentsAsync(string parentId)
+        {
+            IEnumerable<AllChildrenByGroupViewModel> allChildrenByParent = await _dbContext.Children
+                            .Where(x => x.ParentId.ToString() == parentId)
+                            .Select(x => new AllChildrenByGroupViewModel
+                            {
+                                Id = x.Id.ToString(),
+                                FirstName = x.FirstName,
+                                MiddleName = x.MiddleName,
+                                LastName = x.LastName,
+                                ClassGroupName = x.ClassGroup.Title,
+                                Teacher = x.ClassGroup.Teachers.FirstOrDefault().Name,
+                                ParentName = x.Parent.Name,
+                                ImageUrl = x.ImageUrl
+
+
+                            }).ToArrayAsync();
+            return allChildrenByParent;
+        }
+
+        public async Task<IEnumerable<AllChildrenByGroupViewModel>> AllByTeachersAsync(string teacherId)
+        {
+            IEnumerable<AllChildrenByGroupViewModel> allChildrenByTeacher = await _dbContext.Children
+                            .Where(x => x.ClassGroup.Teachers.FirstOrDefault().Id.ToString() == teacherId)
+                            .Select(x => new AllChildrenByGroupViewModel
+                            {
+                                Id = x.Id.ToString(),
+                                FirstName = x.FirstName,
+                                MiddleName = x.MiddleName,
+                                LastName = x.LastName,
+                                ClassGroupName = x.ClassGroup.Title,
+                                Teacher = x.ClassGroup.Teachers.FirstOrDefault().Name,
+                                ParentName = x.Parent.Name,
+                                ImageUrl = x.ImageUrl
+
+
+                            }).ToArrayAsync();
+            return allChildrenByTeacher;
+        }
+
         public async Task<AllChildrenServiceModel> AllChildrenAsync(AllChildrenByGroupQueryModel model)
         {
             IQueryable<Child> childrenQuery = _dbContext.Children.AsQueryable();
-            if (model.AgeGroup != null) 
+            if (model.AgeGroup != null)
             {
                 childrenQuery = childrenQuery.Where(x => x.ClassGroup.AgeGroup.Number == model.AgeGroup);
             }
@@ -27,7 +68,7 @@ namespace KindergartenSystem.Services.Data
             {
                 childrenQuery = childrenQuery.Where(x => x.ClassGroup.Title == model.ClassGroup);
             }
-            
+
             if (!string.IsNullOrWhiteSpace(model.SearchText))
             {
                 var wildCard = $"%{model.SearchText.ToLower()}%";
@@ -64,6 +105,7 @@ namespace KindergartenSystem.Services.Data
             };
         }
 
+
         public async Task CreateChildAsync(ChildFormModel model, string parentId)
         {
             Child child = new Child()
@@ -79,7 +121,10 @@ namespace KindergartenSystem.Services.Data
 
             await _dbContext.Children.AddAsync(child);
             await _dbContext.SaveChangesAsync();
-            
         }
     }
+
+       
+        
+    
 }

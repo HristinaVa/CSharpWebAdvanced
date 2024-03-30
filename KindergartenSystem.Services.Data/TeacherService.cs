@@ -1,6 +1,7 @@
 ﻿using KindergartenSystem.Data;
 using KindergartenSystem.Services.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Numerics;
 
 namespace KindergartenSystem.Services.Data
 {
@@ -12,6 +13,17 @@ namespace KindergartenSystem.Services.Data
         {
             _dbContext = dbContext;
         }
+
+        public async Task<string> GetTeacherByUserId(string userId)
+        {
+            var teacher = await _dbContext.Teachers.FirstOrDefaultAsync(x => x.UserId == userId);
+            if (teacher == null)
+            {
+                return null;
+            }
+            return teacher.Id.ToString();
+        }
+
         public async Task<bool> TeacherExistsByPhoneNumberAsync(string phoneNumber)
         {
             bool result = await _dbContext

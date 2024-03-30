@@ -1,15 +1,9 @@
 ﻿using KindergartenSystem.Data;
 using KindergartenSystem.Data.Models;
 using KindergartenSystem.Services.Data.Interfaces;
-using KindergartenSystem.Web.ViewModels.ClassGroup;
 using KindergartenSystem.Web.ViewModels.Parent;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Numerics;
 
 namespace KindergartenSystem.Services.Data
 {
@@ -54,6 +48,16 @@ namespace KindergartenSystem.Services.Data
 
             return result;
         }
+        public async Task<string> GetParentIdByUserAsync(string userId)
+        {
+            var parent = await _dbContext.Parents.FirstOrDefaultAsync(x => x.UserId == userId);
+            if (parent == null)
+            {
+                return null;
+            }
+            return parent.Id.ToString();
+        }
+
         public async Task<string> GetParentIdByPhoneAsync(string phone)
         {
             var parent = await _dbContext.Parents.FirstOrDefaultAsync(x => x.PhoneNumber == phone);
