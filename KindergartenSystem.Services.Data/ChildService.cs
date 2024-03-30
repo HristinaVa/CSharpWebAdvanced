@@ -4,8 +4,8 @@ using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Services.Data.Models.Child;
 using KindergartenSystem.Web.ViewModels.Child;
 using Microsoft.EntityFrameworkCore;
-//using static KindergartenSystem.Common.EntityValidationConstants;
-//using static KindergartenSystem.Common.EntityValidationConstants.Child;
+using static KindergartenSystem.Common.EntityValidationConstants.Child;
+
 
 namespace KindergartenSystem.Services.Data
 {
@@ -91,7 +91,7 @@ namespace KindergartenSystem.Services.Data
                     LastName = x.LastName,
                     ParentName = x.Parent.Name,
                     ClassGroupName = x.ClassGroup.Title,
-                    Teacher = x.ClassGroup.Teachers.First().Name,
+                    Teacher = x.ClassGroup.Teachers.FirstOrDefault().Name,
                     ImageUrl = x.ImageUrl
                 }).OrderBy(x => x.FirstName)
                 .ThenBy(x => x.LastName)
@@ -121,6 +121,42 @@ namespace KindergartenSystem.Services.Data
 
             await _dbContext.Children.AddAsync(child);
             await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<ChildDetailsViewModel?> GetChildDetailsAsync(string childId)
+        {
+            Child? child = await _dbContext.Children
+                .Include(x => x.Parent)
+.Include(x => x.ClassGroup).ThenInclude(x => x.Teachers).
+Where(x => x.Id.ToString() == childId).FirstOrDefaultAsync();
+
+            if (child == null)
+            {
+                return null;
+            }
+            ChildDetailsViewModel model = new ChildDetailsViewModel
+            {
+                Id = child.Id.ToString(),
+                FirstName = child.FirstName,
+                MiddleName = child.MiddleName,
+                LastName = child.LastName,
+                DateOfBirth = child.DateOfBirth.ToString(DateOfBirthFormat),
+                ImageUrl = child.ImageUrl,
+                ParentName = child.Parent.Name,
+                ParentPhone = child.Parent.PhoneNumber,
+                ParentEmail = child.Parent.EmailAddress,
+                ClassGroupName = child.ClassGroup.Title
+            };
+            if (child.ClassGroup.Teachers.Any())
+            {
+                model.Teacher = child.ClassGroup.Teachers.FirstOrDefault().Name;
+                model.TeachersPhone = child.ClassGroup.Teachers.FirstOrDefault()?.PhoneNumber;
+                model.TeachersEmail = child.ClassGroup.Teachers?.FirstOrDefault()?.EmailAddress;
+
+            }
+            return model;
+
+            
         }
     }
 

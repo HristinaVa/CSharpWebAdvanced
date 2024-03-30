@@ -113,5 +113,15 @@ namespace KindergartenSystem.Web.Controllers
             return View(myChildren);
 
         }
+        [HttpGet]
+        public async Task<IActionResult> Details(string id) 
+        { 
+            ChildDetailsViewModel? model = await _childService.GetChildDetailsAsync(id);
+            if (model == null)
+            {
+                return RedirectToAction("Index", "Home");// for now
+            }
+            return View(model);
+        }
     }
 }

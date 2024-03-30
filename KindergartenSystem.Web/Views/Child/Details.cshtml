@@ -1,0 +1,62 @@
+﻿@model ChildDetailsViewModel
+@{
+    ViewBag.Title = "Child Details";
+}
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+<div class="container" style="display:inline">
+    <div class="row">
+        <div class="col-4">
+            <img class="card-img-top" style="width: 20rem;"
+                 src="@Model.ImageUrl" alt="Child Image">
+        </div>
+        <div class="card col-8 border-0">
+            <p style="font-size:25px;"><u>@Model.FirstName @Model.MiddleName @Model.LastName</u></p>
+            <p>DateOfBirth: <b>@Model.DateOfBirth</b></p>
+            <p>Group: <b>@Model.ClassGroupName</b></p>          
+            <p>Teacher: <b>@Model.Teacher</b></p>          
+            <p>Teachers Phone: <b>@Model.TeachersPhone</b></p>          
+            <p>Teachers Email: <b>@Model.TeachersEmail</b></p>          
+            <p>Parent: <b>@Model.ParentName</b></p>          
+            <p>Parent Phone: <b>@Model.ParentPhone</b></p>          
+            <p>Parent Email: <b>@Model.ParentEmail</b></p>          
+@*             <p><i>(@(Model.IsRented ? "Rented" : "Not Rented"))</i></p>
+ *@            <div class="form-inline">
+                @* @if (this.User.Identity?.IsAuthenticated ?? false) //&& User) rolq???
+                { *@
+                    <a class="btn btn-warning" asp-controller="Child" aspaction="Edit"
+                       asp-route-id="@Model.Id">Edit</a>
+                <a class="ml-2 btn btn-danger" asp-controller="Child" aspaction="Delete"
+                       asp-route-id="@Model.Id">Delete</a>
+                <a class="ml-2 btn btn-danger" asp-controller="Child" aspaction="AddItem"
+                   asp-route-id="@Model.Id">Add Item</a>
+                   @*  @if (!Model.IsRented)//
+                    {
+                        <form class="ml-2" asp-controller="House"
+                              asp-action="Rent" asp-route-id="@Model.Id"      !!!!AKO OTSYSTWA DETETO!!!!!
+                              method="post">
+                            <input class="btn btn-primary" type="submit"
+                                   value="Rent" />
+                        </form>
+                    } *@
+                    @* else
+                    {
+                        <form class="ml-2" asp-controller="House" asp-action="Leave"
+                              asp-route-id="@Model.Id" method="post">
+                            <input class="btn btn-primary" type="submit"
+                                   value="Leave" />
+                        </form>
+                    } *@
+                @* } *@
+            </div>
+            <p></p>
+@*             <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Agent Info</h5>
+                    <p class="card-text">Email: @Model.Agent.Email</p>
+                    <p class="card-text">Phone Number: @Model.Agent.PhoneNumber</p>
+                </div>
+            </div>
+ *@        </div>
+    </div>
+</div>
