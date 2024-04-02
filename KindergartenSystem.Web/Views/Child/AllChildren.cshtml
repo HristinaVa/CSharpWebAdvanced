@@ -6,31 +6,153 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 <form method="get">
-    <div class="row">
-        <div class="form-group col-md-1 d-flex justify-content-between">
-            <div class="form-group">
-                <label asp-for="AgeGroup"></label>
-                <select asp-for="AgeGroup" class="form-control">
-                    <option value="">All</option>
-                    @foreach (var ageGroup in Model.AgeGroups)
-                    {
-                        <option value="@ageGroup">@ageGroup</option>
-                    }
+   @*  <html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        @Model.AgeGroup.ToString();
+        <script>
+        let data = [{
+        item: '@Model.AgeGroup.ToString()',
+        subitems: ['apple', 'banana', 'pineapple', 'watermelon']
+        },
+        {
+        item: 'Meals',
+        subitems: ['chicken', 'bacon', 'pork', 'beef']
+        },
+        {
+        item: 'Animals',
+        subitems: ['cat', 'rabbit', 'mouse', 'lion']
+        },
+        {
+        item: 'Brands Laptops',
+        subitems: ['Dell', 'HP', 'Apple', 'Sony'],
+        },
+        ];
+
+
+        window.onload = function() {
+        var itemSel = document.getElementById("first");
+        var subitemSel = document.getElementById("second");
+
+        for (var x in data) {
+        itemSel.options[itemSel.options.length] = new Option(data[x].item, x);
+        }
+        itemSel.onchange = function() {
+        //empty
+        subitemSel.length = 1;
+        //display correct values
+        for (var y of data[this.value].subitems) {
+        subitemSel.options[subitemSel.options.length] = new Option(y, y);
+        }
+        }
+        }
+        </script>
+        </head>
+        <body>
+
+        <header>
+            <h1>Moshe Brito</h1>
+            <h2>41088278</h2>
+        </header>
+        <main>
+            <!-- content will be built here by javascript -->
+            <div>
+                <label for="first">First List</label>
+                <select id="first" name="first">
+                    <option value="" selected="selected">Please select first</option>
                 </select>
             </div>
-        </div>
-        <div class="form-group col-md-4 d-flex justify-content-between">
+            <div>
+                <label for="second">Second List</label>
+                <select id="second" name="second">
+                    <option value="" selected="selected">Please select second</option>
+                </select>
+            </div>
+        </main>
+    </body>
+        </html> *@
+
+        @* <script>
+            var subjectObject = {
+                "1": {
+                    "html": ["Links", "Images", "Tables", "Lists"],
+                    "CSS": ["Borders", "Margins", "Backgrounds", "Float"],
+                    "JavaScript": ["Variables", "Operators", "Functions", "Conditions"]
+                },
+                "2": {
+                    "PHP": ["Variables", "Strings", "Arrays"],
+                    "SQL": ["SELECT", "UPDATE", "DELETE"]
+                }
+            }
+            window.onload = function () {
+                var subjectSel = document.getElementById("subject");
+                var topicSel = document.getElementById("topic");
+                var chapterSel = document.getElementById("chapter");
+                for (var x in subjectObject) {
+                    subjectSel.options[subjectSel.options.length] = new Option(x, x);
+                }
+                subjectSel.onchange = function () {
+                    //empty Chapters- and Topics- dropdowns
+                    chapterSel.length = 1;
+                    topicSel.length = 1;
+                    //display correct values
+                    for (var y in subjectObject[this.value]) {
+                        topicSel.options[topicSel.options.length] = new Option(y, y);
+                    }
+                }
+                topicSel.onchange = function () {
+                    //empty Chapters dropdown
+                    chapterSel.length = 1;
+                    //display correct values
+                    var z = subjectObject[subjectSel.value][this.value];
+                    for (var i = 0; i < z.length; i++) {
+                        chapterSel.options[chapterSel.options.length] = new Option(z[i], z[i]);
+                    }
+                }
+            }
+        </script>
+    </head>
+    <body>
+
+        <h1>Cascading Dropdown Example</h1>
+
+        <form name="form1" id="form1" action="/action_page.php">
+            Subjects: <select name="subject" id="subject">
+                <option value="" selected="selected">Select subject</option>
+            </select>
+            <br><br>
+            Topics: <select name="topic" id="topic">
+                <option value="" selected="selected">Please select subject first</option>
+            </select>
+            <br><br>
+            Chapters: <select name="chapter" id="chapter">
+                <option value="" selected="selected">Please select topic first</option>
+            </select>
+            <br><br>
+            <input type="submit" value="Submit">
+        </form>
+
+    </body>
+</html> *@
+
+    <div class="row">
+        <div class="form-group col-md-3 d-flex justify-content-between">
             <div class="form-group">
                 <label asp-for="ClassGroup"></label>
                 <select asp-for="ClassGroup" class="form-control">
                     <option value="">All</option>
-                    @foreach (var classGroup in Model.ClassGroups)
+                    @foreach (var ageGroup in Model.AgeGroups)
                     {
-                        <option value="@classGroup">@classGroup</option>
+                        <optgroup label="@ageGroup.Number"></optgroup>
+                        foreach (var classGroup in ageGroup.ClassGroupNames)
+                        {
+                            <option value="@classGroup">@classGroup</option>
+                        }
                     }
                 </select>
             </div>
-            <div class="form-group">
+        </div>
+        <div class="form-group col-md-2">
                 <label asp-for="ChildrenPerPage"></label>
                 <select asp-for="ChildrenPerPage" class="form-control">
                     <option value="9">9</option>
@@ -42,15 +164,13 @@
                 <label asp-for="SearchText"></label>
                 <input asp-for="SearchText" class="form-control" placeholder="...">
             </div>
-
-        </div>
-        
+            </div>   
         <div class="col-md-3">
             <div class="form-group mt-4 p-2">
                 <input type="submit" value="Search" class="btn btn-primary" />
             </div>
         </div>
-    </div>
+    
 </form>
 
 @{

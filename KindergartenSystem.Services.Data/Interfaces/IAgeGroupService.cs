@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using KindergartenSystem.Web.ViewModels.AgeGroup;
 
 namespace KindergartenSystem.Services.Data.Interfaces
 {
     public interface IAgeGroupService
     {
-        Task<IEnumerable<int>> AllAgeGroupNumbersAsync();
+        Task<IEnumerable<AgeGroupViewModel>> AllAgeGroupNumbersAsync();
 
     }
 }

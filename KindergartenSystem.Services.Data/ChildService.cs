@@ -60,10 +60,12 @@ namespace KindergartenSystem.Services.Data
         public async Task<AllChildrenServiceModel> AllChildrenAsync(AllChildrenByGroupQueryModel model)
         {
             IQueryable<Child> childrenQuery = _dbContext.Children.AsQueryable();
-            if (model.AgeGroup != null)
-            {
-                childrenQuery = childrenQuery.Where(x => x.ClassGroup.AgeGroup.Number == model.AgeGroup);
-            }
+            //if (model.AgeGroups != null)
+            //{
+            //    childrenQuery = childrenQuery.Where(x => x.ClassGroup.Title == model.ClassGroup);
+
+
+            //}
             if (!string.IsNullOrWhiteSpace(model.ClassGroup))
             {
                 childrenQuery = childrenQuery.Where(x => x.ClassGroup.Title == model.ClassGroup);

@@ -1,5 +1,7 @@
 ﻿using KindergartenSystem.Data;
 using KindergartenSystem.Services.Data.Interfaces;
+using KindergartenSystem.Web.ViewModels.AgeGroup;
+using KindergartenSystem.Web.ViewModels.ClassGroup;
 using Microsoft.EntityFrameworkCore;
 
 namespace KindergartenSystem.Services.Data
@@ -11,10 +13,15 @@ namespace KindergartenSystem.Services.Data
         {
             _dbContext = dbContext;
         }
-        public async Task<IEnumerable<int>> AllAgeGroupNumbersAsync()
+        public async Task<IEnumerable<AgeGroupViewModel>> AllAgeGroupNumbersAsync()
         {
-            IEnumerable<int> ageGroupNumbers = await _dbContext.AgeGroups
-                .Select(x => x.Number).ToArrayAsync();
+            IEnumerable<AgeGroupViewModel> ageGroupNumbers = await _dbContext.AgeGroups
+                .Select(x => new AgeGroupViewModel
+                {
+                    Id = x.Id,
+                    Number = x.Number.ToString(),
+                    ClassGroupNames = x.ClassGroups.Select(x => x.Title).ToArray()
+                }).ToListAsync();
             return ageGroupNumbers;
         }
     }
