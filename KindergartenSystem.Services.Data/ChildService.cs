@@ -108,7 +108,7 @@ namespace KindergartenSystem.Services.Data
         }
 
 
-        public async Task CreateChildAsync(ChildFormModel model, string parentId)
+        public async Task<string> CreateChildAsync(ChildFormModel model, string parentId)
         {
             Child child = new Child()
             {
@@ -123,6 +123,8 @@ namespace KindergartenSystem.Services.Data
 
             await _dbContext.Children.AddAsync(child);
             await _dbContext.SaveChangesAsync();
+
+            return child.Id.ToString();
         }
 
         public async Task EditChildInfoAsync(string childId, ChildFormModel model)

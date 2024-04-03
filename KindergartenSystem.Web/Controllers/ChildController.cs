@@ -76,7 +76,8 @@ namespace KindergartenSystem.Web.Controllers
             try
             {
                 var parentId = await _parentService.GetParentIdByPhoneAsync(model.ParentPhone);
-                await _childService.CreateChildAsync(model, parentId);
+               string childId = await _childService.CreateChildAsync(model, parentId);
+                return RedirectToAction("Details", "Child", new {id = childId} );//for now
             }
             catch (Exception)
             {
@@ -86,7 +87,7 @@ namespace KindergartenSystem.Web.Controllers
                 model.ClassGroups = await _classGroupService.GetClassGroupsAsync();
                 return View(model);
             }
-            return RedirectToAction("Index", "Home");//for now
+            
         }
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
