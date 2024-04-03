@@ -204,6 +204,18 @@ Where(x => x.Id.ToString() == childId).FirstAsync();
           
         }
 
+        public async Task<ChildDeleteInfoViewModel> GetDeleteChildInfoAsync(string childId)
+        {
+            var child = await _dbContext.Children.FirstAsync(x => x.Id.ToString() == childId);
+
+            return new ChildDeleteInfoViewModel
+            {
+                Name = $"{child.FirstName} {child.LastName}",
+                ClassGroup = child.ClassGroup.Title,
+                ImageUrl = child.ImageUrl,
+            };
+        }
+
         public async Task<bool> IsTeacherOfTheGroup(string teacherId, string childId)
         {
             Child child = await _dbContext.Children.Where(x => x.Id.ToString() == childId).FirstAsync();
