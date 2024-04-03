@@ -1,7 +1,7 @@
 ﻿
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using static KindergartenSystem.Common.EntityValidationConstants.Child;
+using static KindergartenSystem.Common.EntityValidationConstants.ChildConst;
 using KindergartenSystem.Web.ViewModels.ClassGroup;
 using KindergartenSystem.Web.ViewModels.Parent;
 

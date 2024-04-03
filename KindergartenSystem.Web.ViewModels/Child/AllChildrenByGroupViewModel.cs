@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace KindergartenSystem.Web.ViewModels.Child
+﻿namespace KindergartenSystem.Web.ViewModels.Child
 {
     public class AllChildrenByGroupViewModel
     {

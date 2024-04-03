@@ -34,11 +34,20 @@ namespace KindergartenSystem.Web.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            ChildFormModel model = new ChildFormModel()
-            {  
-                ClassGroups = await _classGroupService.GetClassGroupsAsync()
-            };
-            return View(model);
+            try
+            {
+                ChildFormModel model = new ChildFormModel()
+                {
+                    ClassGroups = await _classGroupService.GetClassGroupsAsync()
+                };
+                return View(model);
+            }
+            catch (Exception)
+            {
+
+                return BadRequest("Unexpexted error, please contatact with administrator!");   
+            }
+
         }
         
         [HttpPost]
@@ -80,6 +89,71 @@ namespace KindergartenSystem.Web.Controllers
             return RedirectToAction("Index", "Home");//for now
         }
         [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+            var childExists = await _childService.ExistsById(id);
+            if (!childExists)
+            {
+                return BadRequest("There is no child with provided id");// for now temp data
+            }
+            var isTeacher = await _teacherService.TeacherExistsByUserId(User.GetId()!);
+            if (!isTeacher)
+            {
+                return Unauthorized("Only Teachers can edit data. Please contact with administartor!");// for now temp data
+            }
+            var teacherId = await _teacherService.GetTeacherByUserId(User.GetId()!);
+            var isTeacherOfTheChild = await _childService.IsTeacherOfTheGroup(teacherId, id);
+            if (!isTeacherOfTheChild)
+            {
+                return Unauthorized($"Only Teachers of the current group can edit data. Please contact with administartor!");
+            }
+            try
+            {
+                var model = await _childService.GetChildForEditAsync(id);
+                model.ClassGroups = await _classGroupService.GetClassGroupsAsync();
+                return View(model);
+            }
+            catch (Exception)
+            {
+
+                return BadRequest("Unexpected error! Pleace contact administrator!");
+            }
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(string id, ChildFormModel model)
+        {
+            var childExists = await _childService.ExistsById(id);
+            if (!childExists)
+            {
+                return BadRequest("There is no child with provided id");// for now temp data
+            }
+            var isTeacher = await _teacherService.TeacherExistsByUserId(User.GetId()!);
+            if (!isTeacher)
+            {
+                return Unauthorized("Only Teachers can edit data. Please contact with administartor!");// for now temp data
+            }
+            var teacherId = await _teacherService.GetTeacherByUserId(User.GetId()!);
+            var isTeacherOfTheChild = await _childService.IsTeacherOfTheGroup(teacherId, id);
+            if (!isTeacherOfTheChild)
+            {
+                return Unauthorized($"Only Teachers of the current group can edit data. Please contact with administartor!");
+            }
+            try
+            {
+                await _childService.EditChildInfoAsync(id, model);
+            }
+            catch (Exception)
+            {
+
+                ModelState.AddModelError(string.Empty, "Unexpected error! Pleace contact administrator!");
+                model.ClassGroups = await _classGroupService.GetClassGroupsAsync();
+
+                return View(model);
+            }
+            return RedirectToAction("Details", "Child", new {id});
+        }
+        [HttpGet]
         public async Task<IActionResult> AllChildren([FromQuery]AllChildrenByGroupQueryModel model)
         {
             AllChildrenServiceModel serviceModel = await _childService.AllChildrenAsync(model);
@@ -99,29 +173,50 @@ namespace KindergartenSystem.Web.Controllers
             List<AllChildrenByGroupViewModel> myChildren = new List<AllChildrenByGroupViewModel>();
             var userId = User.GetId();
             var isTeacher = await _teacherService.TeacherExistsByUserId(userId);
-            if (isTeacher)
+            try
             {
-                var teacherId = await _teacherService.GetTeacherByUserId(userId);
-                myChildren.AddRange(await _childService.AllByTeachersAsync(teacherId));
-            }
-            else
-            {
-                var parentId = await _parentService.GetParentIdByUserAsync(userId);              
+                if (isTeacher)
+                {
+                    var teacherId = await _teacherService.GetTeacherByUserId(userId);
+                    myChildren.AddRange(await _childService.AllByTeachersAsync(teacherId));
+                }
+                else
+                {
+                    var parentId = await _parentService.GetParentIdByUserAsync(userId);
                     myChildren.AddRange(await _childService.AllByParentsAsync(parentId));
 
+                }
+                return View(myChildren);
             }
-            return View(myChildren);
+            catch (Exception)
+            {
+
+                return BadRequest ("Unexpected error! Pleace contact administrator!");
+            }
+            
 
         }
         [HttpGet]
         public async Task<IActionResult> Details(string id) 
         { 
-            ChildDetailsViewModel? model = await _childService.GetChildDetailsAsync(id);
-            if (model == null)
+            var childExists = await _childService.ExistsById(id);
+            if (!childExists)
             {
-                return RedirectToAction("Index", "Home");// for now
+                return BadRequest("There is no child with provided id");// for now temp data
             }
-            return View(model);
+
+            try
+            {
+                ChildDetailsViewModel model = await _childService.GetChildDetailsAsync(id);
+                return View(model);
+
+            }
+            catch (Exception)
+            {
+
+                return BadRequest("Unexpected error! Pleace contact administrator!");
+            }
+
         }
     }
 }

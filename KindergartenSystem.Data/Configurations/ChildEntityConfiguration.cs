@@ -1,15 +1,7 @@
 ﻿using KindergartenSystem.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KindergartenSystem.Data.Configurations
 {
@@ -41,7 +33,7 @@ namespace KindergartenSystem.Data.Configurations
                 MiddleName = "Hristov",
                 LastName = "Iliev",
                 DateOfBirth = DateTime.ParseExact("02/02/2019",
-                Common.EntityValidationConstants.Child.DateOfBirthFormat, CultureInfo.InvariantCulture),
+                Common.EntityValidationConstants.ChildConst.DateOfBirthFormat, CultureInfo.InvariantCulture),
                 ImageUrl = "https://img.freepik.com/free-vector/cute-happy-smiling-child-isolated-white_1308-32243.jpg",
                 ClassGroupId = 2,
                 ParentId = Guid.Parse("1AF4589C-7297-4DBD-AD7D-BB275E8820B4")

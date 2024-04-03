@@ -26,7 +26,7 @@
             public const int TitleMinLength = 2;
             public const int TitleMaxLength = 30;
         }
-        public static class Child
+        public static class ChildConst
         {
             public const int FirstNameMinLength = 2;
             public const int FirstNameMaxLength = 30;

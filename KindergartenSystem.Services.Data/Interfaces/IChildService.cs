@@ -9,6 +9,10 @@ namespace KindergartenSystem.Services.Data.Interfaces
         Task<AllChildrenServiceModel> AllChildrenAsync(AllChildrenByGroupQueryModel model);
         Task<IEnumerable<AllChildrenByGroupViewModel>> AllByTeachersAsync(string teacherId);
         Task<IEnumerable<AllChildrenByGroupViewModel>> AllByParentsAsync(string parentId);
-        Task<ChildDetailsViewModel?> GetChildDetailsAsync(string childId);
+        Task<ChildDetailsViewModel> GetChildDetailsAsync(string childId);
+        Task<bool> ExistsById(string id);
+        Task<ChildFormModel> GetChildForEditAsync(string id);
+        Task<bool> IsTeacherOfTheGroup(string teacherId, string childId);
+        Task EditChildInfoAsync(string childId, ChildFormModel model);
     }
 }

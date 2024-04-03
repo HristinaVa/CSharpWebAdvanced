@@ -4,7 +4,7 @@ using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Services.Data.Models.Child;
 using KindergartenSystem.Web.ViewModels.Child;
 using Microsoft.EntityFrameworkCore;
-using static KindergartenSystem.Common.EntityValidationConstants.Child;
+using static KindergartenSystem.Common.EntityValidationConstants.ChildConst;
 
 
 namespace KindergartenSystem.Services.Data
@@ -115,7 +115,7 @@ namespace KindergartenSystem.Services.Data
                 FirstName = model.FirstName,
                 MiddleName = model.MiddleName,
                 LastName = model.LastName,
-                DateOfBirth = model.DateOfBirth,
+                DateOfBirth = DateTime.UtcNow,
                 ImageUrl = model.ImageUrl,
                 ParentId = Guid.Parse(parentId),
                 ClassGroupId = model.ClassGroupId
@@ -125,17 +125,36 @@ namespace KindergartenSystem.Services.Data
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<ChildDetailsViewModel?> GetChildDetailsAsync(string childId)
+        public async Task EditChildInfoAsync(string childId, ChildFormModel model)
         {
-            Child? child = await _dbContext.Children
+            var child = await _dbContext.Children.Include(x => x.Parent).FirstAsync(x => x.Id.ToString() == childId);
+            child.FirstName = model.FirstName;
+            child.MiddleName = model.MiddleName;
+            child.LastName = model.LastName;
+            child.DateOfBirth = model.DateOfBirth;
+            child.ImageUrl = model.ImageUrl;
+            child.Parent.PhoneNumber = model.ParentPhone;
+            child.ClassGroupId = model.ClassGroupId;
+
+            await _dbContext.SaveChangesAsync();
+
+
+        }
+
+        public async Task<bool> ExistsById(string id)
+        {
+            bool result = await _dbContext.Children.AnyAsync(x => x.Id.ToString() == id);
+            return result;
+        }
+
+        public async Task<ChildDetailsViewModel> GetChildDetailsAsync(string childId)
+        {
+            Child child = await _dbContext.Children
                 .Include(x => x.Parent)
 .Include(x => x.ClassGroup).ThenInclude(x => x.Teachers).
-Where(x => x.Id.ToString() == childId).FirstOrDefaultAsync();
+Where(x => x.Id.ToString() == childId).FirstAsync();
 
-            if (child == null)
-            {
-                return null;
-            }
+            
             ChildDetailsViewModel model = new ChildDetailsViewModel
             {
                 Id = child.Id.ToString(),
@@ -158,6 +177,37 @@ Where(x => x.Id.ToString() == childId).FirstOrDefaultAsync();
             }
             return model;
 
+            
+        }
+
+        public async Task<ChildFormModel> GetChildForEditAsync(string id)
+        {
+            Child child = await _dbContext.Children
+                .Include(x => x.Parent)
+           .Include(x => x.ClassGroup).ThenInclude(x => x.Teachers)
+           .Where(x => x.Id.ToString() == id)
+           .FirstAsync();
+
+            return new ChildFormModel
+            {
+                FirstName = child.FirstName,
+                MiddleName = child.MiddleName,
+                LastName = child.LastName,
+                DateOfBirth = child.DateOfBirth,
+                ImageUrl = child.ImageUrl,
+                ParentPhone = child.Parent.PhoneNumber,
+                ClassGroupId = child.ClassGroupId
+                
+            };
+          
+        }
+
+        public async Task<bool> IsTeacherOfTheGroup(string teacherId, string childId)
+        {
+            Child child = await _dbContext.Children.Where(x => x.Id.ToString() == childId).FirstAsync();
+            var classs = await _dbContext.ClassGroups.Where(x => x.Teachers.Any(x => x.Id.ToString() == teacherId)).FirstOrDefaultAsync();
+            var result = child.ClassGroup == classs;
+            return result;
             
         }
     }
