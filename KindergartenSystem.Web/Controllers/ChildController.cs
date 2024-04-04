@@ -297,14 +297,47 @@ namespace KindergartenSystem.Web.Controllers
                 return BadRequest("The child is allready missing from class");
                     //RedirectToAction("Mine", "Child"); //for now Error???
             }
-            var isTeacher = await _teacherService.TeacherExistsByUserId(User.GetId()!); 
-            if (!isTeacher)
+            var teacherId = await _teacherService.GetTeacherByUserId(User.GetId()!);
+            var isTeacherOfTheChild = await _childService.IsTeacherOfTheGroup(teacherId, id);
+            if (!isTeacherOfTheChild)
             {
-                return Unauthorized("Only teachers can switch kindergarten attendance");
+                return Unauthorized("Only teacher of the child can switch kindergarten attendance");
             }
             try
             {
                 await _childService.SetChildAsMissingFromClassAsync(id);
+            }
+            catch (Exception)
+            {
+
+                return BadRequest("Unexpected error! Pleace contact administrator!");
+            }
+            return RedirectToAction("Mine", "Child");
+        }
+        [HttpPost]
+        public async Task<IActionResult> Attending(string id)
+        {
+            var childExists = await _childService.ExistsById(id);
+            if (!childExists)
+            {
+                return BadRequest("There is no child with provided id");// for now temp data
+
+            }
+            var isChildAttending = await _childService.IsAttendingAsync(id);
+            if (isChildAttending)
+            {
+                return BadRequest("The child is allready attend to class");
+                //RedirectToAction("Mine", "Child"); //for now Error???
+            }
+            var teacherId = await _teacherService.GetTeacherByUserId(User.GetId()!);
+            var isTeacherOfTheChild = await _childService.IsTeacherOfTheGroup(teacherId, id);
+            if (!isTeacherOfTheChild)
+            {
+                return RedirectToAction("Mine", "Child");
+            }
+            try
+            {
+                await _childService.SetChildAsAttendingToClassAsync(id);
             }
             catch (Exception)
             {

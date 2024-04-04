@@ -250,6 +250,13 @@ namespace KindergartenSystem.Services.Data
             
         }
 
+        public async Task SetChildAsAttendingToClassAsync(string childId)
+        {
+            var child = await _dbContext.Children.FirstAsync(x => x.Id.ToString() == childId);
+            child.IsAttending = true;
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task SetChildAsMissingFromClassAsync(string childId)
         {
             var child = await _dbContext.Children.FirstAsync(x => x.Id.ToString() == childId);

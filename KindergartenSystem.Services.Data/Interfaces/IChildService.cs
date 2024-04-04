@@ -18,5 +18,6 @@ namespace KindergartenSystem.Services.Data.Interfaces
         Task DeleteChildAsync(string childId);
         Task<bool> IsAttendingAsync(string childId);
         Task SetChildAsMissingFromClassAsync(string childId);
+        Task SetChildAsAttendingToClassAsync(string childId);
     }
 }
