@@ -30,7 +30,8 @@ namespace KindergartenSystem.Services.Data
                                 ClassGroupName = x.ClassGroup.Title,
                                 Teacher = x.ClassGroup.Teachers.FirstOrDefault().Name,
                                 ParentName = x.Parent.Name,
-                                ImageUrl = x.ImageUrl
+                                ImageUrl = x.ImageUrl,
+                                IsAttending = x.IsAttending
 
 
                             }).ToArrayAsync();
@@ -50,7 +51,8 @@ namespace KindergartenSystem.Services.Data
                                 ClassGroupName = x.ClassGroup.Title,
                                 Teacher = x.ClassGroup.Teachers.FirstOrDefault().Name,
                                 ParentName = x.Parent.Name,
-                                ImageUrl = x.ImageUrl
+                                ImageUrl = x.ImageUrl,
+                                IsAttending = x.IsAttending
 
 
                             }).ToArrayAsync();
@@ -95,7 +97,8 @@ namespace KindergartenSystem.Services.Data
                     ParentName = x.Parent.Name,
                     ClassGroupName = x.ClassGroup.Title,
                     Teacher = x.ClassGroup.Teachers.FirstOrDefault().Name,
-                    ImageUrl = x.ImageUrl
+                    ImageUrl = x.ImageUrl,
+                    IsAttending = x.IsAttending
                 }).OrderBy(x => x.FirstName)
                 .ThenBy(x => x.LastName)
                 .ToArrayAsync();
@@ -134,6 +137,7 @@ namespace KindergartenSystem.Services.Data
             var child = await _dbContext.Children.Where(x => x.IsKindergartener)
                 .FirstAsync(x => x.Id.ToString() == childId);
             
+            child.IsAttending = false;
             child.IsKindergartener = false;
 
             await _dbContext.SaveChangesAsync();
@@ -229,6 +233,14 @@ namespace KindergartenSystem.Services.Data
             };
         }
 
+        public async Task<bool> IsAttendingAsync(string childId)
+        {
+            var child = await _dbContext.Children.Where(x => x.IsKindergartener).FirstAsync(x => x.Id.ToString() == childId);
+            return child.IsAttending;
+            
+
+            
+        }
         public async Task<bool> IsTeacherOfTheGroup(string teacherId, string childId)
         {
             Child child = await _dbContext.Children.Where(x =>x.IsKindergartener && x.Id.ToString() == childId).FirstAsync();
@@ -236,6 +248,13 @@ namespace KindergartenSystem.Services.Data
             var result = child.ClassGroup == classs;
             return result;
             
+        }
+
+        public async Task SetChildAsMissingFromClassAsync(string childId)
+        {
+            var child = await _dbContext.Children.FirstAsync(x => x.Id.ToString() == childId);
+            child.IsAttending = false;
+            await _dbContext.SaveChangesAsync();
         }
     }
 

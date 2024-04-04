@@ -22,6 +22,7 @@ namespace KindergartenSystem.Data.Configurations
             .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property<bool>("IsKindergartener").ValueGeneratedOnAdd().HasColumnType("bit").HasDefaultValue(true);
+            builder.Property<bool>("IsAttending").ValueGeneratedOnAdd().HasColumnType("bit").HasDefaultValue(true);
 
             builder.HasData(GenerateChildren());
         }

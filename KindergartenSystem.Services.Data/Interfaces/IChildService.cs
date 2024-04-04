@@ -16,5 +16,7 @@ namespace KindergartenSystem.Services.Data.Interfaces
         Task EditChildInfoAsync(string childId, ChildFormModel model);
         Task<ChildDeleteInfoViewModel> GetDeleteChildInfoAsync(string childId);
         Task DeleteChildAsync(string childId);
+        Task<bool> IsAttendingAsync(string childId);
+        Task SetChildAsMissingFromClassAsync(string childId);
     }
 }

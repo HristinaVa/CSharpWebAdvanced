@@ -17,7 +17,7 @@ namespace KindergartenSystem.Web.Controllers
         private readonly IChildService _childService;
         private readonly IParentService _parentService;
         private readonly IAgeGroupService _ageGroupService;
-        public ChildController(IClassGroupService classGroupService, ITeacherService teacherService, 
+        public ChildController(IClassGroupService classGroupService, ITeacherService teacherService,
             IChildService childService, IParentService parentService, IAgeGroupService ageGroupService)
         {
             _classGroupService = classGroupService;
@@ -45,11 +45,11 @@ namespace KindergartenSystem.Web.Controllers
             catch (Exception)
             {
 
-                return BadRequest("Unexpexted error, please contatact with administrator!");   
+                return BadRequest("Unexpexted error, please contatact with administrator!");
             }
 
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Add(ChildFormModel model)
         {
@@ -76,18 +76,18 @@ namespace KindergartenSystem.Web.Controllers
             try
             {
                 var parentId = await _parentService.GetParentIdByPhoneAsync(model.ParentPhone);
-               string childId = await _childService.CreateChildAsync(model, parentId);
-                return RedirectToAction("Details", "Child", new {id = childId} );//for now
+                string childId = await _childService.CreateChildAsync(model, parentId);
+                return RedirectToAction("Details", "Child", new { id = childId });//for now
             }
             catch (Exception)
             {
 
                 ModelState.AddModelError(string.Empty, "Unexpected error occured while adding new child!");
-                
+
                 model.ClassGroups = await _classGroupService.GetClassGroupsAsync();
                 return View(model);
             }
-            
+
         }
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
@@ -152,10 +152,10 @@ namespace KindergartenSystem.Web.Controllers
 
                 return View(model);
             }
-            return RedirectToAction("Details", "Child", new {id});
+            return RedirectToAction("Details", "Child", new { id });
         }
 
-        [HttpGet] 
+        [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
             var childExists = await _childService.ExistsById(id);
@@ -218,7 +218,7 @@ namespace KindergartenSystem.Web.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> AllChildren([FromQuery]AllChildrenByGroupQueryModel model)
+        public async Task<IActionResult> AllChildren([FromQuery] AllChildrenByGroupQueryModel model)
         {
             AllChildrenServiceModel serviceModel = await _childService.AllChildrenAsync(model);
 
@@ -226,7 +226,7 @@ namespace KindergartenSystem.Web.Controllers
             model.AllChildren = serviceModel.AllChilderenCount;
             model.AgeGroups = await _ageGroupService.AllAgeGroupNumbersAsync();
             model.ClassGroups = await _classGroupService.AllClassGroupsTitlesAsync();
-            
+
 
 
             return View(model);
@@ -255,14 +255,14 @@ namespace KindergartenSystem.Web.Controllers
             catch (Exception)
             {
 
-                return BadRequest ("Unexpected error! Pleace contact administrator!");
+                return BadRequest("Unexpected error! Pleace contact administrator!");
             }
-            
+
 
         }
         [HttpGet]
-        public async Task<IActionResult> Details(string id) 
-        { 
+        public async Task<IActionResult> Details(string id)
+        {
             var childExists = await _childService.ExistsById(id);
             if (!childExists)
             {
@@ -281,6 +281,37 @@ namespace KindergartenSystem.Web.Controllers
                 return BadRequest("Unexpected error! Pleace contact administrator!");
             }
 
+        }
+        [HttpPost]
+        public async Task<IActionResult> Missing(string id)
+        {
+            var childExists = await _childService.ExistsById(id);
+            if (!childExists)
+            {
+                return BadRequest("There is no child with provided id");// for now temp data
+
+            }
+            var isChildAttending = await _childService.IsAttendingAsync(id);
+            if (!isChildAttending)
+            {
+                return BadRequest("The child is allready missing from class");
+                    //RedirectToAction("Mine", "Child"); //for now Error???
+            }
+            var isTeacher = await _teacherService.TeacherExistsByUserId(User.GetId()!); 
+            if (!isTeacher)
+            {
+                return Unauthorized("Only teachers can switch kindergarten attendance");
+            }
+            try
+            {
+                await _childService.SetChildAsMissingFromClassAsync(id);
+            }
+            catch (Exception)
+            {
+
+                return BadRequest("Unexpected error! Pleace contact administrator!");
+            }
+            return RedirectToAction("Mine", "Child");
         }
     }
 }

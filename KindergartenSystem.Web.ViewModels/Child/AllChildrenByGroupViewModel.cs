@@ -10,5 +10,6 @@
         public string Teacher { get; set; } = string.Empty;
         public string ParentName { get; set; } = string.Empty;
         public string ImageUrl { get; set; } = string.Empty;
+        public bool IsAttending { get; set; } = true;
     }
 }
