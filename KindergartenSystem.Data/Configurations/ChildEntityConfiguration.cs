@@ -21,6 +21,8 @@ namespace KindergartenSystem.Data.Configurations
             .HasForeignKey(c => c.ParentId)
             .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Property<bool>("IsKindergartener").ValueGeneratedOnAdd().HasColumnType("bit").HasDefaultValue(true);
+
             builder.HasData(GenerateChildren());
         }
         private Child[] GenerateChildren()

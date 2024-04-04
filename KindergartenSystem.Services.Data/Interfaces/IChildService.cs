@@ -15,5 +15,6 @@ namespace KindergartenSystem.Services.Data.Interfaces
         Task<bool> IsTeacherOfTheGroup(string teacherId, string childId);
         Task EditChildInfoAsync(string childId, ChildFormModel model);
         Task<ChildDeleteInfoViewModel> GetDeleteChildInfoAsync(string childId);
+        Task DeleteChildAsync(string childId);
     }
 }

@@ -28,6 +28,7 @@ namespace KindergartenSystem.Data.Models
         [Required]
         [MaxLength(ImageUrlMaxLength)]
         public string ImageUrl { get; set; } = string.Empty;
+        public bool IsKindergartener { get; set; } 
         [Required]
         public int ClassGroupId { get; set; }
         [ForeignKey(nameof(ClassGroupId))]
@@ -36,7 +37,6 @@ namespace KindergartenSystem.Data.Models
         public Guid ParentId { get; set; }
         [ForeignKey(nameof(ParentId))]
         public Parent Parent { get; set; } = null!;
-        //public ICollection<Teacher> Teachers { get; set; } = new List<Teacher>();
 
     }
 }

@@ -185,6 +185,38 @@ namespace KindergartenSystem.Web.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Delete(string id, ChildDeleteInfoViewModel model)
+        {
+            var childExists = await _childService.ExistsById(id);
+            if (!childExists)
+            {
+                return BadRequest("There is no child with provided id");// for now temp data
+            }
+            var isTeacher = await _teacherService.TeacherExistsByUserId(User.GetId()!);
+            if (!isTeacher)
+            {
+                return Unauthorized("Only Teachers can delete data. Please contact with administartor!");// for now temp data
+            }
+            var teacherId = await _teacherService.GetTeacherByUserId(User.GetId()!);
+            var isTeacherOfTheChild = await _childService.IsTeacherOfTheGroup(teacherId, id);
+            if (!isTeacherOfTheChild)
+            {
+                return Unauthorized($"Only Teachers of the current group can delete data. Please contact with administartor!");
+            }
+            try
+            {
+                await _childService.DeleteChildAsync(id);
+
+                return RedirectToAction("Mine", "Child");
+            }
+            catch (Exception)
+            {
+                return BadRequest("Unexpected error! Pleace contact administrator!");
+            }
+        }
+
+
         [HttpGet]
         public async Task<IActionResult> AllChildren([FromQuery]AllChildrenByGroupQueryModel model)
         {

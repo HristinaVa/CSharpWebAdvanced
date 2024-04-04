@@ -20,7 +20,7 @@ namespace KindergartenSystem.Services.Data
         public async Task<IEnumerable<AllChildrenByGroupViewModel>> AllByParentsAsync(string parentId)
         {
             IEnumerable<AllChildrenByGroupViewModel> allChildrenByParent = await _dbContext.Children
-                            .Where(x => x.ParentId.ToString() == parentId)
+                            .Where(x => x.IsKindergartener && x.ParentId.ToString() == parentId)
                             .Select(x => new AllChildrenByGroupViewModel
                             {
                                 Id = x.Id.ToString(),
@@ -40,7 +40,7 @@ namespace KindergartenSystem.Services.Data
         public async Task<IEnumerable<AllChildrenByGroupViewModel>> AllByTeachersAsync(string teacherId)
         {
             IEnumerable<AllChildrenByGroupViewModel> allChildrenByTeacher = await _dbContext.Children
-                            .Where(x => x.ClassGroup.Teachers.FirstOrDefault().Id.ToString() == teacherId)
+                            .Where(x => x.IsKindergartener && x.ClassGroup.Teachers.FirstOrDefault().Id.ToString() == teacherId)
                             .Select(x => new AllChildrenByGroupViewModel
                             {
                                 Id = x.Id.ToString(),
@@ -83,6 +83,7 @@ namespace KindergartenSystem.Services.Data
                 EF.Functions.Like(x.Parent.Name, wildCard));
             }
             IEnumerable<AllChildrenByGroupViewModel> allChildren = await childrenQuery
+                .Where(x => x.IsKindergartener)
                 .Skip((model.CurrentPage - 1) * model.ChildrenPerPage)
                 .Take(model.ChildrenPerPage)
                 .Select(x => new AllChildrenByGroupViewModel()
@@ -118,7 +119,8 @@ namespace KindergartenSystem.Services.Data
                 DateOfBirth = DateTime.UtcNow,
                 ImageUrl = model.ImageUrl,
                 ParentId = Guid.Parse(parentId),
-                ClassGroupId = model.ClassGroupId
+                ClassGroupId = model.ClassGroupId,
+                
             };
 
             await _dbContext.Children.AddAsync(child);
@@ -127,9 +129,20 @@ namespace KindergartenSystem.Services.Data
             return child.Id.ToString();
         }
 
+        public async Task DeleteChildAsync(string childId)
+        {
+            var child = await _dbContext.Children.Where(x => x.IsKindergartener)
+                .FirstAsync(x => x.Id.ToString() == childId);
+            
+            child.IsKindergartener = false;
+
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task EditChildInfoAsync(string childId, ChildFormModel model)
         {
-            var child = await _dbContext.Children.Include(x => x.Parent).FirstAsync(x => x.Id.ToString() == childId);
+            var child = await _dbContext.Children.Include(x => x.Parent)
+                .Where(x => x.IsKindergartener).FirstAsync(x => x.Id.ToString() == childId);
             child.FirstName = model.FirstName;
             child.MiddleName = model.MiddleName;
             child.LastName = model.LastName;
@@ -145,7 +158,7 @@ namespace KindergartenSystem.Services.Data
 
         public async Task<bool> ExistsById(string id)
         {
-            bool result = await _dbContext.Children.AnyAsync(x => x.Id.ToString() == id);
+            bool result = await _dbContext.Children.Where(x => x.IsKindergartener).AnyAsync(x => x.Id.ToString() == id);
             return result;
         }
 
@@ -153,8 +166,8 @@ namespace KindergartenSystem.Services.Data
         {
             Child child = await _dbContext.Children
                 .Include(x => x.Parent)
-.Include(x => x.ClassGroup).ThenInclude(x => x.Teachers).
-Where(x => x.Id.ToString() == childId).FirstAsync();
+                .Include(x => x.ClassGroup).ThenInclude(x => x.Teachers)
+                .Where(x => x.IsKindergartener && x.Id.ToString() == childId).FirstAsync();
 
             
             ChildDetailsViewModel model = new ChildDetailsViewModel
@@ -187,7 +200,7 @@ Where(x => x.Id.ToString() == childId).FirstAsync();
             Child child = await _dbContext.Children
                 .Include(x => x.Parent)
            .Include(x => x.ClassGroup).ThenInclude(x => x.Teachers)
-           .Where(x => x.Id.ToString() == id)
+           .Where(x => x.IsKindergartener && x.Id.ToString() == id)
            .FirstAsync();
 
             return new ChildFormModel
@@ -206,7 +219,7 @@ Where(x => x.Id.ToString() == childId).FirstAsync();
 
         public async Task<ChildDeleteInfoViewModel> GetDeleteChildInfoAsync(string childId)
         {
-            var child = await _dbContext.Children.FirstAsync(x => x.Id.ToString() == childId);
+            var child = await _dbContext.Children.Where(x => x.IsKindergartener).FirstAsync(x => x.Id.ToString() == childId);
 
             return new ChildDeleteInfoViewModel
             {
@@ -218,7 +231,7 @@ Where(x => x.Id.ToString() == childId).FirstAsync();
 
         public async Task<bool> IsTeacherOfTheGroup(string teacherId, string childId)
         {
-            Child child = await _dbContext.Children.Where(x => x.Id.ToString() == childId).FirstAsync();
+            Child child = await _dbContext.Children.Where(x =>x.IsKindergartener && x.Id.ToString() == childId).FirstAsync();
             var classs = await _dbContext.ClassGroups.Where(x => x.Teachers.Any(x => x.Id.ToString() == teacherId)).FirstOrDefaultAsync();
             var result = child.ClassGroup == classs;
             return result;
