@@ -39,7 +39,7 @@ namespace KindergartenSystem.Web.ViewModels.Child
 
        // public string ParentPhone { get; set; }
         [Required]
-        [Phone]
+        [Phone]       
         [Display(Name = "Телефон на родител")]
         public string ParentPhone { get; set; } = null!;
 
