@@ -2,10 +2,8 @@
 using KindergartenSystem.Services.Data.Models.Child;
 using KindergartenSystem.Web.Infrastructure.Extensions;
 using KindergartenSystem.Web.ViewModels.Child;
-using KindergartenSystem.Web.ViewModels.ClassGroup;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace KindergartenSystem.Web.Controllers
 {
@@ -95,18 +93,18 @@ namespace KindergartenSystem.Web.Controllers
             var childExists = await _childService.ExistsById(id);
             if (!childExists)
             {
-                return BadRequest("There is no child with provided id");// for now temp data
+                return StatusCode(404);// for now temp data
             }
             var isTeacher = await _teacherService.TeacherExistsByUserId(User.GetId()!);
             if (!isTeacher)
             {
-                return Unauthorized("Only Teachers can edit data. Please contact with administartor!");// for now temp data
+                return StatusCode(401);
             }
             var teacherId = await _teacherService.GetTeacherByUserId(User.GetId()!);
             var isTeacherOfTheChild = await _childService.IsTeacherOfTheGroup(teacherId, id);
             if (!isTeacherOfTheChild)
             {
-                return Unauthorized($"Only Teachers of the current group can edit data. Please contact with administartor!");
+                return StatusCode(401);
             }
             try
             {
@@ -117,7 +115,7 @@ namespace KindergartenSystem.Web.Controllers
             catch (Exception)
             {
 
-                return BadRequest("Unexpected error! Pleace contact administrator!");
+                return StatusCode(500);
             }
 
         }
@@ -127,18 +125,18 @@ namespace KindergartenSystem.Web.Controllers
             var childExists = await _childService.ExistsById(id);
             if (!childExists)
             {
-                return BadRequest("There is no child with provided id");// for now temp data
+                return StatusCode(400);// for now temp data
             }
             var isTeacher = await _teacherService.TeacherExistsByUserId(User.GetId()!);
             if (!isTeacher)
             {
-                return Unauthorized("Only Teachers can edit data. Please contact with administartor!");// for now temp data
+                return StatusCode(401);
             }
             var teacherId = await _teacherService.GetTeacherByUserId(User.GetId()!);
             var isTeacherOfTheChild = await _childService.IsTeacherOfTheGroup(teacherId, id);
             if (!isTeacherOfTheChild)
             {
-                return Unauthorized($"Only Teachers of the current group can edit data. Please contact with administartor!");
+                return StatusCode(401);
             }
             try
             {
@@ -161,18 +159,18 @@ namespace KindergartenSystem.Web.Controllers
             var childExists = await _childService.ExistsById(id);
             if (!childExists)
             {
-                return BadRequest("There is no child with provided id");// for now temp data
+                return StatusCode(400);// for now temp data
             }
             var isTeacher = await _teacherService.TeacherExistsByUserId(User.GetId()!);
             if (!isTeacher)
             {
-                return Unauthorized("Only Teachers can delete data. Please contact with administartor!");// for now temp data
+                return StatusCode(401);
             }
             var teacherId = await _teacherService.GetTeacherByUserId(User.GetId()!);
             var isTeacherOfTheChild = await _childService.IsTeacherOfTheGroup(teacherId, id);
             if (!isTeacherOfTheChild)
             {
-                return Unauthorized($"Only Teachers of the current group can delete data. Please contact with administartor!");
+                return StatusCode(401);
             }
             try
             {
@@ -181,7 +179,7 @@ namespace KindergartenSystem.Web.Controllers
             }
             catch (Exception)
             {
-                return BadRequest("Unexpected error! Pleace contact administrator!");
+                return StatusCode(500);
             }
         }
 
@@ -191,18 +189,18 @@ namespace KindergartenSystem.Web.Controllers
             var childExists = await _childService.ExistsById(id);
             if (!childExists)
             {
-                return BadRequest("There is no child with provided id");// for now temp data
+                return StatusCode(400);// for now temp data
             }
             var isTeacher = await _teacherService.TeacherExistsByUserId(User.GetId()!);
             if (!isTeacher)
             {
-                return Unauthorized("Only Teachers can delete data. Please contact with administartor!");// for now temp data
+                return StatusCode(401);
             }
             var teacherId = await _teacherService.GetTeacherByUserId(User.GetId()!);
             var isTeacherOfTheChild = await _childService.IsTeacherOfTheGroup(teacherId, id);
             if (!isTeacherOfTheChild)
             {
-                return Unauthorized($"Only Teachers of the current group can delete data. Please contact with administartor!");
+                return StatusCode(401);
             }
             try
             {
@@ -212,7 +210,7 @@ namespace KindergartenSystem.Web.Controllers
             }
             catch (Exception)
             {
-                return BadRequest("Unexpected error! Pleace contact administrator!");
+                return StatusCode(500);
             }
         }
 
@@ -255,7 +253,8 @@ namespace KindergartenSystem.Web.Controllers
             catch (Exception)
             {
 
-                return BadRequest("Unexpected error! Pleace contact administrator!");
+
+                return StatusCode(500);
             }
 
 
@@ -266,7 +265,8 @@ namespace KindergartenSystem.Web.Controllers
             var childExists = await _childService.ExistsById(id);
             if (!childExists)
             {
-                return BadRequest("There is no child with provided id");// for now temp data
+                
+                return StatusCode(400);// for now temp data
             }
 
             try
@@ -277,7 +277,7 @@ namespace KindergartenSystem.Web.Controllers
             }
             catch (Exception)
             {
-
+                
                 return BadRequest("Unexpected error! Pleace contact administrator!");
             }
 
@@ -288,8 +288,7 @@ namespace KindergartenSystem.Web.Controllers
             var childExists = await _childService.ExistsById(id);
             if (!childExists)
             {
-                return BadRequest("There is no child with provided id");// for now temp data
-
+                return StatusCode(400);
             }
             var isChildAttending = await _childService.IsAttendingAsync(id);
             if (!isChildAttending)
@@ -301,11 +300,13 @@ namespace KindergartenSystem.Web.Controllers
             var isTeacherOfTheChild = await _childService.IsTeacherOfTheGroup(teacherId, id);
             if (!isTeacherOfTheChild)
             {
-                return Unauthorized("Only teacher of the child can switch kindergarten attendance");
+                return StatusCode(401);
             }
             try
             {
                 await _childService.SetChildAsMissingFromClassAsync(id);
+
+
             }
             catch (Exception)
             {
@@ -320,7 +321,7 @@ namespace KindergartenSystem.Web.Controllers
             var childExists = await _childService.ExistsById(id);
             if (!childExists)
             {
-                return BadRequest("There is no child with provided id");// for now temp data
+                return StatusCode(400);// for now temp data
 
             }
             var isChildAttending = await _childService.IsAttendingAsync(id);
@@ -333,7 +334,7 @@ namespace KindergartenSystem.Web.Controllers
             var isTeacherOfTheChild = await _childService.IsTeacherOfTheGroup(teacherId, id);
             if (!isTeacherOfTheChild)
             {
-                return RedirectToAction("Mine", "Child");
+                return StatusCode(401);
             }
             try
             {
