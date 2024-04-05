@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>da97660b-97c8-44d3-a806-ed174492790c</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\KindergartenSystem.Common\KindergartenSystem.Common.csproj" />
+    <ProjectReference Include="..\KindergartenSystem.Services.Data.Models\KindergartenSystem.Services.Data.Models.csproj" />
+    <ProjectReference Include="..\KindergartenSystem.Services.Data\KindergartenSystem.Services.Data.csproj" />
+    <ProjectReference Include="..\KindergartenSystem.Web.Infrastructure\KindergartenSystem.Web.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
