@@ -54,7 +54,16 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapDefaultControllerRoute();
-app.MapRazorPages();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "ProtectingUrlPattern",
+        pattern: "/{controller}/{action}/{id}/{information}",
+        defaults: new { Controller = "Kindergarten", Action = "About" });
+    endpoints.MapDefaultControllerRoute();
+    endpoints.MapRazorPages();
+});
+
 
 app.Run();

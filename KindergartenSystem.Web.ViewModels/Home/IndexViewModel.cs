@@ -8,13 +8,14 @@ namespace KindergartenSystem.Web.ViewModels.Home
 {
     public class IndexViewModel
     {
+        public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
         public string Principal { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
         public string EmailAddress { get; set; } = string.Empty;
         public string ImageUrl { get; set; }
-        public ICollection<ImageViewModel> Images { get; set; } = new List<ImageViewModel>();
+        //public ICollection<ImageViewModel> Images { get; set; } = new List<ImageViewModel>();
 
 
     }

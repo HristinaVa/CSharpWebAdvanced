@@ -1,0 +1,22 @@
+﻿@model IndexViewModel
+@{
+    ViewBag.Title = "Kindergarten Details";
+}
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+<div class="container" style="display:inline">
+    <div class="row">
+        <div class="col-12">
+            <img class="card-img-top" style="width: 20rem;"
+                 src="@Model.ImageUrl" alt="Child Image">
+                 </div>
+        <div class="card col-8 border-0">
+            <p style="font-size:25px;"><u>@Model.Name</u></p>
+            <p>Address: <b>@Model.Address</b></p>
+            <p>Phone: <b>@Model.PhoneNumber</b></p>
+            <p>Principal: <b>@Model.Principal</b></p>
+            <p>E-mail: <b>@Model.EmailAddress</b></p>
+            
+        </div>
+        </div>
+        </div>
