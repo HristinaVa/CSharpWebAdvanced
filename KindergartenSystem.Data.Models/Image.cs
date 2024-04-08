@@ -22,6 +22,7 @@ namespace KindergartenSystem.Data.Models
         [Required]
         [MaxLength(ImageUrlMaxLength)]
         public string Url { get; set; } = string.Empty;
+
         [Required]
         public int KindergartenId { get; set; }
         [ForeignKey(nameof(KindergartenId))]

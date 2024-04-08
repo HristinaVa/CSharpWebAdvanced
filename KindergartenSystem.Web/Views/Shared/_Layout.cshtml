@@ -1,4 +1,10 @@
 ﻿@using static KindergartenSystem.Common.GeneralApplicationConstants;
+@using KindergartenSystem.Services.Data.Interfaces;
+@using KindergartenSystem.Web.Infrastructure.Extensions
+@inject ITeacherService TeacherService
+@{
+    bool IsUserTeacher = await TeacherService.TeacherExistsByUserId(this.User.GetId());
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,12 +36,18 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Child" asp-action="Mine">My Group</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Child" asp-action="AllChildren">All Children</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Child" asp-action="Add">Add Child</a>
-                            </li>
+                            
+                            @if (IsUserTeacher)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Child" asp-action="AllChildren">All Children</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Child" asp-action="Add">Add Child</a>
+                                </li>
+
+                            }
+                            
                         }
                     </ul>
                     <partial name="_LoginPartial" />

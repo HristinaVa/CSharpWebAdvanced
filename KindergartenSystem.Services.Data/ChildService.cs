@@ -99,7 +99,8 @@ namespace KindergartenSystem.Services.Data
                     Teacher = x.ClassGroup.Teachers.FirstOrDefault().Name,
                     ImageUrl = x.ImageUrl,
                     IsAttending = x.IsAttending
-                }).OrderBy(x => x.FirstName)
+                })//.OrderByDescending(x => x.IsAttending)
+                .OrderBy(x => x.FirstName)
                 .ThenBy(x => x.LastName)
                 .ToArrayAsync();
             int childrenTotal = childrenQuery.Count();
@@ -185,7 +186,8 @@ namespace KindergartenSystem.Services.Data
                 ParentName = child.Parent.Name,
                 ParentPhone = child.Parent.PhoneNumber,
                 ParentEmail = child.Parent.EmailAddress,
-                ClassGroupName = child.ClassGroup.Title
+                ClassGroupName = child.ClassGroup.Title,
+                IsAttending = child.IsAttending
             };
             if (child.ClassGroup.Teachers.Any())
             {

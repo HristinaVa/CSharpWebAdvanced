@@ -24,6 +24,18 @@ namespace KindergartenSystem.Services.Data
             return teacher.Id.ToString();
         }
 
+        public async Task<bool> IsChildFromTheGroup(string userId, string childId)
+        {
+            var teacher = await _dbContext.Teachers.Include(a => a.ClassGroup)
+                .ThenInclude(a => a.Children).FirstOrDefaultAsync(a => a.UserId == userId);
+            if (teacher == null)
+            {
+                return false;
+            }
+            childId = childId.ToLower();
+            return teacher.ClassGroup.Children.Any(x => x.Id.ToString() == childId);
+        }
+
         public async Task<bool> TeacherExistsByPhoneNumberAsync(string phoneNumber)
         {
             bool result = await _dbContext

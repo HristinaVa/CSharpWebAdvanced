@@ -1,5 +1,12 @@
-﻿@model AllChildrenByGroupViewModel
+﻿@using KindergartenSystem.Services.Data.Interfaces
+@using KindergartenSystem.Web.Infrastructure.Extensions
+@model AllChildrenByGroupViewModel
+@inject ITeacherService TeacherService
+@{
+    var IsUserTeacher = await TeacherService.TeacherExistsByUserId(User.GetId());
+    var IsTeacherOfTheChild = await TeacherService.IsChildFromTheGroup(User.GetId(), Model.Id); 
 
+}
 <div class="col-md-4">
     <div class="card mb-3">
         <img class="card-img-top" src="@Model.ImageUrl" alt="House Image">
@@ -23,31 +30,36 @@
             <a asp-controller="Child" asp-action="Details" asp-route-id="@Model.Id"
                class="btn btn-success">Details</a>
             <a asp-controller="Child" asp-action="AddItem" asp-route-id="@Model.Id"
-               class="btn btn-success">Add</a>
+               class="btn btn-primary">Add</a>
             @if (this.User.Identity?.IsAuthenticated ?? false)
             {
-                <a asp-controller="Child" asp-action="Edit" asp-route-id="@Model.Id"
-                   class="btn btn-warning">Edit</a>
-                <a asp-controller="Child" asp-action="Delete" asp-route-id="@Model.Id"
-                   class="btn btn-danger">Delete</a>
-                <p></p>
-                @if (Model.IsAttending)
+                @if (IsUserTeacher && IsTeacherOfTheChild)
                 {
-                    <form class="input-group-sm" asp-controller="Child"
-                          asp-action="Missing" asp-route-id="@Model.Id" method="post">
-                        <input class="btn btn-primary" type="submit" value="Missing" />
-                    </form>
+                    <a asp-controller="Child" asp-action="Edit" asp-route-id="@Model.Id"
+                       class="btn btn-warning">Edit</a>
+                    <a asp-controller="Child" asp-action="Delete" asp-route-id="@Model.Id"
+                       class="btn btn-danger">Delete</a>
+                    <p></p>
+                    @if (Model.IsAttending)
+                    {
+                        <form class="input-group-sm" asp-controller="Child"
+                              asp-action="Missing" asp-route-id="@Model.Id" method="post">
+                            <input class="btn btn-primary" type="submit" value="Missing" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-controller="Child" asp-action="Attending"
+                              asp-route-id="@Model.Id" method="post">
+                            <input class="btn btn-primary" type="submit" value="Attending" />
+                        </form>
+                    }
                 }
-                else
-                {
-                    <form asp-controller="Child" asp-action="Attending"
-                          asp-route-id="@Model.Id" method="post">
-                        <input class="btn btn-primary" type="submit" value="Attending" />
-                    </form>
-                }
+                
+                
 
                
             }
+            </div>
         </div>
     </div>
-</div>
