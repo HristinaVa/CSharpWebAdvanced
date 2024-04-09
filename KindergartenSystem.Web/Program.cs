@@ -60,7 +60,7 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllerRoute(
         name: "ProtectingUrlPattern",
         pattern: "/{controller}/{action}/{id}/{information}",
-        defaults: new { Controller = "AgeGroup", Action = "Details" });
+        defaults: new { Controller = "ClassGroup", Action = "Details" });
     endpoints.MapDefaultControllerRoute();
     endpoints.MapRazorPages();
 });

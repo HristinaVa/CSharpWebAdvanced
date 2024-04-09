@@ -1,0 +1,32 @@
+﻿@model AgeGroupDetailsViewModel
+@{
+    ViewBag.Title = "Age Group: ";
+}
+<h2 class="text-center">@ViewBag.Title @Model.Number</h2>
+<hr />
+<div class="container text-center" style="display:inline">
+    <div class="row">
+        <div class="col-12">
+            <img class="card-img-top" style="width: 20rem;"
+                 src="https://img.freepik.com/premium-vector/cute-rabbit-cartoon-icon_42750-410.jpg" alt="Image">
+            <div class="text-center">
+                 <p>Age Group: <b>@Model.Number</b></p>
+                @if (Model.ClassGroupNames.Any())
+                {
+                   <p>Class Groups: <b>@Model.ClassGroupsCount</b></p>
+                   foreach (var item in Model.ClassGroupNames)
+                    {
+                        <a class="ml-2 btn btn-primary" asp-controller="ClassGroup" asp-action="Details"
+                           asp-route-id="@Model.Id">@item</a>
+                    }
+                 
+                }
+                else
+                {
+                    <p>Class Groups: <b>None</b></p>
+
+                }
+            </div>
+        </div>
+        </div>
+        </div>

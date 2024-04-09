@@ -1,11 +1,4 @@
-﻿using KindergartenSystem.Web.ViewModels.ClassGroup;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace KindergartenSystem.Web.ViewModels.AgeGroup
+﻿namespace KindergartenSystem.Web.ViewModels.AgeGroup
 {
     public class AgeGroupViewModel
     {

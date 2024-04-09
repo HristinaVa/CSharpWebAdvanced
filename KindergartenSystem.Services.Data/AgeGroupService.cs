@@ -1,6 +1,8 @@
 ﻿using KindergartenSystem.Data;
+using KindergartenSystem.Data.Models;
 using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Web.ViewModels.AgeGroup;
+using KindergartenSystem.Web.ViewModels.Child;
 using KindergartenSystem.Web.ViewModels.ClassGroup;
 using Microsoft.EntityFrameworkCore;
 
@@ -34,6 +36,37 @@ namespace KindergartenSystem.Services.Data
 
             }).ToArrayAsync();
             return ageGroups;
+        }
+
+        public async Task<bool> ExistsById(int id)
+        {
+            bool result = await _dbContext.AgeGroups.AnyAsync(x => x.Id == id);
+            return result;
+        }
+
+        public async Task<AgeGroupDetailsViewModel> GetAgeGroupDetailsAsync(int id)
+        {
+            var group = await _dbContext.AgeGroups
+            .Include(x => x.ClassGroups)
+               .Where(x => x.Id == id).FirstAsync();
+            var classGroups = await _dbContext.ClassGroups.Where(x => x.AgeGroupId == id).Select(x => x.Title).ToArrayAsync();
+
+
+            AgeGroupDetailsViewModel model = new AgeGroupDetailsViewModel
+            {
+                Id = group.Id,
+                Number = group.Number,
+            };
+            if (group.ClassGroups.Any())
+            {
+                model.ClassGroupsCount = group.ClassGroups.Count();
+                model.ClassGroupNames = classGroups;
+
+            }
+                
+
+
+            return model;
         }
     }
 }
