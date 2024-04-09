@@ -24,5 +24,16 @@ namespace KindergartenSystem.Services.Data
                 }).ToListAsync();
             return ageGroupNumbers;
         }
+
+        public async Task<IEnumerable<AllAgeGroupsViewModel>> AllAgeGroupsAsync(int id)
+        {
+            var ageGroups = await _dbContext.AgeGroups.Where(x => x.KindergartenId == id).Select(x => new AllAgeGroupsViewModel
+            {
+                Id = x.Id,
+                Number = x.Number.ToString(),
+
+            }).ToArrayAsync();
+            return ageGroups;
+        }
     }
 }

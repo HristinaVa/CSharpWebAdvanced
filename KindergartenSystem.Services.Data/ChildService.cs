@@ -70,7 +70,9 @@ namespace KindergartenSystem.Services.Data
             //}
             if (!string.IsNullOrWhiteSpace(model.ClassGroup))
             {
+
                 childrenQuery = childrenQuery.Where(x => x.ClassGroup.Title == model.ClassGroup);
+
             }
 
             if (!string.IsNullOrWhiteSpace(model.SearchText))

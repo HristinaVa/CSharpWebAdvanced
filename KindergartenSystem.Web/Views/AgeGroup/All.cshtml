@@ -1,0 +1,12 @@
+﻿@model IEnumerable<AllAgeGroupsViewModel>
+@{
+    ViewData["Title"] = "Our Groups";
+}
+<h2 class ="text-center">@ViewData["Title"]</h2>
+<hr/>
+<div class="list-group text-center">
+    @foreach (var item in Model)
+    {
+        <a class="list-group-item list-group-item-action" asp-controller="AgeGroup" asp-action="Details" asp-route-id="@item.Id">Age Group: @item.Number</a>
+    }
+</div>
