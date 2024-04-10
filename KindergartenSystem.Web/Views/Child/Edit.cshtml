@@ -50,7 +50,7 @@
                 <select asp-for="ClassGroupId" class="form-control">
                     @foreach (var classGroup in Model.ClassGroups)
                     {
-                        <option value="@classGroup.Id">@classGroup.Name</option>
+                        <option value="@classGroup.Id">@classGroup.Title</option>
                     }
                 </select>
                 <span asp-validation-for="ClassGroupId" class="small textdanger"></span>

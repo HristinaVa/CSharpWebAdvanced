@@ -49,8 +49,12 @@ namespace KindergartenSystem.Services.Data
             var group = await _dbContext.AgeGroups
             .Include(x => x.ClassGroups)
                .Where(x => x.Id == id).FirstAsync();
-            var classGroups = await _dbContext.ClassGroups.Where(x => x.AgeGroupId == id).Select(x => x.Title).ToArrayAsync();
-
+            
+            var classGroups = await _dbContext.ClassGroups.Where(x => x.AgeGroupId == id).Select(x => new ClassGroupSelectModel
+            {
+                Id = x.Id,
+                Title = x.Title
+            }).ToArrayAsync();
 
             AgeGroupDetailsViewModel model = new AgeGroupDetailsViewModel
             {
@@ -60,7 +64,7 @@ namespace KindergartenSystem.Services.Data
             if (group.ClassGroups.Any())
             {
                 model.ClassGroupsCount = group.ClassGroups.Count();
-                model.ClassGroupNames = classGroups;
+                model.ClassGroups = classGroups;
 
             }
                 

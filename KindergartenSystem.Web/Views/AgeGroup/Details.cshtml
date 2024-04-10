@@ -1,4 +1,5 @@
-﻿@model AgeGroupDetailsViewModel
+﻿
+@model AgeGroupDetailsViewModel
 @{
     ViewBag.Title = "Age Group: ";
 }
@@ -11,13 +12,13 @@
                  src="https://img.freepik.com/premium-vector/cute-rabbit-cartoon-icon_42750-410.jpg" alt="Image">
             <div class="text-center">
                  <p>Age Group: <b>@Model.Number</b></p>
-                @if (Model.ClassGroupNames.Any())
+                @if (Model.ClassGroups.Any())
                 {
                    <p>Class Groups: <b>@Model.ClassGroupsCount</b></p>
-                   foreach (var item in Model.ClassGroupNames)
+                   foreach (var classGroupModel in Model.ClassGroups)
                     {
                         <a class="ml-2 btn btn-primary" asp-controller="ClassGroup" asp-action="Details"
-                           asp-route-id="@Model.Id">@item</a>
+                           asp-route-id="@classGroupModel.Id" asp-route-information="@ViewModelsExtencions.GetUrlInfomation(classGroupModel)">@classGroupModel.Title</a>
                     }
                  
                 }

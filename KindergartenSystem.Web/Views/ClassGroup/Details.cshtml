@@ -1,0 +1,30 @@
+﻿@model ClassGroupDetailsViewModel
+@{
+    ViewBag.Title = "Group: ";
+}
+
+<div class="card w-85 mb-3 text-center">
+    <div class="card-body">
+        <h5 class="card-title">@ViewBag.Title @Model.Title</h5>
+        <p>Age Group: <b>@Model.AgeGroup</b></p>
+
+        
+        @if (Model.TeachersName == null)
+        {
+            <p>Teacher: (There is no information)</p>
+            <p>Phone: (There is no information)</p>
+            
+            
+        }
+        else
+        {
+            foreach (var item in Model.TeachersName)
+            {
+                <p>Teacher: <b>@item</b></p>
+
+            }
+            <p>Phone: <b>@Model.Phone</b></p>
+        }
+       
+    </div>
+</div>

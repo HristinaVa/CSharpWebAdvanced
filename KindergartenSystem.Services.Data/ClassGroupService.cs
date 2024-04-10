@@ -37,10 +37,34 @@ namespace KindergartenSystem.Services.Data
                             .Select(x => new ClassGroupSelectModel()
                             {
                                 Id = x.Id,
-                                Name = x.Title
+                                Title = x.Title
                             }).ToArrayAsync();
             
             return getClassGroups;
         }
+
+        public async Task<ClassGroupDetailsViewModel> GetDetailsAsync(int id)
+        {
+            var group = await _dbContext.ClassGroups.Include(x =>x.Teachers).Where(x => x.Id == id).FirstAsync();
+            var model = new ClassGroupDetailsViewModel()
+            {
+                Id = group.Id,
+                AgeGroup = group.AgeGroupId,
+                Title = group.Title
+            };
+            if (group.Teachers.Any())
+            {
+                model.TeachersName = group.Teachers.Select(x => x.Name).ToArray();
+                model.Phone = group.Teachers.Select(x => x.PhoneNumber).FirstOrDefault();
+            }
+            else
+            {
+                model.TeachersName = null;
+                model.Phone = null;
+            }
+            return model;
+        }
+
+            
     }
 }

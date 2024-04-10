@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using KindergartenSystem.Web.ViewModels.ClassGroup.Interfaces;
+
+
 
 namespace KindergartenSystem.Web.ViewModels.ClassGroup
 {
-    public class ClassGroupSelectModel
+    public class ClassGroupSelectModel : IClassGroupModel
     {
         public int Id { get; set; }
-        public string Name { get; set; } = null!;
+        public string Title { get; set; } = null!;
     }
 }
