@@ -5,6 +5,7 @@ using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Services.Data;
 using KindergartenSystem.Web.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using KindergartenSystem.Data.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +14,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<KindergartenDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 {
     options.SignIn.RequireConfirmedAccount = builder.Configuration.GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
     options.Password.RequireLowercase = builder.Configuration.GetValue<bool>("Identity:Password:RequireLowercase");

@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace KindergartenSystem.Data
 {
-    public class KindergartenDbContext : IdentityDbContext
+    public class KindergartenDbContext : IdentityDbContext<ApplicationUser>
     {
         public KindergartenDbContext(DbContextOptions<KindergartenDbContext> options)
             : base(options)

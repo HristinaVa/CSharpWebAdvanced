@@ -34,7 +34,7 @@ namespace KindergartenSystem.Data.Models
         public string UserId { get; set; } = string.Empty;
 
         [ForeignKey(nameof(UserId))]
-        public IdentityUser User { get; set; } = null!;
+        public ApplicationUser User { get; set; } = null!;
 
         public ICollection<Child> Children { get; set; } = new List<Child>();
     }
