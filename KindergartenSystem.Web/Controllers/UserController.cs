@@ -72,14 +72,14 @@ namespace KindergartenSystem.Web.Controllers
         {
                 if (!ModelState.IsValid)
                 {
-                
-                    return BadRequest("ha ha");
+
+                return StatusCode(400);
                 }
 
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
             if (!result.Succeeded)
             { 
-                return BadRequest("o ne"); 
+                return StatusCode(400); 
             }
             return Redirect(model.ReturnUrl ?? "/Home/Index");
 
