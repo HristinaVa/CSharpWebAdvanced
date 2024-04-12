@@ -1,5 +1,6 @@
 ﻿using KindergartenSystem.Data.Models;
 using KindergartenSystem.Web.ViewModels.User;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,14 +10,12 @@ namespace KindergartenSystem.Web.Controllers
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IUserStore<ApplicationUser> _userStore;
 
-        public UserController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IUserStore<ApplicationUser> userStore)
+        public UserController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
             
             _signInManager = signInManager;
             _userManager = userManager;
-            _userStore = userStore;
         }
 
         [HttpGet]
@@ -39,7 +38,7 @@ namespace KindergartenSystem.Web.Controllers
             };
 
             await _userManager.SetEmailAsync(applicationUser, model.Email);
-            await _userManager.SetUserNameAsync(applicationUser, model.FirstName);
+            await _userManager.SetUserNameAsync(applicationUser, model.Email);
 
             IdentityResult result =
                 await _userManager.CreateAsync(applicationUser, model.Password);
@@ -58,5 +57,33 @@ namespace KindergartenSystem.Web.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+        [HttpGet]
+        public async Task<IActionResult> Login(string? retunUrl = null)
+        {
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+            var model = new LoginFormModel()
+            {
+                ReturnUrl = retunUrl
+            };
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginFormModel model)
+        {
+                if (!ModelState.IsValid)
+                {
+                
+                    return BadRequest("ha ha");
+                }
+
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+            if (!result.Succeeded)
+            { 
+                return BadRequest("o ne"); 
+            }
+            return Redirect(model.ReturnUrl ?? "/Home/Index");
+
+        }
+
     }
 }

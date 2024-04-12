@@ -1,11 +1,9 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using KindergartenSystem.Data;
+using KindergartenSystem.Data.Models;
 using KindergartenSystem.Services.Data.Interfaces;
-using KindergartenSystem.Services.Data;
 using KindergartenSystem.Web.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using KindergartenSystem.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +23,10 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     .AddEntityFrameworkStores<KindergartenDbContext>();
 
 builder.Services.AddApplicationServices(typeof(IKindergartenService));
+builder.Services.ConfigureApplicationCookie(config => 
+{
+    config.LoginPath = "/User/Login";
+});
 
 builder.Services.AddControllersWithViews()
     .AddMvcOptions(options => 
