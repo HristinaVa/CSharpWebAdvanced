@@ -2,8 +2,10 @@
 @using KindergartenSystem.Services.Data.Interfaces;
 @using KindergartenSystem.Web.Infrastructure.Extensions
 @inject ITeacherService TeacherService
+@inject IParentService ParentService
 @{
     bool IsUserTeacher = await TeacherService.TeacherExistsByUserId(this.User.GetId());
+    bool IsUserParent = await ParentService.ParentExistsByUserId(this.User.GetId());
 }
 
 <!DOCTYPE html>
@@ -32,11 +34,13 @@
                         </li>
                         @if (User.Identity?.IsAuthenticated ?? false)
                         {
-                            //var type = User.Identity.AuthenticationType;
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Child" asp-action="Mine">My Group</a>
-                            </li>
-                            
+                            @if (IsUserParent || IsUserTeacher)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Child" asp-action="Mine">My Group</a>
+                                </li>
+
+                            }                           
                             @if (IsUserTeacher)
                             {
                                 <li class="nav-item">
