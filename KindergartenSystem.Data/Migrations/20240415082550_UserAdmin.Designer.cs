@@ -4,6 +4,7 @@ using KindergartenSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KindergartenSystem.Data.Migrations
 {
     [DbContext(typeof(KindergartenDbContext))]
-    partial class KindergartenDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240415082550_UserAdmin")]
+    partial class UserAdmin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,17 +92,13 @@ namespace KindergartenSystem.Data.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .ValueGeneratedOnAdd()
                         .HasMaxLength(12)
-                        .HasColumnType("nvarchar(12)")
-                        .HasDefaultValue("...");
+                        .HasColumnType("nvarchar(12)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .ValueGeneratedOnAdd()
                         .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasDefaultValue("...");
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -204,7 +202,7 @@ namespace KindergartenSystem.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("828bc370-17a6-4b60-95e8-663fca82ce5b"),
+                            Id = new Guid("79a0cce1-4db3-4f98-b269-98641ce90b85"),
                             ClassGroupId = 2,
                             DateOfBirth = new DateTime(2019, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Alex",
@@ -295,19 +293,19 @@ namespace KindergartenSystem.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("51ed67bb-ace0-428c-bcb5-32447c5926d3"),
+                            Id = new Guid("d061a8dd-7f17-4406-ac9d-ba9ccbf92431"),
                             KindergartenId = 1,
                             Url = "https://landezine.com/wp-content/uploads/2023/06/13-3-1270x846.jpg"
                         },
                         new
                         {
-                            Id = new Guid("e5686099-ba60-4983-b940-ab848ed0f424"),
+                            Id = new Guid("a5afbe8d-ca36-4a82-ad28-2b8337a6b97d"),
                             KindergartenId = 1,
                             Url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaUwQTx7J17GWtmvOuoaecCfBw7c-sUmOTk1xjm0IQQxjR2CZH0154QwUT103frsZBezI&usqp=CAU"
                         },
                         new
                         {
-                            Id = new Guid("babebbe0-9ca4-4c5b-9b6f-d9ebe10922db"),
+                            Id = new Guid("69598a9f-c069-4b89-bba5-bce56295c313"),
                             KindergartenId = 1,
                             Url = "https://file2.okorder.com/attach/2017/01/09/b6e37ea332d65dca1d4172df440fcc72.jpg"
                         });
@@ -449,23 +447,13 @@ namespace KindergartenSystem.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b22caebb-6792-4bcf-954e-2de1ad3eeb52"),
+                            Id = new Guid("f2d07deb-6ffe-439e-a63a-5cb27b32c42e"),
                             ClassGroupId = 2,
                             EmailAddress = "ivanova.22@teacher.com",
                             ImageUrl = "https://st.depositphotos.com/1758000/2947/v/450/depositphotos_29477577-stock-illustration-eyewear-glasses-teacher-touching-chin.jpg",
                             Name = "Silviq Ivanova",
                             PhoneNumber = "+359789000000",
                             UserId = "4b72b514-00e0-4754-ab43-4c53199afbb8"
-                        },
-                        new
-                        {
-                            Id = new Guid("de132044-bcc3-4e81-b40f-5ed6a52c87b2"),
-                            ClassGroupId = 1,
-                            EmailAddress = "admin@admin.bg",
-                            ImageUrl = "https://t4.ftcdn.net/jpg/04/75/00/99/360_F_475009987_zwsk4c77x3cTpcI3W1C1LU4pOSyPKaqi.jpg",
-                            Name = "Admin Admin",
-                            PhoneNumber = "+359000000000",
-                            UserId = "1605dfd0-0033-408e-aae7-ca088e86985d"
                         });
                 });
 

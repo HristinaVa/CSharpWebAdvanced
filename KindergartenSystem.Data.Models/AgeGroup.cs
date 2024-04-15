@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using static KindergartenSystem.Common.EntityValidationConstants;
 using static KindergartenSystem.Common.EntityValidationConstants.AgeGroup;
 
 namespace KindergartenSystem.Data.Models

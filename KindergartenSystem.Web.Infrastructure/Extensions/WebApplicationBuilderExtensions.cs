@@ -1,7 +1,12 @@
-﻿using KindergartenSystem.Services.Data;
+﻿using KindergartenSystem.Data.Migrations;
+using KindergartenSystem.Data.Models;
+using KindergartenSystem.Services.Data;
 using KindergartenSystem.Services.Data.Interfaces;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using static KindergartenSystem.Common.GeneralApplicationConstants;
 
 namespace KindergartenSystem.Web.Infrastructure.Extensions
 {
@@ -37,6 +42,35 @@ namespace KindergartenSystem.Web.Infrastructure.Extensions
 
                 services.AddScoped(interfaceType, implementationType);
             }
+        }
+        public static IApplicationBuilder SeedAdmin(this IApplicationBuilder builder, string email)
+        {
+            using var scopedServices = builder.ApplicationServices.CreateScope();
+            var serviceProvider = scopedServices.ServiceProvider;
+            UserManager<ApplicationUser> userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            RoleManager<IdentityRole> roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+            Task.Run(async () =>
+            {
+                if (await roleManager.RoleExistsAsync(AdminRoleName))
+                {
+                    return;
+                }
+
+                IdentityRole role =
+                    new IdentityRole(AdminRoleName);
+
+                await roleManager.CreateAsync(role);
+
+                ApplicationUser adminUser =
+                    await userManager.FindByEmailAsync(email);
+
+                await userManager.AddToRoleAsync(adminUser, AdminRoleName);
+            })
+            .GetAwaiter()
+            .GetResult();
+
+            return builder;
         }
     }
 }
