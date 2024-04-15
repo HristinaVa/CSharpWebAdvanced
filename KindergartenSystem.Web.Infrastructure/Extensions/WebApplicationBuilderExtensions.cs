@@ -1,7 +1,4 @@
-﻿using KindergartenSystem.Data.Migrations;
-using KindergartenSystem.Data.Models;
-using KindergartenSystem.Services.Data;
-using KindergartenSystem.Services.Data.Interfaces;
+﻿using KindergartenSystem.Data.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,10 +40,10 @@ namespace KindergartenSystem.Web.Infrastructure.Extensions
                 services.AddScoped(interfaceType, implementationType);
             }
         }
-        public static IApplicationBuilder SeedAdmin(this IApplicationBuilder builder, string email)
+        public static IApplicationBuilder SeedAdmin(this IApplicationBuilder application, string email)
         {
-            using var scopedServices = builder.ApplicationServices.CreateScope();
-            var serviceProvider = scopedServices.ServiceProvider;
+            using var scopedServices = application.ApplicationServices.CreateScope();
+            IServiceProvider serviceProvider = scopedServices.ServiceProvider;
             UserManager<ApplicationUser> userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             RoleManager<IdentityRole> roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
@@ -70,7 +67,7 @@ namespace KindergartenSystem.Web.Infrastructure.Extensions
             .GetAwaiter()
             .GetResult();
 
-            return builder;
+            return application;
         }
     }
 }

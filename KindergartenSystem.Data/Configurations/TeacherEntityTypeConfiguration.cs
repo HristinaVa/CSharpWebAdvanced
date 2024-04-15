@@ -1,6 +1,7 @@
 ﻿using KindergartenSystem.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using static KindergartenSystem.Common.GeneralApplicationConstants;
 
 namespace KindergartenSystem.Data.Configurations
 {
@@ -41,7 +42,7 @@ namespace KindergartenSystem.Data.Configurations
                 Name = "Admin Admin",
                 ImageUrl = "https://t4.ftcdn.net/jpg/04/75/00/99/360_F_475009987_zwsk4c77x3cTpcI3W1C1LU4pOSyPKaqi.jpg",
                 PhoneNumber = "+359000000000",
-                EmailAddress = "admin@admin.bg",
+                EmailAddress = AdminEmail,
                 ClassGroupId = 1,
                 UserId = "1605dfd0-0033-408e-aae7-ca088e86985d"
 
