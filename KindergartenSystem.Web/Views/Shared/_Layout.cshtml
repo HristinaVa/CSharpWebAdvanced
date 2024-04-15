@@ -46,9 +46,13 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Child" asp-action="AllChildren">All Children</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Child" asp-action="Add">Add Child</a>
-                                </li>
+                                if (User.IsUserAdmin())
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Child" asp-action="Add">Add Child</a>
+                                    </li>
+                                }
+                               
 
                             }
                             

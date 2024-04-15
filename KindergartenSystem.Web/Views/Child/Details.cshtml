@@ -42,7 +42,7 @@
             {
                     <a class="ml-2 btn btn-warning" asp-controller="Child" asp-action="AddItem"
                        asp-route-id="@Model.Id">Add Item</a>
-                    @if (IsUserTeacher && IsTeacherOfTheChild)
+                    @if ((IsUserTeacher && IsTeacherOfTheChild) || User.IsUserAdmin())
                     {
                         <a class="btn btn-warning" asp-controller="Child" asp-action="Edit"
                         asp-route-id="@Model.Id">Edit</a>

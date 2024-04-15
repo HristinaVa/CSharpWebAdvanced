@@ -33,7 +33,7 @@
                class="btn btn-primary">Add</a>
             @if (this.User.Identity?.IsAuthenticated ?? false)
             {
-                @if (IsUserTeacher && IsTeacherOfTheChild)
+                @if ((IsUserTeacher && IsTeacherOfTheChild) || User.IsUserAdmin())
                 {
                     <a asp-controller="Child" asp-action="Edit" asp-route-id="@Model.Id"
                        class="btn btn-warning">Edit</a>
