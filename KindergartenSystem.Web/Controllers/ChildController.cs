@@ -102,7 +102,7 @@ namespace KindergartenSystem.Web.Controllers
             }
             var teacherId = await _teacherService.GetTeacherByUserId(User.GetId()!);
             var isTeacherOfTheChild = await _childService.IsTeacherOfTheGroup(teacherId, id);
-            if (!isTeacherOfTheChild)
+            if (!isTeacherOfTheChild && User.IsUserAdmin() == false)
             {
                 return StatusCode(401);
             }
@@ -134,7 +134,7 @@ namespace KindergartenSystem.Web.Controllers
             }
             var teacherId = await _teacherService.GetTeacherByUserId(User.GetId()!);
             var isTeacherOfTheChild = await _childService.IsTeacherOfTheGroup(teacherId, id);
-            if (!isTeacherOfTheChild)
+            if (!isTeacherOfTheChild && User.IsUserAdmin() == false)
             {
                 return StatusCode(401);
             }
@@ -168,7 +168,7 @@ namespace KindergartenSystem.Web.Controllers
             }
             var teacherId = await _teacherService.GetTeacherByUserId(User.GetId()!);
             var isTeacherOfTheChild = await _childService.IsTeacherOfTheGroup(teacherId, id);
-            if (!isTeacherOfTheChild)
+            if (!isTeacherOfTheChild && User.IsUserAdmin() == false)
             {
                 return StatusCode(401);
             }
@@ -198,7 +198,7 @@ namespace KindergartenSystem.Web.Controllers
             }
             var teacherId = await _teacherService.GetTeacherByUserId(User.GetId()!);
             var isTeacherOfTheChild = await _childService.IsTeacherOfTheGroup(teacherId, id);
-            if (!isTeacherOfTheChild)
+            if (!isTeacherOfTheChild && User.IsUserAdmin() == false)
             {
                 return StatusCode(401);
             }
@@ -298,7 +298,7 @@ namespace KindergartenSystem.Web.Controllers
             }
             var teacherId = await _teacherService.GetTeacherByUserId(User.GetId()!);
             var isTeacherOfTheChild = await _childService.IsTeacherOfTheGroup(teacherId, id);
-            if (!isTeacherOfTheChild)
+            if (!isTeacherOfTheChild && User.IsUserAdmin() == false)
             {
                 return StatusCode(401);
             }
@@ -332,7 +332,7 @@ namespace KindergartenSystem.Web.Controllers
             }
             var teacherId = await _teacherService.GetTeacherByUserId(User.GetId()!);
             var isTeacherOfTheChild = await _childService.IsTeacherOfTheGroup(teacherId, id);
-            if (!isTeacherOfTheChild)
+            if (!isTeacherOfTheChild && User.IsUserAdmin() == false)
             {
                 return StatusCode(401);
             }

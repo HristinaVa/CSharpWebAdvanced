@@ -29,5 +29,7 @@ namespace KindergartenSystem.Web.ViewModels.Parent
         [EmailAddress]
         [Display(Name = "Email")]
         public string EmailAddress { get; set; } = string.Empty;
+
+        //userid? childid?
     }
 }

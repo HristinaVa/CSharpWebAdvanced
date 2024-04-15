@@ -4,6 +4,7 @@ using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Services.Data.Models.Child;
 using KindergartenSystem.Web.ViewModels.Child;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using static KindergartenSystem.Common.EntityValidationConstants.ChildConst;
 
 
@@ -28,7 +29,7 @@ namespace KindergartenSystem.Services.Data
                                 MiddleName = x.MiddleName,
                                 LastName = x.LastName,
                                 ClassGroupName = x.ClassGroup.Title,
-                                Teacher = x.ClassGroup.Teachers.FirstOrDefault().Name,
+                                Teacher = x.ClassGroup.Teachers.First().Name,
                                 ParentName = x.Parent.Name,
                                 ImageUrl = x.ImageUrl,
                                 IsAttending = x.IsAttending
@@ -40,8 +41,9 @@ namespace KindergartenSystem.Services.Data
 
         public async Task<IEnumerable<AllChildrenByGroupViewModel>> AllByTeachersAsync(string teacherId)
         {
-            IEnumerable<AllChildrenByGroupViewModel> allChildrenByTeacher = await _dbContext.Children
-                            .Where(x => x.IsKindergartener && x.ClassGroup.Teachers.FirstOrDefault().Id.ToString() == teacherId)
+            var children = await _dbContext.Children.Include(x => x.Parent).Include(x => x.ClassGroup).ThenInclude(x=> x.Teachers)
+                .Where(x => x.ClassGroup.Teachers.Any(x => x.Id == Guid.Parse(teacherId))).ToArrayAsync();
+            IEnumerable<AllChildrenByGroupViewModel> allChildrenByTeacher = children
                             .Select(x => new AllChildrenByGroupViewModel
                             {
                                 Id = x.Id.ToString(),
@@ -49,13 +51,13 @@ namespace KindergartenSystem.Services.Data
                                 MiddleName = x.MiddleName,
                                 LastName = x.LastName,
                                 ClassGroupName = x.ClassGroup.Title,
-                                Teacher = x.ClassGroup.Teachers.FirstOrDefault().Name,
+                                Teacher = x.ClassGroup.Teachers.First(x => x.Id.ToString() == teacherId).Name,
                                 ParentName = x.Parent.Name,
                                 ImageUrl = x.ImageUrl,
                                 IsAttending = x.IsAttending
 
 
-                            }).ToArrayAsync();
+                            });
             return allChildrenByTeacher;
         }
 
