@@ -1,10 +1,13 @@
+using KindergartenService.Services.Mapping;
 using KindergartenSystem.Data;
 using KindergartenSystem.Data.Models;
 using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Web.Infrastructure.Extensions;
+using KindergartenSystem.Web.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 using static KindergartenSystem.Common.GeneralApplicationConstants;
 
 
@@ -39,6 +42,8 @@ builder.Services.AddControllersWithViews()
 
 
 var app = builder.Build();
+
+AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
 if (app.Environment.IsDevelopment())
 {
