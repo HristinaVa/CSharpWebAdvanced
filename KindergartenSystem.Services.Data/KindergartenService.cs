@@ -1,4 +1,5 @@
-﻿using KindergartenSystem.Data;
+﻿using KindergartenService.Services.Mapping;
+using KindergartenSystem.Data;
 using KindergartenSystem.Data.Models;
 using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Web.ViewModels.Home;
@@ -29,38 +30,19 @@ namespace KindergartenSystem.Services.Data
         public async Task<IndexViewModel> AboutAsync()
         {
             var kindergarten = await _dbContext.Kindergartens
-                .Include(x => x.Images)
-                //.ThenInclude(x => x.Url)
+                .Include(x => x.Images).To<IndexViewModel>()
                 .FirstAsync();
-            var image = kindergarten.Images.Select(x => x.Url).FirstOrDefault();
-            var model = new IndexViewModel
-            {
-                Id = kindergarten.Id,
-                Name = kindergarten.Name,
-                Address = kindergarten.Address,
-                EmailAddress = kindergarten.EmailAddress,
-                Principal = kindergarten.Principal,
-                PhoneNumber = kindergarten.PhoneNumber,
-                ImageUrl = image
-                
-
-
-            };
-            return model;
+            var image = await _dbContext.Image.FirstOrDefaultAsync(x => x.KindergartenId == kindergarten.Id);
+            kindergarten.ImageUrl = image.Url;
+        
+            return kindergarten;
 
         }
 
         public async Task<IEnumerable<ImageViewModel>> AboutInfoAsync()
         {
             IEnumerable<ImageViewModel> aboutInfo =
-                            await _dbContext.Image.Select(x => new ImageViewModel
-                            {
-                                Id = x.Id.ToString(),
-                                Url = x.Url,
-                                KindergardenId = x.KindergartenId,
-                               Title = x.Kindergarten.Name
-
-                            }).Take(3)
+                            await _dbContext.Image.Take(3).To<ImageViewModel>()
                             .ToArrayAsync();
             return aboutInfo;
         }

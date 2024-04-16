@@ -1,6 +1,9 @@
-﻿namespace KindergartenSystem.Web.ViewModels.AgeGroup
+﻿using KindergartenService.Services.Mapping;
+using KindergartenSystem.Data.Models;
+
+namespace KindergartenSystem.Web.ViewModels.AgeGroup
 {
-    public class AgeGroupViewModel
+    public class AgeGroupViewModel// : IMapFrom<Data.Models.AgeGroup>
     {
         public int Id { get; set; }
         public string Number { get; set; } = string.Empty;

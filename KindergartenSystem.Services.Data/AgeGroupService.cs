@@ -1,8 +1,7 @@
-﻿using KindergartenSystem.Data;
-using KindergartenSystem.Data.Models;
+﻿using KindergartenService.Services.Mapping;
+using KindergartenSystem.Data;
 using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Web.ViewModels.AgeGroup;
-using KindergartenSystem.Web.ViewModels.Child;
 using KindergartenSystem.Web.ViewModels.ClassGroup;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,12 +28,8 @@ namespace KindergartenSystem.Services.Data
 
         public async Task<IEnumerable<AllAgeGroupsViewModel>> AllAgeGroupsAsync(int id)
         {
-            var ageGroups = await _dbContext.AgeGroups.Where(x => x.KindergartenId == id).Select(x => new AllAgeGroupsViewModel
-            {
-                Id = x.Id,
-                Number = x.Number.ToString(),
-
-            }).ToArrayAsync();
+            var ageGroups = await _dbContext.AgeGroups.Where(x => x.KindergartenId == id).To<AllAgeGroupsViewModel>().ToArrayAsync();
+           
             return ageGroups;
         }
 
