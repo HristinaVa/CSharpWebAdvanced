@@ -4,11 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using static KindergartenSystem.Common.EntityValidationConstants.ChildConst;
 using KindergartenSystem.Web.ViewModels.ClassGroup;
 using KindergartenSystem.Web.ViewModels.Parent;
+using KindergartenService.Services.Mapping;
+using KindergartenSystem.Data.Models;
+using AutoMapper;
 
 
 namespace KindergartenSystem.Web.ViewModels.Child
 {
-    public class ChildFormModel
+    public class ChildFormModel : IMapFrom<Data.Models.Child>, IHaveCustomMappings
     {
         public ChildFormModel()
         {
@@ -37,7 +40,6 @@ namespace KindergartenSystem.Web.ViewModels.Child
         [Display(Name = "Снимка")]
         public string ImageUrl { get; set; } = string.Empty;
 
-       // public string ParentPhone { get; set; }
         [Required]
         [Phone]       
         [Display(Name = "Телефон на родител")]
@@ -47,6 +49,10 @@ namespace KindergartenSystem.Web.ViewModels.Child
         public int ClassGroupId { get; set; }
         public IEnumerable<ClassGroupSelectModel> ClassGroups { get; set; } = new HashSet<ClassGroupSelectModel>();
 
-
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<ChildFormModel, Data.Models.Child>().ForMember(d => d.ParentId, opt => opt.Ignore()); 
+            configuration.CreateMap<ChildFormModel, Data.Models.Parent>().ForMember(x => x.PhoneNumber, opt => opt.Ignore());
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using KindergartenService.Services.Mapping;
+﻿using AutoMapper;
+using KindergartenService.Services.Mapping;
 using KindergartenSystem.Data.Models;
 
 namespace KindergartenSystem.Web.ViewModels.Child
@@ -14,5 +15,7 @@ namespace KindergartenSystem.Web.ViewModels.Child
         public string ParentName { get; set; } = string.Empty;
         public string ImageUrl { get; set; } = string.Empty;
         public bool IsAttending { get; set; } = true;
+
+       
     }
 }

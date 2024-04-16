@@ -1,11 +1,10 @@
-﻿using KindergartenSystem.Data;
+﻿using KindergartenService.Services.Mapping;
+using KindergartenSystem.Data;
 using KindergartenSystem.Data.Models;
 using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Services.Data.Models.Child;
 using KindergartenSystem.Web.ViewModels.Child;
 using Microsoft.EntityFrameworkCore;
-using KindergartenService.Services.Mapping;
-using System.Linq;
 using static KindergartenSystem.Common.EntityValidationConstants.ChildConst;
 
 
@@ -21,10 +20,23 @@ namespace KindergartenSystem.Services.Data
 
         public async Task<IEnumerable<AllChildrenByGroupViewModel>> AllByParentsAsync(string parentId)
         {
-            IEnumerable<AllChildrenByGroupViewModel> allChildrenByParent = await _dbContext.Children
+            IEnumerable<AllChildrenByGroupViewModel> allChildrenByParent = await _dbContext.Children.Include(x => x.ClassGroup)
                             .Where(x => x.IsKindergartener && x.ParentId.ToString() == parentId)
-                            .To<AllChildrenByGroupViewModel>().ToArrayAsync();
-                            
+                                                        .Select(x => new AllChildrenByGroupViewModel
+                                                        {
+                                                            Id = x.Id.ToString(),
+                                                            FirstName = x.FirstName,
+                                                            MiddleName = x.MiddleName,
+                                                            LastName = x.LastName,
+                                                            ClassGroupName = x.ClassGroup.Title,
+                                                            Teacher = x.ClassGroup.Teachers.First().Name,
+                                                            ParentName = x.Parent.Name,
+                                                            ImageUrl = x.ImageUrl,
+                                                            IsAttending = x.IsAttending
+
+
+                                                        }).ToArrayAsync();
+
             return allChildrenByParent;
         }
 
@@ -84,10 +96,10 @@ namespace KindergartenSystem.Services.Data
                     LastName = x.LastName,
                     ParentName = x.Parent.Name,
                     ClassGroupName = x.ClassGroup.Title,
-                    Teacher = x.ClassGroup.Teachers.FirstOrDefault().Name,
+                    Teacher = x.ClassGroup.Teachers.First().Name,
                     ImageUrl = x.ImageUrl,
                     IsAttending = x.IsAttending
-                })//.OrderByDescending(x => x.IsAttending)
+                }) //.OrderByDescending(x => x.IsAttending)
                 .OrderBy(x => x.FirstName)
                 .ThenBy(x => x.LastName)
                 .ToArrayAsync();
@@ -103,17 +115,8 @@ namespace KindergartenSystem.Services.Data
 
         public async Task<string> CreateChildAsync(ChildFormModel model, string parentId)
         {
-            Child child = new Child()
-            {
-                FirstName = model.FirstName,
-                MiddleName = model.MiddleName,
-                LastName = model.LastName,
-                DateOfBirth = DateTime.UtcNow,
-                ImageUrl = model.ImageUrl,
-                ParentId = Guid.Parse(parentId),
-                ClassGroupId = model.ClassGroupId,
-                
-            };
+            Child child = AutoMapperConfig.MapperInstance.Map<Child>(model);
+            child.ParentId = Guid.Parse(parentId); 
 
             await _dbContext.Children.AddAsync(child);
             await _dbContext.SaveChangesAsync();
@@ -157,12 +160,12 @@ namespace KindergartenSystem.Services.Data
 
         public async Task<ChildDetailsViewModel> GetChildDetailsAsync(string childId)
         {
-            Child child = await _dbContext.Children
+            var child = await _dbContext.Children
                 .Include(x => x.Parent)
                 .Include(x => x.ClassGroup).ThenInclude(x => x.Teachers)
                 .Where(x => x.IsKindergartener && x.Id.ToString() == childId).FirstAsync();
 
-            
+
             ChildDetailsViewModel model = new ChildDetailsViewModel
             {
                 Id = child.Id.ToString(),
@@ -179,7 +182,7 @@ namespace KindergartenSystem.Services.Data
             };
             if (child.ClassGroup.Teachers.Any())
             {
-                model.Teacher = child.ClassGroup.Teachers.FirstOrDefault().Name;
+                model.Teacher = child.ClassGroup.Teachers.First().Name;
                 model.TeachersPhone = child.ClassGroup.Teachers.FirstOrDefault()?.PhoneNumber;
                 model.TeachersEmail = child.ClassGroup.Teachers?.FirstOrDefault()?.EmailAddress;
 
@@ -191,23 +194,16 @@ namespace KindergartenSystem.Services.Data
 
         public async Task<ChildFormModel> GetChildForEditAsync(string id)
         {
-            Child child = await _dbContext.Children
+            var child = await _dbContext.Children
                 .Include(x => x.Parent)
            .Include(x => x.ClassGroup).ThenInclude(x => x.Teachers)
-           .Where(x => x.IsKindergartener && x.Id.ToString() == id)
+           .Where(x => x.IsKindergartener && x.Id.ToString() == id).To<ChildFormModel>()
            .FirstAsync();
+            var parent = await _dbContext.Parents.Where(x => x.Children.Any(x => x.Id == Guid.Parse(id))).FirstAsync(); 
+            child.ParentPhone = parent.PhoneNumber;
+            return child;
 
-            return new ChildFormModel
-            {
-                FirstName = child.FirstName,
-                MiddleName = child.MiddleName,
-                LastName = child.LastName,
-                DateOfBirth = child.DateOfBirth,
-                ImageUrl = child.ImageUrl,
-                ParentPhone = child.Parent.PhoneNumber,
-                ClassGroupId = child.ClassGroupId
-                
-            };
+            
           
         }
 

@@ -1,6 +1,9 @@
-﻿namespace KindergartenSystem.Web.ViewModels.Child
+﻿using KindergartenService.Services.Mapping;
+using KindergartenSystem.Data.Models;
+
+namespace KindergartenSystem.Web.ViewModels.Child
 {
-    public class ChildDetailsViewModel : AllChildrenByGroupViewModel
+    public class ChildDetailsViewModel : AllChildrenByGroupViewModel//, IMapFrom<Data.Models.Child>
     {
         public string DateOfBirth { get; set; } = string.Empty;
         public string ParentPhone { get; set; } = string.Empty;
