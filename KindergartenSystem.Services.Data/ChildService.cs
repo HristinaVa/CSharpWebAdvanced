@@ -4,6 +4,7 @@ using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Services.Data.Models.Child;
 using KindergartenSystem.Web.ViewModels.Child;
 using Microsoft.EntityFrameworkCore;
+using KindergartenService.Services.Mapping;
 using System.Linq;
 using static KindergartenSystem.Common.EntityValidationConstants.ChildConst;
 
@@ -22,20 +23,8 @@ namespace KindergartenSystem.Services.Data
         {
             IEnumerable<AllChildrenByGroupViewModel> allChildrenByParent = await _dbContext.Children
                             .Where(x => x.IsKindergartener && x.ParentId.ToString() == parentId)
-                            .Select(x => new AllChildrenByGroupViewModel
-                            {
-                                Id = x.Id.ToString(),
-                                FirstName = x.FirstName,
-                                MiddleName = x.MiddleName,
-                                LastName = x.LastName,
-                                ClassGroupName = x.ClassGroup.Title,
-                                Teacher = x.ClassGroup.Teachers.First().Name,
-                                ParentName = x.Parent.Name,
-                                ImageUrl = x.ImageUrl,
-                                IsAttending = x.IsAttending
-
-
-                            }).ToArrayAsync();
+                            .To<AllChildrenByGroupViewModel>().ToArrayAsync();
+                            
             return allChildrenByParent;
         }
 
@@ -64,12 +53,7 @@ namespace KindergartenSystem.Services.Data
         public async Task<AllChildrenServiceModel> AllChildrenAsync(AllChildrenByGroupQueryModel model)
         {
             IQueryable<Child> childrenQuery = _dbContext.Children.AsQueryable();
-            //if (model.AgeGroups != null)
-            //{
-            //    childrenQuery = childrenQuery.Where(x => x.ClassGroup.Title == model.ClassGroup);
-
-
-            //}
+           
             if (!string.IsNullOrWhiteSpace(model.ClassGroup))
             {
 
