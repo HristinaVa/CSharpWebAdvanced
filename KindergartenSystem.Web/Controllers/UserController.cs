@@ -1,4 +1,5 @@
-﻿using KindergartenSystem.Data.Models;
+﻿using Griesoft.AspNetCore.ReCaptcha;
+using KindergartenSystem.Data.Models;
 using KindergartenSystem.Web.ViewModels.User;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
@@ -24,6 +25,7 @@ namespace KindergartenSystem.Web.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateRecaptcha(Action = nameof(Register), ValidationFailedAction = ValidationFailedAction.ContinueRequest)]
         public async Task<IActionResult> Register(RegisterFormModel model)
         {
             if (!ModelState.IsValid)

@@ -28,6 +28,8 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<KindergartenDbContext>();
 
+builder.Services.AddRecaptchaService();
+
 builder.Services.AddApplicationServices(typeof(IKindergartenService));
 builder.Services.ConfigureApplicationCookie(config => 
 {
