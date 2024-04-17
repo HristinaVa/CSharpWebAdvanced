@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using KindergartenSystem.Web.ViewModels;
-using KindergartenSystem.Services.Data.Interfaces;
+﻿using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Web.ViewModels.Home;
-using KindergartenSystem.Services.Data;
+using Microsoft.AspNetCore.Mvc;
+using static KindergartenSystem.Common.GeneralApplicationConstants;
 
 
 
@@ -20,6 +18,10 @@ namespace KindergartenSystem.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
+            if (User.IsInRole(AdminRoleName))
+            {
+               return RedirectToAction("Index", "Home", new {Area = AdminAreaName});
+            }
             IEnumerable<ImageViewModel> viewModel = await _kindergartenService.AboutInfoAsync();
             return View(viewModel);
         }

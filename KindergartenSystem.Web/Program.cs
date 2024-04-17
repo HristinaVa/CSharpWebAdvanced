@@ -1,4 +1,4 @@
-using KindergartenService.Services.Mapping;
+using KindergartenSystem.Services.Mapping;
 using KindergartenSystem.Data;
 using KindergartenSystem.Data.Models;
 using KindergartenSystem.Services.Data.Interfaces;
@@ -34,6 +34,7 @@ builder.Services.AddApplicationServices(typeof(IKindergartenService));
 builder.Services.ConfigureApplicationCookie(config => 
 {
     config.LoginPath = "/User/Login";
+    config.AccessDeniedPath = "/Home/Error/401";
 });
 
 builder.Services.AddControllersWithViews()
@@ -72,9 +73,15 @@ app.SeedAdmin(AdminEmail);
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "/{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+
+    endpoints.MapControllerRoute(
         name: "ProtectingUrlPattern",
         pattern: "/{controller}/{action}/{id}/{information}",
         defaults: new { Controller = "ClassGroup", Action = "Details" });
+   
     endpoints.MapDefaultControllerRoute();
     endpoints.MapRazorPages();
 });

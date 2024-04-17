@@ -7,6 +7,7 @@
         public const int DefaultChildrenPerPage = 9;
         
         public const string AdminRoleName = "Administrator";
+        public const string AdminAreaName = "Admin";
         public const string AdminEmail = "admin@admin.bg";
 
     }

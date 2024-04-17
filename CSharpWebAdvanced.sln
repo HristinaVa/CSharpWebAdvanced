@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KindergartenSystem.Services
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KindergartenSystem.WepAPI", "KindergartenSystem.WepAPI\KindergartenSystem.WepAPI.csproj", "{067AAE41-67C3-41D8-AB2C-CC7E6AE0DAE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KindergartenService.Services.Mapping", "KindergartenService.Services.Mapping\KindergartenService.Services.Mapping.csproj", "{6980315C-CF65-40C8-A056-0D272756FA8C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KindergartenSystem.Services.Mapping", "KindergartenService.Services.Mapping\KindergartenSystem.Services.Mapping.csproj", "{6980315C-CF65-40C8-A056-0D272756FA8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
