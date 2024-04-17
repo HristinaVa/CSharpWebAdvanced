@@ -1,4 +1,4 @@
-﻿using KindergartenService.Services.Mapping;
+﻿using KindergartenSystem.Services.Mapping;
 using KindergartenSystem.Data.Models;
 
 namespace KindergartenSystem.Web.ViewModels.Child

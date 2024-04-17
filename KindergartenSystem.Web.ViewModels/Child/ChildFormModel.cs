@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using static KindergartenSystem.Common.EntityValidationConstants.ChildConst;
 using KindergartenSystem.Web.ViewModels.ClassGroup;
 using KindergartenSystem.Web.ViewModels.Parent;
-using KindergartenService.Services.Mapping;
+using KindergartenSystem.Services.Mapping;
 using KindergartenSystem.Data.Models;
 using AutoMapper;
 

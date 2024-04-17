@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using System.Reflection;
 
-namespace KindergartenService.Services.Mapping
+namespace KindergartenSystem.Services.Mapping
 {
     public static class AutoMapperConfig
     {

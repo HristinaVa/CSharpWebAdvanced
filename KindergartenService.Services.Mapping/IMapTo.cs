@@ -1,4 +1,4 @@
-﻿namespace KindergartenService.Services.Mapping
+﻿namespace KindergartenSystem.Services.Mapping
 {
     public interface IMapTo<T> 
     {

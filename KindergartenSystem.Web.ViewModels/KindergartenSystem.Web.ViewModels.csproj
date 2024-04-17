@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KindergartenService.Services.Mapping\KindergartenService.Services.Mapping.csproj" />
+    <ProjectReference Include="..\KindergartenService.Services.Mapping\KindergartenSystem.Services.Mapping.csproj" />
     <ProjectReference Include="..\KindergartenSystem.Common\KindergartenSystem.Common.csproj" />
     <ProjectReference Include="..\KindergartenSystem.Data.Models\KindergartenSystem.Data.Models.csproj" />
   </ItemGroup>

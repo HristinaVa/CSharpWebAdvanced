@@ -1,7 +1,7 @@
 ﻿using AutoMapper.QueryableExtensions;
 using System.Linq.Expressions;
 
-namespace KindergartenService.Services.Mapping
+namespace KindergartenSystem.Services.Mapping
 {
     public static class QueryableMappingExtensions
     {

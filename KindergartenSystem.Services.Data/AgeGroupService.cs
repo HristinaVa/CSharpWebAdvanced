@@ -1,4 +1,4 @@
-﻿using KindergartenService.Services.Mapping;
+﻿using KindergartenSystem.Services.Mapping;
 using KindergartenSystem.Data;
 using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Web.ViewModels.AgeGroup;

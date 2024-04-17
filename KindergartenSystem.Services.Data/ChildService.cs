@@ -1,4 +1,4 @@
-﻿using KindergartenService.Services.Mapping;
+﻿using KindergartenSystem.Services.Mapping;
 using KindergartenSystem.Data;
 using KindergartenSystem.Data.Models;
 using KindergartenSystem.Services.Data.Interfaces;

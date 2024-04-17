@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KindergartenService.Services.Mapping
+namespace KindergartenSystem.Services.Mapping
 {
     public interface IMapFrom<T>
     {

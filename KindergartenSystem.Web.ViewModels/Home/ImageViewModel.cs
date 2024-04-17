@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using KindergartenService.Services.Mapping;
+using KindergartenSystem.Services.Mapping;
 using KindergartenSystem.Data.Models;
 using KindergartenSystem.Web.ViewModels.Child;
 using System;
