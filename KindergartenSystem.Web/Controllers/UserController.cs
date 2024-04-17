@@ -1,5 +1,6 @@
 ﻿using Griesoft.AspNetCore.ReCaptcha;
 using KindergartenSystem.Data.Models;
+using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Web.ViewModels.User;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
@@ -11,10 +12,11 @@ namespace KindergartenSystem.Web.Controllers
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+       
 
         public UserController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
-        {
-            
+
+        {    
             _signInManager = signInManager;
             _userManager = userManager;
         }
@@ -86,6 +88,7 @@ namespace KindergartenSystem.Web.Controllers
             return Redirect(model.ReturnUrl ?? "/Home/Index");
 
         }
+       
 
     }
 }

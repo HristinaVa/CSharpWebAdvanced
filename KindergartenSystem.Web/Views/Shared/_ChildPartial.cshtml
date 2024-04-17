@@ -27,29 +27,29 @@
             }
                 
             <br />
-            <a asp-controller="Child" asp-action="Details" asp-route-id="@Model.Id"
+            <a asp-area="" asp-controller="Child" asp-action="Details" asp-route-id="@Model.Id"
                class="btn btn-success">Details</a>
-            <a asp-controller="Child" asp-action="AddItem" asp-route-id="@Model.Id"
+            <a asp-area="" asp-controller="Child" asp-action="AddItem" asp-route-id="@Model.Id"
                class="btn btn-primary">Add</a>
             @if (this.User.Identity?.IsAuthenticated ?? false)
             {
                 @if ((IsUserTeacher && IsTeacherOfTheChild) || User.IsUserAdmin())
                 {
-                    <a asp-controller="Child" asp-action="Edit" asp-route-id="@Model.Id"
+                    <a asp-area="" asp-controller="Child" asp-action="Edit" asp-route-id="@Model.Id"
                        class="btn btn-warning">Edit</a>
-                    <a asp-controller="Child" asp-action="Delete" asp-route-id="@Model.Id"
+                    <a asp-area="" asp-controller="Child" asp-action="Delete" asp-route-id="@Model.Id"
                        class="btn btn-danger">Delete</a>
                     <p></p>
                     @if (Model.IsAttending)
                     {
-                        <form class="input-group-sm" asp-controller="Child"
+                        <form class="input-group-sm" asp-area="" asp-controller="Child"
                               asp-action="Missing" asp-route-id="@Model.Id" method="post">
                             <input class="btn btn-primary" type="submit" value="Missing" />
                         </form>
                     }
                     else
                     {
-                        <form asp-controller="Child" asp-action="Attending"
+                        <form asp-area="" asp-controller="Child" asp-action="Attending"
                               asp-route-id="@Model.Id" method="post">
                             <input class="btn btn-primary" type="submit" value="Attending" />
                         </form>

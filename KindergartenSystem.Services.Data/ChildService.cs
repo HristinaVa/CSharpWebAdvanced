@@ -43,7 +43,7 @@ namespace KindergartenSystem.Services.Data
         public async Task<IEnumerable<AllChildrenByGroupViewModel>> AllByTeachersAsync(string teacherId)
         {
             var children = await _dbContext.Children.Include(x => x.Parent).Include(x => x.ClassGroup).ThenInclude(x=> x.Teachers)
-                .Where(x => x.ClassGroup.Teachers.Any(x => x.Id == Guid.Parse(teacherId))).ToArrayAsync();
+                .Where(x => x.IsKindergartener && x.ClassGroup.Teachers.Any(x => x.Id == Guid.Parse(teacherId))).ToArrayAsync();
             IEnumerable<AllChildrenByGroupViewModel> allChildrenByTeacher = children
                             .Select(x => new AllChildrenByGroupViewModel
                             {
