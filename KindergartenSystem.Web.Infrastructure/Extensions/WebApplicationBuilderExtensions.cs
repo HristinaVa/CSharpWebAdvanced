@@ -1,4 +1,5 @@
 ﻿using KindergartenSystem.Data.Models;
+using KindergartenSystem.Web.Infrastructure.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -68,6 +69,10 @@ namespace KindergartenSystem.Web.Infrastructure.Extensions
             .GetResult();
 
             return application;
+        }
+        public static IApplicationBuilder EnableOnlineUsersCheck(this IApplicationBuilder app)
+        {
+            return app.UseMiddleware<OnlineUsersMiddleware>();
         }
     }
 }

@@ -9,6 +9,9 @@
         public const string AdminRoleName = "Administrator";
         public const string AdminAreaName = "Admin";
         public const string AdminEmail = "admin@admin.bg";
+        public const string CookieName = "Online";
+        public const int MinsBeforeGoOffline = 10;
+
 
     }
 }
