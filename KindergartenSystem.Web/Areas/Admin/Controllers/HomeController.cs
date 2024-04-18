@@ -8,5 +8,16 @@ namespace KindergartenSystem.Web.Areas.Admin.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public ActionResult Get()
+        {
+            return View();
+        }
+        public ActionResult<string> GetSecretCode()
+        {
+            string newGuid = Guid.NewGuid().ToString();
+            return newGuid;
+
+        }
     }
 }

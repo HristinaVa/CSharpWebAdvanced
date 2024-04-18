@@ -1,0 +1,23 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div>
+        <input type="text" id="generatedGuid" style="width: 320px;" readonly />
+        <br />
+        <button id="generateButton" style="margin-top: 20px;">Generate Access Code</button>
+    </div>
+
+    <script>
+        document.getElementById('generateButton').addEventListener('click', function () {
+            fetch('/Admin/Home/GetSecretCode')
+                .then(response => response.text())
+                .then(data => document.getElementById('generatedGuid').value = data);
+        });
+    </script>
+</body>
+</html>

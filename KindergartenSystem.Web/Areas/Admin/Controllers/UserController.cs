@@ -15,5 +15,7 @@ namespace KindergartenSystem.Web.Areas.Admin.Controllers
             var users = await _userService.GetUsersAsync();
             return View(users);
         }
+
+        
     }
 }
