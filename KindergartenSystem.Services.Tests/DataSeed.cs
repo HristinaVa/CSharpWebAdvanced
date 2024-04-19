@@ -8,6 +8,7 @@ namespace KindergartenSystem.Services.Tests
         public static ApplicationUser TeacherUser;
         public static ApplicationUser ParentUser;
         public static Teacher Teacher;
+        public static Child Child;
 
         public static void SeedData(KindergartenDbContext context)
         {
@@ -49,9 +50,23 @@ namespace KindergartenSystem.Services.Tests
                 ImageUrl = "https://st.depositphotos.com/1758000/2947/v/450/depositphotos_29477577-stock-illustration-eyewear-glasses-teacher-touching-chin.jpg",
                 User = TeacherUser
             };
+            Child = new Child()
+            {
+                FirstName = "Yani",
+                MiddleName = "Ivanov",
+                LastName = "Ivanov",
+                DateOfBirth = DateTime.Today,
+                ImageUrl = "https://i.pinimg.com/736x/20/7c/9a/207c9a0c107ec57c0d97d5ae0bbbc851.jpg",
+                ClassGroupId = 2,
+                ParentId = Guid.Parse("7DD0AE27-C524-4327-AE16-BBF08677E10C"),
+
+
+
+            };
             context.Add(TeacherUser);
             context.Add(ParentUser);
             context.Add(Teacher);
+            context.Add(Child);
             context.SaveChanges();
         }
     }

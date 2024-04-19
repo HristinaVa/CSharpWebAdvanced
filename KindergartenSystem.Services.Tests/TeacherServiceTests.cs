@@ -10,6 +10,7 @@ namespace KindergartenSystem.Services.Tests
         private KindergartenDbContext _context;
         private DbContextOptions<KindergartenDbContext> _options;
         private ITeacherService _teacherService;
+        private IChildService _childService;
         
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -21,6 +22,7 @@ namespace KindergartenSystem.Services.Tests
 
             SeedData(_context);
             _teacherService = new TeacherService(_context);
+            _childService = new ChildService(_context);
 
         }
 
@@ -42,6 +44,46 @@ namespace KindergartenSystem.Services.Tests
 
             Assert.IsFalse(result);
         }
+        [Test]
+        public async Task TeacherExistsByPhoneReturnTrueWhenExists()
+        {
+            var teacherPhone = Teacher.PhoneNumber;
+
+            bool result = await _teacherService.TeacherExistsByPhoneNumberAsync(teacherPhone);
+
+            Assert.IsTrue(result);
+        }
+        [Test]
+        public async Task TeacherExistsByPhoneReturnFalseWhenMissing()
+        {
+            var teacherPhone = ParentUser.PhoneNumber;
+
+            bool result = await _teacherService.TeacherExistsByPhoneNumberAsync(teacherPhone);
+
+            Assert.IsFalse(result);
+        }
+        [Test]
+        public async Task IsTheTeacherOfTheChildReturnsTrueWhenSheIs()
+        {
+            var teacherUserId = TeacherUser.Id.ToString();
+            var childId = Child.Id.ToString();
+
+            bool result = await _teacherService.IsChildFromTheGroup(teacherUserId, childId);
+
+            Assert.IsTrue(result);
+        }
+        [Test]
+        public async Task IsTheTeacherOfTheChildReturnsFalseWhenSheIsNot()
+        {
+            var teacherUserId = ParentUser.Id.ToString();
+            var childId = Child.Id.ToString();
+
+            bool result = await _teacherService.IsChildFromTheGroup(teacherUserId, childId);
+
+            Assert.IsFalse(result);
+        }
 
     }
+    
+
 }
