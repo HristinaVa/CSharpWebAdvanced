@@ -27,7 +27,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KindergartenSystem.Services
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KindergartenSystem.WepAPI", "KindergartenSystem.WepAPI\KindergartenSystem.WepAPI.csproj", "{067AAE41-67C3-41D8-AB2C-CC7E6AE0DAE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KindergartenSystem.Services.Mapping", "KindergartenService.Services.Mapping\KindergartenSystem.Services.Mapping.csproj", "{6980315C-CF65-40C8-A056-0D272756FA8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KindergartenSystem.Services.Mapping", "KindergartenService.Services.Mapping\KindergartenSystem.Services.Mapping.csproj", "{6980315C-CF65-40C8-A056-0D272756FA8C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A590CDD3-938D-42DB-974B-6AD03FC5B141}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KindergartenSystem.Services.Tests", "KindergartenSystem.Services.Tests\KindergartenSystem.Services.Tests.csproj", "{CD9AEB73-D76E-4889-8786-EED1F5EA26C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +79,10 @@ Global
 		{6980315C-CF65-40C8-A056-0D272756FA8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6980315C-CF65-40C8-A056-0D272756FA8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6980315C-CF65-40C8-A056-0D272756FA8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD9AEB73-D76E-4889-8786-EED1F5EA26C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD9AEB73-D76E-4889-8786-EED1F5EA26C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD9AEB73-D76E-4889-8786-EED1F5EA26C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD9AEB73-D76E-4889-8786-EED1F5EA26C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,6 +97,7 @@ Global
 		{504EE491-7611-40A7-93E4-087C1201B062} = {B6151A98-6F1D-49AE-BAED-035A439B1488}
 		{067AAE41-67C3-41D8-AB2C-CC7E6AE0DAE0} = {84AC7105-826B-40F2-A9B7-D4CC56F04987}
 		{6980315C-CF65-40C8-A056-0D272756FA8C} = {B6151A98-6F1D-49AE-BAED-035A439B1488}
+		{CD9AEB73-D76E-4889-8786-EED1F5EA26C6} = {A590CDD3-938D-42DB-974B-6AD03FC5B141}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE63E015-41F5-4502-A043-DBE2FD1B7706}

@@ -10,6 +10,10 @@ namespace KindergartenSystem.Data
         public KindergartenDbContext(DbContextOptions<KindergartenDbContext> options)
             : base(options)
         {
+            if (!Database.IsRelational())
+            {
+                Database.EnsureCreated();
+            }
         }
        
         protected override void OnModelCreating(ModelBuilder builder)
