@@ -66,13 +66,7 @@ namespace KindergartenSystem.Services.Data
                 return null;
             }
             return parent.Id.ToString();
-            //ParentToChildFormModel? getParent = await _dbContext.Parents
-            //                .Select(x => new ParentToChildFormModel()
-            //                {
-            //                    Id =x.Id.ToString(),
-            //                    PhoneNumber = x.PhoneNumber
-            //                }).FirstOrDefaultAsync(x => x.PhoneNumber == phone);
-            //return getParent;
+            
         }
     }
 }

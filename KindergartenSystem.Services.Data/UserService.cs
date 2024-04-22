@@ -1,6 +1,9 @@
 ﻿using KindergartenSystem.Data;
+using KindergartenSystem.Data.Models;
 using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Services.Mapping;
+using KindergartenSystem.Web.ViewModels.ClassGroup;
+using KindergartenSystem.Web.ViewModels.Teacher;
 using KindergartenSystem.Web.ViewModels.User;
 using Microsoft.EntityFrameworkCore;
 
@@ -50,5 +53,61 @@ namespace KindergartenSystem.Services.Data
             }
             return $"{user.FirstName} {user.LastName}";
         }
+
+        public async Task CreateTeacherAsync(string userId, CreateTeacherFromUserFormModel model)
+        {
+            Teacher teacher = new Teacher()
+            {
+                EmailAddress = model.EmailAddress,
+                ImageUrl = model.ImageUrl,
+                Name = model.Name,
+                PhoneNumber = model.PhoneNumber,
+                UserId = userId,
+                ClassGroupId = model.ClassGroupId,
+
+            };
+            await _dbContext.Teachers.AddAsync(teacher);
+            await _dbContext.SaveChangesAsync();
+           
+        }
+
+        public async Task<bool> TeacherAlreadyExistsAsync(string userId)
+        {
+            
+            bool result = await _dbContext
+                .Teachers
+                .AnyAsync(a => a.UserId == userId);
+
+            return result;
+           
+        }
+
+        public async Task<bool> UserExistsByIdAsync(string userId)
+        {
+            var result = await _dbContext.Users.AnyAsync(x => x.Id == userId);
+            return result;
+            
+
+        }
+
+        public async Task<IEnumerable<ClassGroupSelectModel>> GetClassGroupsAsync()
+        {
+            IEnumerable<ClassGroupSelectModel> getClassGroups = await _dbContext.ClassGroups
+                            .Select(x => new ClassGroupSelectModel()
+                            {
+                                Id = x.Id,
+                                Title = x.Title
+                            }).ToArrayAsync();
+
+            return getClassGroups;
+        }
+
+        public async Task<bool> ClassGroupExistsById(int id)
+        {
+            var result = await _dbContext.ClassGroups.AnyAsync(x => x.Id == id);
+
+            return result;
+        }
     }
 }
+

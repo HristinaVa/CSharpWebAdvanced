@@ -11,19 +11,20 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th><label>Email</label></th>
+               <th><label>Email</label></th>
                 <th><label>Full Name</label></th>
                 <th><label>Phone Number</label></th>
                <th><label>User Is Teacher</label></th>
                <th><label>User Is Parent</label></th>
                <th><label>User Is Online</label></th>
+               <th><label>Set user to a Teacher</label></th>
              </tr>
         </thead>
         <tbody>
         @foreach (var user in Model)
         {
             <tr>
-                <td><label>@user.Email</label></td>
+               <td><label>@user.Email</label></td>
                 <td><label>@user.Name</label></td>
                 <td><label>@user.PhoneNumber</label></td>
                     
@@ -57,6 +58,19 @@
                     @if (OnlineUsersMiddleware.CheckIfUserIsOnline(user.UserId.ToLower()))
                     {
                         <label>✔</label>
+                    }
+                    else
+                    {
+                        <label class="text-center">❌</label>
+
+                    }
+                </td>
+                <td>
+                    @if (!IsUserParent && !IsUserTeacher)
+                    {
+                        <label>
+                            <a class="btn btn-warning" asp-area="Admin" asp-controller="User" asp-action="SetAsTeacher" asp-route-userId="@user.UserId">SetAsTeacher</a>
+                        </label>
                     }
                     else
                     {

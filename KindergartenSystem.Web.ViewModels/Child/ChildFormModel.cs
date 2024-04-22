@@ -19,33 +19,33 @@ namespace KindergartenSystem.Web.ViewModels.Child
         }
         [Required]
         [StringLength(FirstNameMaxLength, MinimumLength = FirstNameMinLength)]
-        [Display(Name = "Име")]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; } = string.Empty;
         [Required]
         [StringLength(MiddleNameMaxLength, MinimumLength = MiddleNameMinLength)]
-        [Display(Name = "Презиме")]
+        [Display(Name = "Middle Name")]
 
         public string MiddleName { get; set; } = string.Empty;
         [Required]
         [StringLength(LastNameMaxLength, MinimumLength = LastNameMinLength)]
-        [Display(Name = "Фамилия")]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; } = string.Empty;
         [Required(ErrorMessage = "Invalid format")]
         [DataType(DataType.Date)]
-        [Display(Name = "Дата на раждане")]
+        [Display(Name = "Date Of Birth")]
         public DateTime DateOfBirth { get; set; }// = DateTime.Parse(DateOfBirthFormat);
         
         [Required(AllowEmptyStrings = false)]
         [StringLength(ImageUrlMaxLength)]
-        [Display(Name = "Снимка")]
+        [Display(Name = "Picture")]
         public string ImageUrl { get; set; } = string.Empty;
 
         [Required]
         [Phone]       
-        [Display(Name = "Телефон на родител")]
+        [Display(Name = "Phone of the Parent")]
         public string ParentPhone { get; set; } = null!;
 
-        [Display(Name = "Група")]
+        [Display(Name = "Class Group")]
         public int ClassGroupId { get; set; }
         public IEnumerable<ClassGroupSelectModel> ClassGroups { get; set; } = new HashSet<ClassGroupSelectModel>();
 

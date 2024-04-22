@@ -44,6 +44,7 @@
             public const int NameMinLength = 4;
             public const int NameMaxLength = 60;
             public const int ImageUrlMaxLength = 2048;
+            public const int ImageUrlMinLength = 2;
             public const int PhoneNumberMaxLength = 13;
             public const int PhoneNumberMinLength = 9;
 

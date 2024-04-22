@@ -4,7 +4,7 @@ using KindergartenSystem.Services.Mapping;
 
 namespace KindergartenSystem.Web.ViewModels.User
 {
-    public class UserViewModel : IMapFrom<Teacher>, IMapFrom<Data.Models.Parent>, IHaveCustomMappings
+    public class UserViewModel : IMapFrom<Data.Models.Teacher>, IMapFrom<Data.Models.Parent>, IHaveCustomMappings
     {
         public string UserId { get; set; } = null!;
         public string Name { get; set; } = null!;
@@ -13,7 +13,7 @@ namespace KindergartenSystem.Web.ViewModels.User
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<Teacher, UserViewModel>()
+            configuration.CreateMap<Data.Models.Teacher, UserViewModel>()
                             .ForMember(d => d.Email, opt => opt.MapFrom(s => s.User.Email))
                             .ForMember(d => d.Name, opt => opt.MapFrom(s => s.User.FirstName + " " + s.User.LastName));
             configuration.CreateMap<Data.Models.Parent, UserViewModel>()
