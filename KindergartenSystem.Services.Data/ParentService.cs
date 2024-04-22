@@ -21,7 +21,7 @@ namespace KindergartenSystem.Services.Data
             {
                 Name = model.Name,
                 PhoneNumber = model.PhoneNumber,
-                PhoneNumberSecond = model.PhoneNumberSecond,
+                //PhoneNumberSecond = model.PhoneNumberSecond,
                 Address = model.Address,
                 UserId = userId,
                 EmailAddress = model.EmailAddress,

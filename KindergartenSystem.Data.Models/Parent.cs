@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using KindergartenSystem.Data.Models.Enums;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,9 +21,7 @@ namespace KindergartenSystem.Data.Models
         [Required]
         [MaxLength(PhoneNumberMaxLength)]
         public string PhoneNumber { get; set; } = string.Empty;
-        [Required]
-        [MaxLength(PhoneNumberMaxLength)]
-        public string PhoneNumberSecond { get; set; } = string.Empty;
+        
         [Required]
         [MaxLength(AddressMaxLength)]
         public string Address { get; set; } = string.Empty;
@@ -32,6 +31,7 @@ namespace KindergartenSystem.Data.Models
         [Required]
         [Comment("User Identifier")]
         public string UserId { get; set; } = string.Empty;
+        public ParentStatus Status { get; set; } // Pending, Approved, Denied
 
         [ForeignKey(nameof(UserId))]
         public ApplicationUser User { get; set; } = null!;
