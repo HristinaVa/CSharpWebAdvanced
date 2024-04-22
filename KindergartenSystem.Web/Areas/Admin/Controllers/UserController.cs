@@ -1,4 +1,5 @@
-﻿using KindergartenSystem.Services.Data;
+﻿using KindergartenSystem.Data.Models.Enums;
+using KindergartenSystem.Services.Data;
 using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Web.Infrastructure.Extensions;
 using KindergartenSystem.Web.ViewModels.Child;
@@ -21,6 +22,7 @@ namespace KindergartenSystem.Web.Areas.Admin.Controllers
             var users = await _userService.GetUsersAsync();
             return View(users);
         }
+        [Route("/User/SetAsTeacher/")]
         [HttpGet]
         public async Task<IActionResult> SetAsTeacher(string userId)
         {
@@ -67,7 +69,6 @@ namespace KindergartenSystem.Web.Areas.Admin.Controllers
             }
 
 
-
             try
             {
                 await _userService.CreateTeacherAsync(userId, model);
@@ -75,15 +76,40 @@ namespace KindergartenSystem.Web.Areas.Admin.Controllers
             catch (Exception)
             {
 
-
                 return RedirectToAction("All", "User", new { area = "Admin" });
             }
 
             return RedirectToAction("All", "User", new { area = "Admin" });
             //FOR NOW!!
         }
+        public async Task<IActionResult> PendingParents()
+        {
+            var pendingParents = await _userService.GetPendingParentsAsync();
+            return View(pendingParents);
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateStatus(string parentId, ParentStatus newStatus)
+        {
+            if (string.IsNullOrEmpty(parentId))
+            {
+                return BadRequest("Parent Id is missing.");
+            }
+
+           
+            var result = await _userService.UpdateParentStatusAsync(parentId, newStatus);
+
+            if (!result)
+            {
+                return NotFound($"Parent with ID {parentId} not found.");
+            }
+
+            return RedirectToAction("PendingParents");
+        }
+       
     }
-
-
 }
+    
+
+
+
 

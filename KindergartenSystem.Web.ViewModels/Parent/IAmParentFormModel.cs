@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using KindergartenSystem.Data.Models.Enums;
+using System.ComponentModel.DataAnnotations;
 using static KindergartenSystem.Common.EntityValidationConstants.Parent;
 
 namespace KindergartenSystem.Web.ViewModels.Parent
@@ -13,12 +14,7 @@ namespace KindergartenSystem.Web.ViewModels.Parent
         [StringLength(PhoneNumberMaxLength, MinimumLength = PhoneNumberMinLength)]
         [Phone]
         [Display(Name = "Phone")]
-        public string PhoneNumber { get; set; } = null!;
-        [Required]
-        [StringLength(PhoneNumberMaxLength, MinimumLength = PhoneNumberMinLength)]
-        [Phone]
-        [Display(Name = "Phone 2")]
-        public string PhoneNumberSecond { get; set; } = null!;
+        public string PhoneNumber { get; set; } = null!;        
         [Required]
         [StringLength(AddressMaxLength, MinimumLength = AddressMinLength)]
         [Display(Name = "Address")]
@@ -29,9 +25,11 @@ namespace KindergartenSystem.Web.ViewModels.Parent
         [Display(Name = "Email")]
         public string EmailAddress { get; set; } = null!;
         [Required]
+        public ParentStatus Status { get; set; }
         //[DataType(DataType.Password)]
-        [Display(Name = "Secret Code")]
-        public string SecretCode { get; set; } = null!;
+        //[Display(Name = "Secret Code")]
+        //public string SecretCode { get; set; } = null!;
+
 
         //userid? childid?
     }

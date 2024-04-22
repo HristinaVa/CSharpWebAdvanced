@@ -25,12 +25,7 @@
                        placeholder="+359888888888">
                 <span asp-validation-for="PhoneNumber" class="small textdanger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="PhoneNumberSecond"></label>
-                <input asp-for="PhoneNumberSecond" class="form-control"
-                       placeholder="+359777777777">
-                <span asp-validation-for="PhoneNumberSecond" class="small textdanger"></span>
-            </div>
+            
             <div class="form-group">
                 <label asp-for="Address"></label>
                 <input asp-for="Address" class="form-control"
@@ -42,12 +37,6 @@
                 <input asp-for="EmailAddress" class="form-control"
                        placeholder="@@email.com">
                 <span asp-validation-for="EmailAddress" class="small textdanger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SecretCode"></label>
-                <input asp-for="SecretCode" class="form-control"
-                       placeholder="Check your email for verification code">
-                <span asp-validation-for="SecretCode" class="small textdanger"></span>
             </div>
             <div class="text-center">
                 <input class="btn btn-primary mt-3 " type="submit" value="Save" />

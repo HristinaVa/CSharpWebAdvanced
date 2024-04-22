@@ -5,16 +5,10 @@
     <h2 class="display-4">Hello, Admin!</h2>
    
     <hr class="my-4">
-    <a asp-area="" asp-controller="Child" asp-action="Mine"
-       class="btn btn-primary btn-lg">All Children</a>
-    <span> | </span>
     <a asp-area="" asp-controller="Child" asp-action="Add"
        class="btn btn-primary btn-lg">Add Child</a>
     <span> | </span>
-    <a asp-area="" asp-controller="Parent" asp-action="IAmParent"
-       class="btn btn-primary btn-lg">Add Parent</a>
-    <span> | </span>  
-    <a asp-area="Admin" asp-controller="User" asp-action="All"
+        <a asp-area="Admin" asp-controller="User" asp-action="All"
        class="btn btn-primary btn-lg">All Users</a>
     <span> | </span>
     <a asp-area="Admin" asp-controller="Home" asp-action="Get"
@@ -22,5 +16,8 @@
     <span> | </span>
     <a asp-area="Admin" asp-controller="User" asp-action="SetAsTeacher"
        class="btn btn-primary btn-lg">Set User As a Teacher</a>
+    <span> | </span>
+    <a asp-area="Admin" asp-controller="User" asp-action="PendingParents"
+       class="btn btn-primary btn-lg">Parents Requests</a>
     
 </div>

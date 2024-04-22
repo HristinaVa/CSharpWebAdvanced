@@ -1,9 +1,12 @@
 ﻿using KindergartenSystem.Data;
 using KindergartenSystem.Data.Models;
+using KindergartenSystem.Data.Models.Enums;
 using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Web.ViewModels.Parent;
 using Microsoft.EntityFrameworkCore;
 using System.Numerics;
+using static KindergartenSystem.Common.EntityValidationConstants;
+using Parent = KindergartenSystem.Data.Models.Parent;
 
 namespace KindergartenSystem.Services.Data
 {
@@ -21,10 +24,10 @@ namespace KindergartenSystem.Services.Data
             {
                 Name = model.Name,
                 PhoneNumber = model.PhoneNumber,
-                //PhoneNumberSecond = model.PhoneNumberSecond,
                 Address = model.Address,
                 UserId = userId,
                 EmailAddress = model.EmailAddress,
+                Status = ParentStatus.Pending
             };
 
             await _dbContext.Parents.AddAsync(newParent);
@@ -34,7 +37,7 @@ namespace KindergartenSystem.Services.Data
         public async Task<bool> ParentExistsByPhoneNumberAsync(string phoneNumber)
         {
             bool result = await _dbContext
-                .Parents
+                .Parents.Where(x => x.Status == ParentStatus.Approved)
                 .AnyAsync(a => a.PhoneNumber == phoneNumber);
 
             return result;
@@ -43,14 +46,14 @@ namespace KindergartenSystem.Services.Data
         public async Task<bool> ParentExistsByUserId(string userId)
         {
             bool result = await _dbContext
-                .Parents
+                .Parents.Where(x => x.Status == ParentStatus.Approved)
                 .AnyAsync(a => a.UserId == userId);
 
             return result;
         }
         public async Task<string> GetParentIdByUserAsync(string userId)
         {
-            var parent = await _dbContext.Parents.FirstOrDefaultAsync(x => x.UserId == userId);
+            var parent = await _dbContext.Parents.Where(x => x.Status == ParentStatus.Approved).FirstOrDefaultAsync(x => x.UserId == userId);
             if (parent == null)
             {
                 return null;
@@ -60,7 +63,7 @@ namespace KindergartenSystem.Services.Data
 
         public async Task<string> GetParentIdByPhoneAsync(string phone)
         {
-            var parent = await _dbContext.Parents.FirstOrDefaultAsync(x => x.PhoneNumber == phone);
+            var parent = await _dbContext.Parents.Where(x => x.Status == ParentStatus.Approved).FirstOrDefaultAsync(x => x.PhoneNumber == phone);
             if (parent == null)
             {
                 return null;

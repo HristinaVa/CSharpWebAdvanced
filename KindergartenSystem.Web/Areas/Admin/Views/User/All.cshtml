@@ -2,6 +2,7 @@
 @model IEnumerable<UserViewModel>
 @inject ITeacherService TeacherService
 @inject IParentService ParentService
+@inject IUserService UserService
 
     @{
         ViewBag.Title = "All Users";
@@ -16,6 +17,7 @@
                 <th><label>Phone Number</label></th>
                <th><label>User Is Teacher</label></th>
                <th><label>User Is Parent</label></th>
+               <th><label>Parent Request</label></th>
                <th><label>User Is Online</label></th>
                <th><label>Set user to a Teacher</label></th>
              </tr>
@@ -28,9 +30,12 @@
                 <td><label>@user.Name</label></td>
                 <td><label>@user.PhoneNumber</label></td>
                     
-                    @{
-                        bool IsUserTeacher = await TeacherService.TeacherExistsByPhoneNumberAsync(user.PhoneNumber);
-                        bool IsUserParent = await ParentService.ParentExistsByPhoneNumberAsync(user.PhoneNumber);
+                @{
+                    bool IsUserTeacher = await TeacherService.TeacherExistsByPhoneNumberAsync(user.PhoneNumber);
+                    bool IsUserParent = await ParentService.ParentExistsByPhoneNumberAsync(user.PhoneNumber);
+                    var PendingParent = await UserService.GetPendingParentsAsync();
+                    bool IsUserPendingParent = (PendingParent.Any(x => x.PhoneNumber == user.PhoneNumber));
+                    
                         }
                 <td>
                     @if (IsUserTeacher)
@@ -55,6 +60,19 @@
                     }
                 </td>
                 <td>
+                    @if (IsUserPendingParent)
+                    {
+                        <label>
+                            <a class="btn btn-warning" asp-area="Admin" asp-action="PendingParents" asp-controller="User">Request</a>
+                        </label>
+                    }
+                    else
+                    {
+                        <label class="text-center">❌</label>
+
+                    }
+                </td>
+                <td>
                     @if (OnlineUsersMiddleware.CheckIfUserIsOnline(user.UserId.ToLower()))
                     {
                         <label>✔</label>
@@ -66,7 +84,7 @@
                     }
                 </td>
                 <td>
-                    @if (!IsUserParent && !IsUserTeacher)
+                    @if (!IsUserParent && !IsUserTeacher && !IsUserPendingParent)
                     {
                         <label>
                             <a class="btn btn-warning" asp-area="Admin" asp-controller="User" asp-action="SetAsTeacher" asp-route-userId="@user.UserId">SetAsTeacher</a>

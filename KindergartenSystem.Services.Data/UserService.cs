@@ -1,10 +1,13 @@
 ﻿using KindergartenSystem.Data;
 using KindergartenSystem.Data.Models;
+using KindergartenSystem.Data.Models.Enums;
 using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Services.Mapping;
 using KindergartenSystem.Web.ViewModels.ClassGroup;
+using KindergartenSystem.Web.ViewModels.Parent;
 using KindergartenSystem.Web.ViewModels.Teacher;
 using KindergartenSystem.Web.ViewModels.User;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace KindergartenSystem.Services.Data
@@ -108,6 +111,41 @@ namespace KindergartenSystem.Services.Data
 
             return result;
         }
+
+        public async Task<IEnumerable<PendingParentsViewModel>> GetPendingParentsAsync()
+        {
+            var parents = await _dbContext.Parents.Where(p => p.Status == ParentStatus.Pending).Select(x => new PendingParentsViewModel()
+            {
+                Name = x.Name,
+                EmailAddress = x.EmailAddress,
+                PhoneNumber = x.PhoneNumber,
+                Status = x.Status.ToString(),
+                Id = x.Id.ToString()
+            }).ToArrayAsync();
+            return parents;
+        }
+
+        public async Task<bool> UpdateParentStatusAsync(string parentId, ParentStatus newStatus)
+        {
+            var parent = await _dbContext.Parents.Where(x => x.Id == Guid.Parse(parentId)).FirstOrDefaultAsync();
+
+            // If parent not found, return false
+            if (parent == null)
+            {
+                return false;
+            }
+
+            // Update the parent status
+            parent.Status = newStatus;
+
+            // Save changes to the database
+            await _dbContext.SaveChangesAsync();
+
+            return true;
+        }
     }
 }
+        
+    
+
 

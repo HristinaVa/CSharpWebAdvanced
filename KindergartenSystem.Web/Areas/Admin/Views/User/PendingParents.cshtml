@@ -1,0 +1,41 @@
+﻿@model IEnumerable<PendingParentsViewModel>
+
+@{
+    ViewBag.Title = "Pending Status Parents";
+}
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><label>Name</label></th>
+            <th><label>Phone Number</label></th>
+            <th><label>Email</label></th>
+            <th><label>Status</label></th>
+            <th><label>Action</label></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var parent in Model)
+        {
+            <tr>
+                <td>@parent.Name</td>
+                <td>@parent.PhoneNumber</td>
+                <td>@parent.EmailAddress</td>
+                <td>@parent.Status</td>
+                <td>
+                    <form asp-area="Admin" asp-action="UpdateStatus" asp-controller="User" method="post">
+                        <input type="hidden" name="parentId" value="@parent.Id" />
+                        <div class="form-group">
+                            <select class="form-control" name="newStatus">
+                                <option value="Approved">Approved</option>
+                                <option value="Denied">Denied</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Status</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
