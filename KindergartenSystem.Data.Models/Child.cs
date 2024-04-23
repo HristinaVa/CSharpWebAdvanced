@@ -38,6 +38,7 @@ namespace KindergartenSystem.Data.Models
         public Guid ParentId { get; set; }
         [ForeignKey(nameof(ParentId))]
         public Parent Parent { get; set; } = null!;
+        public ICollection<Workshop> workshops { get; set; } = new List<Workshop>();
 
     }
 }

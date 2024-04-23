@@ -3,8 +3,9 @@
 @model AllChildrenByGroupViewModel
 @inject ITeacherService TeacherService
 @{
-    var IsUserTeacher = await TeacherService.TeacherExistsByUserId(User.GetId());
-    var IsTeacherOfTheChild = await TeacherService.IsChildFromTheGroup(User.GetId(), Model.Id); 
+    var IsUserTeacher = await TeacherService.TeacherExistsByUserId(User.GetId()!);
+    var IsTeacherOfTheChild = await TeacherService.IsChildFromTheGroup(User.GetId()!, Model.Id);
+
 
 }
 <div class="col-md-4">
@@ -29,7 +30,7 @@
             <br />
             <a asp-area="" asp-controller="Child" asp-action="Details" asp-route-id="@Model.Id"
                class="btn btn-success">Details</a>
-            <a asp-area="" asp-controller="Child" asp-action="AddItem" asp-route-id="@Model.Id"
+            <a asp-area="" asp-controller="Teacher" asp-action="AddItem" asp-route-id="@Model.Id"
                class="btn btn-primary">Add</a>
             @if (this.User.Identity?.IsAuthenticated ?? false)
             {

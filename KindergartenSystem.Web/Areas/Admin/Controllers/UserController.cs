@@ -1,9 +1,6 @@
 ﻿using KindergartenSystem.Data.Models.Enums;
-using KindergartenSystem.Services.Data;
 using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Services.Data.Models.Teacher;
-using KindergartenSystem.Web.Infrastructure.Extensions;
-using KindergartenSystem.Web.ViewModels.Child;
 using KindergartenSystem.Web.ViewModels.Teacher;
 using Microsoft.AspNetCore.Mvc;
 

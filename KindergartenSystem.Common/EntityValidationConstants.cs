@@ -75,5 +75,9 @@
             public const int PasswordMaxLength = 100;
             public const int PasswordMinLength = 6;
         }
+        public static class Workshop
+        {
+            public const int WorkshopUrlMaxLength = 2048;
+        }
     }
 }
