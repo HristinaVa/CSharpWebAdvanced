@@ -1,6 +1,7 @@
 ﻿using KindergartenSystem.Services.Data.Models.Teacher;
 using KindergartenSystem.Web.ViewModels.Child;
 using KindergartenSystem.Web.ViewModels.Teacher;
+using KindergartenSystem.Web.ViewModels.Workshop;
 
 namespace KindergartenSystem.Services.Data.Interfaces
 {
@@ -16,6 +17,6 @@ namespace KindergartenSystem.Services.Data.Interfaces
         Task EditTeacherInfoAsync(string id, TeacherFormModel model);
         Task<TeacherDeleteInfoViewModel> GetDeleteTeacherInfoAsync(string id);
         Task DeleteTeacherAsync(string id);
-
+        Task<string> AddWorkshopAsync(WorkshopFormModel model, string childtId);
     }
 }

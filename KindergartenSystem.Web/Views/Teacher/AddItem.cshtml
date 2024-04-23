@@ -1,0 +1,41 @@
+﻿@model WorkshopFormModel
+@{
+    ViewBag.Title = "Add Workshop";
+}
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+@if (!ViewData.ModelState.IsValid && ViewData.ModelState["Error"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewData.ModelState["Error"].Errors.First().ErrorMessage
+    </div>
+}
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Url"></label>
+                <input asp-for="Url" class="form-control"
+                placeholder="https://...">
+                <span asp-validation-for="Url" class="small text-danger"></span>
+            </div>          
+            <div class="form-group">
+                <label asp-for="CreatedOn"></label>
+                <input asp-for="CreatedOn" class="form-control">
+                <span asp-validation-for="CreatedOn" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control" rows="4" maxlength="300"></textarea>
+                <span asp-validation-for="Description" class="small text-danger"></span>
+                <small class="text-muted">Maximum 300 characters.</small>
+            </div>
+            <div class="text-center">
+                <input class="btn btn-primary mt-3" type="submit" value="Save" />
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

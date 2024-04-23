@@ -8,7 +8,7 @@
 
 
 }
-<div class="col-md-4">
+ <div class="col-md-4">
     <div class="card mb-3">
         <img class="card-img-top" src="@Model.ImageUrl" alt="Child Image">
         <div class="card-body text-center">
@@ -28,10 +28,11 @@
             }
                 
             <br />
+            
             <a asp-area="" asp-controller="Child" asp-action="Details" asp-route-id="@Model.Id"
                class="btn btn-success">Details</a>
             <a asp-area="" asp-controller="Teacher" asp-action="AddItem" asp-route-id="@Model.Id"
-               class="btn btn-primary">Add</a>
+               class="btn btn-primary">Add Workshop</a>
             @if (this.User.Identity?.IsAuthenticated ?? false)
             {
                 @if ((IsUserTeacher && IsTeacherOfTheChild) || User.IsUserAdmin())
@@ -40,6 +41,7 @@
                        class="btn btn-warning">Edit</a>
                     <a asp-area="" asp-controller="Child" asp-action="Delete" asp-route-id="@Model.Id"
                        class="btn btn-danger">Delete</a>
+                       
                     <p></p>
                     @if (Model.IsAttending)
                     {
@@ -54,13 +56,14 @@
                               asp-route-id="@Model.Id" method="post">
                             <input class="btn btn-primary" type="submit" value="Attending" />
                         </form>
+
                     }
                 }
-                
-                
-
+                  
                
             }
+            
             </div>
         </div>
     </div>
+ 

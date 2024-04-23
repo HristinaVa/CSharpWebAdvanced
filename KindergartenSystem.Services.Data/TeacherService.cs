@@ -3,8 +3,11 @@ using KindergartenSystem.Data.Models;
 using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Services.Data.Models.Teacher;
 using KindergartenSystem.Services.Mapping;
+using KindergartenSystem.Web.ViewModels.Child;
 using KindergartenSystem.Web.ViewModels.Teacher;
+using KindergartenSystem.Web.ViewModels.Workshop;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace KindergartenSystem.Services.Data
 {
@@ -147,6 +150,16 @@ namespace KindergartenSystem.Services.Data
             teacher.IsWorking = false;
 
             await _dbContext.SaveChangesAsync();
+        }
+        public async Task<string> AddWorkshopAsync(WorkshopFormModel model, string childId)
+        {
+            Workshop workshop = AutoMapperConfig.MapperInstance.Map<Workshop>(model);
+            workshop.ChildId = Guid.Parse(childId);
+
+            await _dbContext.Workshops.AddAsync(workshop);
+            await _dbContext.SaveChangesAsync();
+
+            return workshop.Id.ToString();
         }
 
 

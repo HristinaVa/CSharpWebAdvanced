@@ -77,7 +77,8 @@
         }
         public static class Workshop
         {
-            public const int WorkshopUrlMaxLength = 2048;
+            public const int UrlMaxLength = 2048;
+            public const int DescriptionMaxLength = 300;
         }
     }
 }

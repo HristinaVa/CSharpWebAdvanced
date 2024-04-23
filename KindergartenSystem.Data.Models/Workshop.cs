@@ -14,7 +14,7 @@ namespace KindergartenSystem.Data.Models
         [Key]
         public Guid Id { get; set; }
         [Required]
-        [MaxLength(WorkshopUrlMaxLength)]
+        [MaxLength(UrlMaxLength)]
         public string Url { get; set; } = string.Empty;
         [Required]
         public DateTime CreatedOn { get; set; }
