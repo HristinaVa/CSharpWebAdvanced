@@ -1,4 +1,5 @@
 ﻿@using KindergartenSystem.Services.Data.Interfaces
+@using static KindergartenSystem.Common.GeneralApplicationConstants
 @using KindergartenSystem.Web.Infrastructure.Extensions
 @model AllTeachersViewModel
 
@@ -10,13 +11,15 @@
             <h6>ClassGroup: @Model.ClassGroupName</h6>
             <h6>Phone: @Model.PhoneNumber</h6>
             <h6>Email: <b>@Model.EmailAddress</b></h6>
-          
-            <a asp-area="" asp-controller="Teacher" asp-action="Details" asp-route-id="@Model.Id"
-               class="btn btn-success">Details</a>          
-                    <a asp-area="Admin" asp-controller="User" asp-action="EditTeacher" asp-route-id="@Model.Id"
-                       class="btn btn-warning">Edit</a>
-                    <a asp-area="" asp-controller="Child" asp-action="Delete" asp-route-id="@Model.Id"
-                       class="btn btn-danger">Delete</a>
+            <a asp-area="Admin" asp-controller="User" asp-action="EditTeacher" asp-route-id="@Model.Id"
+               class="btn btn-warning">Edit</a>
+            @if (Model.EmailAddress != AdminEmail)
+            {
+                <a asp-area="Admin" asp-controller="User" asp-action="DeleteTeacher" asp-route-id="@Model.Id"
+                   class="btn btn-danger">Delete</a>
+            }          
+                    
+                    
                     
                     
                 

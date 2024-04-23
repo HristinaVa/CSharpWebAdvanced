@@ -1,16 +1,8 @@
-﻿using KindergartenSystem.Services.Mapping;
-using KindergartenSystem.Data;
-using KindergartenSystem.Data.Models;
+﻿using KindergartenSystem.Data;
 using KindergartenSystem.Services.Data.Interfaces;
+using KindergartenSystem.Services.Mapping;
 using KindergartenSystem.Web.ViewModels.Home;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KindergartenSystem.Services.Data
 {

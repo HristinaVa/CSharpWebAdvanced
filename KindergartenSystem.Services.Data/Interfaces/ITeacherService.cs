@@ -14,6 +14,8 @@ namespace KindergartenSystem.Services.Data.Interfaces
         Task<AllTeachersServiceModel> AllTeachersAsync(AllTeachersQueryModel model);
         Task<TeacherFormModel> GetTeacherForEditAsync(string id);
         Task EditTeacherInfoAsync(string id, TeacherFormModel model);
+        Task<TeacherDeleteInfoViewModel> GetDeleteTeacherInfoAsync(string id);
+        Task DeleteTeacherAsync(string id);
 
     }
 }

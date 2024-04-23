@@ -167,6 +167,47 @@ namespace KindergartenSystem.Web.Areas.Admin.Controllers
             }
             return RedirectToAction("AllTeachers", "User");
         }
+        [HttpGet]
+        public async Task<IActionResult> DeleteTeacher(string id)
+        {
+            var teacherExists = await _teacherService.TeacherExistsById(id);
+            if (!teacherExists)
+            {
+                return StatusCode(400);// for now temp data
+            }
+            
+            try
+            {
+                var model = await _teacherService.GetDeleteTeacherInfoAsync(id);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteTeacher(string id, TeacherDeleteInfoViewModel model)
+        {
+            var teacherExists = await _teacherService.TeacherExistsById(id);
+            if (!teacherExists)
+            {
+                return StatusCode(400);// for now temp data
+            }
+            
+            
+            try
+            {
+                await _teacherService.DeleteTeacherAsync(id);
+
+                return RedirectToAction("AllTeachers", "User");
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+        }
 
     }
 }

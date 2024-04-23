@@ -1,8 +1,6 @@
 ﻿using KindergartenSystem.Data;
-using KindergartenSystem.Data.Models;
 using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Web.ViewModels.ClassGroup;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace KindergartenSystem.Services.Data
@@ -52,7 +50,7 @@ namespace KindergartenSystem.Services.Data
                 AgeGroup = group.AgeGroupId,
                 Title = group.Title
             };
-            if (group.Teachers.Any())
+            if (group.Teachers.Where(x => x.IsWorking).Any())
             {
                 model.TeachersName = group.Teachers.Select(x => x.Name).ToArray();
                 model.Phone = group.Teachers.Select(x => x.PhoneNumber).FirstOrDefault();

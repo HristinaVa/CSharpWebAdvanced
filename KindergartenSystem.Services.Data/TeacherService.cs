@@ -3,7 +3,6 @@ using KindergartenSystem.Data.Models;
 using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Services.Data.Models.Teacher;
 using KindergartenSystem.Services.Mapping;
-using KindergartenSystem.Web.ViewModels.Child;
 using KindergartenSystem.Web.ViewModels.Teacher;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,7 +19,7 @@ namespace KindergartenSystem.Services.Data
 
         public async Task<AllTeachersServiceModel> AllTeachersAsync(AllTeachersQueryModel model)
         {
-            IQueryable<Teacher> teachersQuery = _dbContext.Teachers.AsQueryable();
+            IQueryable<Teacher> teachersQuery = _dbContext.Teachers.Where(x => x.IsWorking).AsQueryable();
             if (model.AgeGroup != null)
             {
                 teachersQuery = teachersQuery.Where(x => x.ClassGroup.AgeGroupId == model.AgeGroup);
@@ -61,7 +60,7 @@ namespace KindergartenSystem.Services.Data
 
         public async Task<string> GetTeacherByUserId(string userId)
         {
-            var teacher = await _dbContext.Teachers.FirstOrDefaultAsync(x => x.UserId == userId);
+            var teacher = await _dbContext.Teachers.Where(x => x.IsWorking).FirstOrDefaultAsync(x => x.UserId == userId);
             if (teacher == null)
             {
                 return null;
@@ -71,7 +70,7 @@ namespace KindergartenSystem.Services.Data
 
         public async Task<bool> IsChildFromTheGroup(string userId, string childId)
         {
-            var teacher = await _dbContext.Teachers.Include(a => a.ClassGroup)
+            var teacher = await _dbContext.Teachers.Where(x => x.IsWorking).Include(a => a.ClassGroup)
                 .ThenInclude(a => a.Children).FirstOrDefaultAsync(a => a.UserId == userId);
             if (teacher == null)
             {
@@ -84,7 +83,7 @@ namespace KindergartenSystem.Services.Data
         public async Task<bool> TeacherExistsByPhoneNumberAsync(string phoneNumber)
         {
             bool result = await _dbContext
-                .Teachers
+                .Teachers.Where(x => x.IsWorking)
                 .AnyAsync(a => a.PhoneNumber == phoneNumber);
 
             return result;
@@ -93,7 +92,7 @@ namespace KindergartenSystem.Services.Data
         public async Task<bool> TeacherExistsByUserId(string userId)
         {
             bool result = await _dbContext
-                .Teachers
+                .Teachers.Where(x => x.IsWorking)
                 .AnyAsync(a => a.UserId == userId);
 
             return result;
@@ -101,17 +100,15 @@ namespace KindergartenSystem.Services.Data
         public async Task<bool> TeacherExistsById(string id)
         {
             bool result = await _dbContext
-                .Teachers
+                .Teachers.Where(x => x.IsWorking)
                 .AnyAsync(a => a.Id.ToString() == id);
 
             return result;
         }
         public async Task<TeacherFormModel> GetTeacherForEditAsync(string id)
         {
-            var teacher = await _dbContext.Teachers
-           //.Include(x => x.Parent)
-           //.Include(x => x.ClassGroup).ThenInclude(x => x.Teachers)
-           .Where(x => x.Id.ToString() == id).To<TeacherFormModel>()
+            var teacher = await _dbContext.Teachers           
+           .Where(x =>x.IsWorking && x.Id.ToString() == id).To<TeacherFormModel>()
            .FirstAsync();
             
             return teacher;
@@ -119,7 +116,7 @@ namespace KindergartenSystem.Services.Data
         }
         public async Task EditTeacherInfoAsync(string id, TeacherFormModel model)
         {
-            var teacher = await _dbContext.Teachers.FirstAsync(x => x.Id.ToString() == id);
+            var teacher = await _dbContext.Teachers.Where(x => x.IsWorking).FirstAsync(x => x.Id.ToString() == id);
             teacher.Name = model.Name;
             teacher.PhoneNumber = model.PhoneNumber;
             teacher.EmailAddress = model.EmailAddress;
@@ -130,6 +127,28 @@ namespace KindergartenSystem.Services.Data
 
 
         }
+        public async Task<TeacherDeleteInfoViewModel> GetDeleteTeacherInfoAsync(string id)
+        {
+            var teacher = await _dbContext.Teachers.Include(x => x.ClassGroup).Where(x => x.IsWorking).FirstAsync(x => x.Id.ToString() == id);
+
+            return new TeacherDeleteInfoViewModel
+            {
+                Name = teacher.Name,
+                ClassGroup = teacher.ClassGroup.Title,
+                ImageUrl = teacher.ImageUrl,
+                PhoneNumber = teacher.PhoneNumber,
+            };
+        }
+        public async Task DeleteTeacherAsync(string id)
+        {
+            var teacher = await _dbContext.Teachers.Where(x => x.IsWorking)
+                .FirstAsync(x => x.Id.ToString() == id);
+
+            teacher.IsWorking = false;
+
+            await _dbContext.SaveChangesAsync();
+        }
+
 
     }
 }
