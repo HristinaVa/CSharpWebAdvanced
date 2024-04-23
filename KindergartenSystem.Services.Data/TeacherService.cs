@@ -1,7 +1,9 @@
 ﻿using KindergartenSystem.Data;
+using KindergartenSystem.Data.Models;
 using KindergartenSystem.Services.Data.Interfaces;
+using KindergartenSystem.Services.Data.Models.Teacher;
+using KindergartenSystem.Web.ViewModels.Teacher;
 using Microsoft.EntityFrameworkCore;
-using System.Numerics;
 
 namespace KindergartenSystem.Services.Data
 {
@@ -13,6 +15,47 @@ namespace KindergartenSystem.Services.Data
         {
             _dbContext = dbContext;
         }
+
+        public async Task<AllTeachersServiceModel> AllTeachersAsync(AllTeachersQueryModel model)
+        {
+            IQueryable<Teacher> teachersQuery = _dbContext.Teachers.AsQueryable();
+            if (model.AgeGroup != null)
+            {
+                teachersQuery = teachersQuery.Where(x => x.ClassGroup.AgeGroupId == model.AgeGroup);
+            }
+            if (!string.IsNullOrWhiteSpace(model.SearchText))
+            {
+                var wildCard = $"%{model.SearchText.ToLower()}%";
+                teachersQuery = teachersQuery.Where
+                    (x => EF.Functions.Like(x.Name, wildCard) ||
+                EF.Functions.Like(x.ClassGroup.Title, wildCard) ||
+                EF.Functions.Like(x.EmailAddress, wildCard) ||
+                EF.Functions.Like(x.PhoneNumber, wildCard));
+            }
+            IEnumerable<AllTeachersViewModel> allTeachers = await teachersQuery
+                .Skip((model.CurrentPage - 1) * model.TeachersPerPage)
+                .Take(model.TeachersPerPage)
+                .Select(x => new AllTeachersViewModel()
+                {
+                    Id = x.Id.ToString(),
+                    Name = x.Name,
+                    PhoneNumber = x.PhoneNumber,
+                    EmailAddress = x.EmailAddress,
+                    ClassGroupName = x.ClassGroup.Title,
+                    ImageUrl = x.ImageUrl,
+                })
+                .OrderBy(x => x.ClassGroupName)
+                .ThenBy(x => x.Name)
+                .ToArrayAsync();
+            int teachersTotal = teachersQuery.Count();
+
+            return new AllTeachersServiceModel()
+            {
+                AllTeachersCount = teachersTotal,
+                Teachers = allTeachers
+            };
+        }
+
 
         public async Task<string> GetTeacherByUserId(string userId)
         {
@@ -55,3 +98,4 @@ namespace KindergartenSystem.Services.Data
         }
     }
 }
+

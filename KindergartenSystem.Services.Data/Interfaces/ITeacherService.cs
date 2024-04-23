@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using KindergartenSystem.Services.Data.Models.Teacher;
+using KindergartenSystem.Web.ViewModels.Teacher;
 
 namespace KindergartenSystem.Services.Data.Interfaces
 {
@@ -13,6 +10,7 @@ namespace KindergartenSystem.Services.Data.Interfaces
         Task<bool> TeacherExistsByPhoneNumberAsync(string phoneNumber);
         Task<string> GetTeacherByUserId(string userId);
         Task<bool> IsChildFromTheGroup(string userId, string childId);
+        Task<AllTeachersServiceModel> AllTeachersAsync(AllTeachersQueryModel model);
 
     }
 }

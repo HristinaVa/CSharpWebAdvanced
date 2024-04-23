@@ -1,0 +1,42 @@
+﻿@using KindergartenSystem.Services.Data.Interfaces
+@using KindergartenSystem.Web.Infrastructure.Extensions
+@model AllTeachersViewModel
+@* @inject ITeacherService TeacherService
+@{
+    var IsUserTeacher = await TeacherService.TeacherExistsByUserId(User.GetId());
+    var IsTeacherOfTheChild = await TeacherService.IsChildFromTheGroup(User.GetId(), Model.Id);
+
+} *@
+<div class="col-md-4">
+    <div class="card mb-3">
+        <img class="card-img-top" src="@Model.ImageUrl" alt="Image">
+        <div class="card-body text-center">
+            <h4>Name: @Model.Name</h4>
+            <h6>ClassGroup: @Model.ClassGroupName</h6>
+            <h6>Phone: @Model.PhoneNumber</h6>
+            <h6>Email: <b>@Model.EmailAddress</b></h6>
+          @*   <br />
+            @if (Model.IsAttending == true)
+            {
+                <h6>Attending</h6>
+            }
+            else
+            {
+                <h6>Missing</h6>
+
+            }
+
+            <br /> *@
+            <a asp-area="" asp-controller="Teacher" asp-action="Details" asp-route-id="@Model.Id"
+               class="btn btn-success">Details</a>          
+                    <a asp-area="" asp-controller="Child" asp-action="Edit" asp-route-id="@Model.Id"
+                       class="btn btn-warning">Edit</a>
+                    <a asp-area="" asp-controller="Child" asp-action="Delete" asp-route-id="@Model.Id"
+                       class="btn btn-danger">Delete</a>
+                    
+                    
+                
+            
+        </div>
+    </div>
+</div>

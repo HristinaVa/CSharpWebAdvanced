@@ -1,28 +1,27 @@
 ﻿using KindergartenSystem.Data.Models.Enums;
-using KindergartenSystem.Services.Data;
 using KindergartenSystem.Services.Data.Interfaces;
-using KindergartenSystem.Web.Infrastructure.Extensions;
-using KindergartenSystem.Web.ViewModels.Child;
-using KindergartenSystem.Web.ViewModels.Parent;
+using KindergartenSystem.Services.Data.Models.Teacher;
 using KindergartenSystem.Web.ViewModels.Teacher;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace KindergartenSystem.Web.Areas.Admin.Controllers
 {
     public class UserController : BaseAdminControlleer
     {
         private readonly IUserService _userService;
-        public UserController(IUserService userService)
+        private readonly ITeacherService _teacherService;
+        private readonly IAgeGroupService _ageGroupService;
+        public UserController(IUserService userService, ITeacherService teacherService, IAgeGroupService ageGroupService)
         {
             _userService = userService;
+            _teacherService = teacherService;
+            _ageGroupService = ageGroupService;
         }
         public async Task<IActionResult> All()
         {
             var users = await _userService.GetUsersAsync();
             return View(users);
         }
-        [Route("/User/SetAsTeacher/")]
         [HttpGet]
         public async Task<IActionResult> SetAsTeacher(string userId)
         {
@@ -105,7 +104,18 @@ namespace KindergartenSystem.Web.Areas.Admin.Controllers
 
             return RedirectToAction("PendingParents");
         }
-       
+        [HttpGet]
+        public async Task<IActionResult> AllTeachers([FromQuery] AllTeachersQueryModel model)
+        {
+            AllTeachersServiceModel serviceModel = await _teacherService.AllTeachersAsync(model);
+
+            model.Teachers = serviceModel.Teachers;
+            model.AllTeachers = serviceModel.AllTeachersCount;
+            model.AgeGroups = await _ageGroupService.AllAgeGroupNumbersAsync();
+
+            return View(model);
+        }
+
     }
 }
     

@@ -1,5 +1,6 @@
 ﻿@using KindergartenSystem.Data.Models
 @using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @inject IUserService UserService
@@ -7,10 +8,12 @@
 @inject IParentService ParentService
 @{
     var userName = await UserService.UserNameAsync(User.Identity?.Name!);
+   string? userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+
     var isUserParent = await ParentService.ParentExistsByUserId(User.GetId()!);
     var isUserTeacher = await TeacherService.TeacherExistsByUserId(User.GetId()!);
-    var PendingParents = await UserService.GetPendingParentsAsync();
-    var isUserPendingParent = PendingParents.Any(x => x.Status == "Pending");
+   var PendingParents = await UserService.GetPendingParentsAsync();
+    var isUserPendingParent = PendingParents.Any(x => x.EmailAddress == userEmail);
 
 }
 
@@ -32,7 +35,7 @@
         if (!isUserParent && !isUserTeacher && !isUserPendingParent)
         {
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Parent" asp-action="IAmParent">Add a Parent</a>
+                <a class="nav-link text-dark" asp-area="" asp-controller="Parent" asp-action="IAmParent">I am Parent</a>
             </li>
         }
         
