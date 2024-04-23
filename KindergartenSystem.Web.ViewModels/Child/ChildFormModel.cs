@@ -1,12 +1,8 @@
-﻿
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using AutoMapper;
+using KindergartenSystem.Services.Mapping;
+using KindergartenSystem.Web.ViewModels.ClassGroup;
 using System.ComponentModel.DataAnnotations;
 using static KindergartenSystem.Common.EntityValidationConstants.ChildConst;
-using KindergartenSystem.Web.ViewModels.ClassGroup;
-using KindergartenSystem.Web.ViewModels.Parent;
-using KindergartenSystem.Services.Mapping;
-using KindergartenSystem.Data.Models;
-using AutoMapper;
 
 
 namespace KindergartenSystem.Web.ViewModels.Child
@@ -33,7 +29,7 @@ namespace KindergartenSystem.Web.ViewModels.Child
         [Required(ErrorMessage = "Invalid format")]
         [DataType(DataType.Date)]
         [Display(Name = "Date Of Birth")]
-        public DateTime DateOfBirth { get; set; }// = DateTime.Parse(DateOfBirthFormat);
+        public DateTime DateOfBirth { get; set; }
         
         [Required(AllowEmptyStrings = false)]
         [StringLength(ImageUrlMaxLength)]

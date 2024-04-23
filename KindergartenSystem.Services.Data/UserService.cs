@@ -129,16 +129,13 @@ namespace KindergartenSystem.Services.Data
         {
             var parent = await _dbContext.Parents.Where(x => x.Id == Guid.Parse(parentId)).FirstOrDefaultAsync();
 
-            // If parent not found, return false
             if (parent == null)
             {
                 return false;
             }
 
-            // Update the parent status
             parent.Status = newStatus;
 
-            // Save changes to the database
             await _dbContext.SaveChangesAsync();
 
             return true;

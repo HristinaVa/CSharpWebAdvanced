@@ -2,6 +2,8 @@
 using KindergartenSystem.Data.Models;
 using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Services.Data.Models.Teacher;
+using KindergartenSystem.Services.Mapping;
+using KindergartenSystem.Web.ViewModels.Child;
 using KindergartenSystem.Web.ViewModels.Teacher;
 using Microsoft.EntityFrameworkCore;
 
@@ -96,6 +98,39 @@ namespace KindergartenSystem.Services.Data
 
             return result;
         }
+        public async Task<bool> TeacherExistsById(string id)
+        {
+            bool result = await _dbContext
+                .Teachers
+                .AnyAsync(a => a.Id.ToString() == id);
+
+            return result;
+        }
+        public async Task<TeacherFormModel> GetTeacherForEditAsync(string id)
+        {
+            var teacher = await _dbContext.Teachers
+           //.Include(x => x.Parent)
+           //.Include(x => x.ClassGroup).ThenInclude(x => x.Teachers)
+           .Where(x => x.Id.ToString() == id).To<TeacherFormModel>()
+           .FirstAsync();
+            
+            return teacher;
+
+        }
+        public async Task EditTeacherInfoAsync(string id, TeacherFormModel model)
+        {
+            var teacher = await _dbContext.Teachers.FirstAsync(x => x.Id.ToString() == id);
+            teacher.Name = model.Name;
+            teacher.PhoneNumber = model.PhoneNumber;
+            teacher.EmailAddress = model.EmailAddress;
+            teacher.ImageUrl = model.ImageUrl;
+            teacher.ClassGroupId = model.ClassGroupId;
+
+            await _dbContext.SaveChangesAsync();
+
+
+        }
+
     }
 }
 

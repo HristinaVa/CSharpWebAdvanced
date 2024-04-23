@@ -1,6 +1,9 @@
 ﻿using KindergartenSystem.Data.Models.Enums;
+using KindergartenSystem.Services.Data;
 using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Services.Data.Models.Teacher;
+using KindergartenSystem.Web.Infrastructure.Extensions;
+using KindergartenSystem.Web.ViewModels.Child;
 using KindergartenSystem.Web.ViewModels.Teacher;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,11 +14,13 @@ namespace KindergartenSystem.Web.Areas.Admin.Controllers
         private readonly IUserService _userService;
         private readonly ITeacherService _teacherService;
         private readonly IAgeGroupService _ageGroupService;
-        public UserController(IUserService userService, ITeacherService teacherService, IAgeGroupService ageGroupService)
+        private readonly IClassGroupService _classGroupService;
+        public UserController(IUserService userService, ITeacherService teacherService, IAgeGroupService ageGroupService, IClassGroupService classGroupService)
         {
             _userService = userService;
             _teacherService = teacherService;
             _ageGroupService = ageGroupService;
+            _classGroupService = classGroupService;
         }
         public async Task<IActionResult> All()
         {
@@ -114,6 +119,53 @@ namespace KindergartenSystem.Web.Areas.Admin.Controllers
             model.AgeGroups = await _ageGroupService.AllAgeGroupNumbersAsync();
 
             return View(model);
+        }
+        [HttpGet]
+        public async Task<IActionResult> EditTeacher(string id)
+        {
+            var teacherExists = await _teacherService.TeacherExistsById(id);
+            if (!teacherExists)
+            {
+                return StatusCode(404);// for now temp data
+            }
+           
+            
+            try
+            {
+                var model = await _teacherService.GetTeacherForEditAsync(id);
+                model.ClassGroups = await _classGroupService.GetClassGroupsAsync();
+                return View(model);
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(500);
+            }
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditTeacher(string id, TeacherFormModel model)
+        {
+            var teacherExists = await _teacherService.TeacherExistsById(id);
+            if (!teacherExists)
+            {
+                return StatusCode(400);// for now temp data
+            }
+            
+           
+            try
+            {
+                await _teacherService.EditTeacherInfoAsync(id, model);
+            }
+            catch (Exception)
+            {
+
+                ModelState.AddModelError(string.Empty, "Unexpected error! Pleace contact administrator!");
+                model.ClassGroups = await _classGroupService.GetClassGroupsAsync();
+
+                return View(model);
+            }
+            return RedirectToAction("AllTeachers", "User");
         }
 
     }

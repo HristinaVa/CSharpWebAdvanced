@@ -6,18 +6,13 @@
 @if (!images.Any())
 {
     <div class="mt-4 p-5 bg-light">
-        <h1 class="display-4">Детска градина "Зайо Байо" Община Варна</h1>
+        <h1 class="display-4">Kindergarten for happy kids</h1>
         <p class="lead">
-            Добре дошли в нашият чуден свят!
+            Welcome to our magical world!
         </p>
         <hr class="my-4">
         <p class="lead">
-           @*  @if (User.Identity?.IsAuthenticated ?? false)
-            {
-                <a asp-controller="House" asp-action="Add" class="btn btn-primary btn-lg"
-                   role="button">Add House</a>
-                   }
-             *@
+          
         </p>
     </div>
 }
@@ -35,8 +30,8 @@
             <div class="carousel-item @(i == 0 ? "active" : string.Empty)">
                 <img src="@image.Url" class="d-block w-100" alt="@image.KindergartenName">
             <div class="carousel-caption d-none d-md-block">
-                    <h5>Детска градина "@image.KindergartenName" Община Варна</h5>
-                    <p>Добре дошли в нашият чуден свят!</p>
+                    <h5>Kindergarten "@image.KindergartenName"</h5>
+                    <p>Welcome to our magical world!</p>
             </div>
         </div>
  }
