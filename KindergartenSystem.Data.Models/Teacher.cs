@@ -26,6 +26,7 @@ namespace KindergartenSystem.Data.Models
         [Required]
         [EmailAddress]
         public string EmailAddress { get; set; } = string.Empty;
+        public bool IsWorking { get; set; }
         [Required]
         public int ClassGroupId { get; set; }
         [ForeignKey(nameof(ClassGroupId))]

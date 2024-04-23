@@ -15,6 +15,9 @@ namespace KindergartenSystem.Data.Configurations
                 .HasForeignKey(t => t.ClassGroupId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Property<bool>("IsWorking").ValueGeneratedOnAdd().HasColumnType("bit").HasDefaultValue(true);
+
+
             builder.HasData(GenerateTeachers());
         }
         private Teacher[] GenerateTeachers()

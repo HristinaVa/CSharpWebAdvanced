@@ -4,6 +4,7 @@ using KindergartenSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KindergartenSystem.Data.Migrations
 {
     [DbContext(typeof(KindergartenDbContext))]
-    partial class KindergartenDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240423103936_IsWorkingAdded")]
+    partial class IsWorkingAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
