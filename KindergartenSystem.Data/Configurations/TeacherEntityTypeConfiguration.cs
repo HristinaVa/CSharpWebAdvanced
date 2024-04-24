@@ -38,7 +38,7 @@ namespace KindergartenSystem.Data.Configurations
                 PhoneNumber = "+359000000000",
                 EmailAddress = AdminEmail,
                 ClassGroupId = 1,
-                UserId = "bcb4f072-ecca-43c9-ab26-c060c6f264e4"
+                UserId = "bcb4f072-ecca-43c9-ab26-c060c6f364e4"
 
             };
             teachers.Add(teacher);

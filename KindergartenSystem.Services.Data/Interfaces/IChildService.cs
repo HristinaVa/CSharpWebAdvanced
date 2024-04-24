@@ -1,5 +1,6 @@
 ﻿using KindergartenSystem.Services.Data.Models.Child;
 using KindergartenSystem.Web.ViewModels.Child;
+using KindergartenSystem.Web.ViewModels.Workshop;
 
 namespace KindergartenSystem.Services.Data.Interfaces
 {
@@ -19,5 +20,6 @@ namespace KindergartenSystem.Services.Data.Interfaces
         Task<bool> IsAttendingAsync(string childId);
         Task SetChildAsMissingFromClassAsync(string childId);
         Task SetChildAsAttendingToClassAsync(string childId);
+        Task<IEnumerable<WorkshopFormModel>> AllByChildAsync(string id);
     }
 }

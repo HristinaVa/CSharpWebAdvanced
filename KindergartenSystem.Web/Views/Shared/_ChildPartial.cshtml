@@ -2,9 +2,11 @@
 @using KindergartenSystem.Web.Infrastructure.Extensions
 @model AllChildrenByGroupViewModel
 @inject ITeacherService TeacherService
+@inject IParentService ParentService
 @{
     var IsUserTeacher = await TeacherService.TeacherExistsByUserId(User.GetId()!);
     var IsTeacherOfTheChild = await TeacherService.IsChildFromTheGroup(User.GetId()!, Model.Id);
+    var ParentId = await ParentService.GetParentIdByUserAsync(User.GetId()!);
 
 
 }
@@ -29,14 +31,18 @@
                 
             <br />
             
-            <a asp-area="" asp-controller="Child" asp-action="Details" asp-route-id="@Model.Id"
-               class="btn btn-success">Details</a>
-            <a asp-area="" asp-controller="Teacher" asp-action="AddItem" asp-route-id="@Model.Id"
-               class="btn btn-primary">Workshop</a>
+            
             @if (this.User.Identity?.IsAuthenticated ?? false)
             {
+                <a asp-area="" asp-controller="Child" asp-action="Details" asp-route-id="@Model.Id"
+                   class="btn btn-success">Details</a>
+                <a asp-area="" asp-controller="Child" asp-action="Workshops" asp-route-id="@Model.Id"
+                   class="btn btn-primary">Workshops</a>
                 @if ((IsUserTeacher && IsTeacherOfTheChild) || User.IsUserAdmin())
                 {
+                    <a asp-area="" asp-controller="Teacher" asp-action="AddItem" asp-route-id="@Model.Id"
+                       class="btn btn-success">Add Workshop</a>
+                       <p></p>
                     <a asp-area="" asp-controller="Child" asp-action="Edit" asp-route-id="@Model.Id"
                        class="btn btn-warning">Edit</a>
                     <a asp-area="" asp-controller="Child" asp-action="Delete" asp-route-id="@Model.Id"

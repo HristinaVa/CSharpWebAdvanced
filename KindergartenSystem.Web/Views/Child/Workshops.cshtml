@@ -1,0 +1,28 @@
+﻿@model List<WorkshopFormModel>
+@{
+    ViewData["Title"] = "Workshops";
+}
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+
+@if (!Model.Any())
+{
+    <h2 class="text-center">The list is empty!</h2>
+}
+else
+{
+    <div class="row">
+        @foreach (WorkshopFormModel workshop in Model)
+        {
+            <div class="col-md-4">
+    <div class="card mb-3">
+        <img class="card-img-top" src="@workshop.Url" alt="Image">
+        <div class="card-body text-center">
+                        <h6>Created On: @workshop.CreatedOn.ToShortDateString()</h6>
+                        <p style="height: 100px; overflow: auto;">@workshop.Description</p>
+                    </div>
+            </div>
+            </div>
+        }
+    </div>
+}

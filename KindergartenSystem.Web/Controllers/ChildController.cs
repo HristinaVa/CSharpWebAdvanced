@@ -2,6 +2,7 @@
 using KindergartenSystem.Services.Data.Models.Child;
 using KindergartenSystem.Web.Infrastructure.Extensions;
 using KindergartenSystem.Web.ViewModels.Child;
+using KindergartenSystem.Web.ViewModels.Workshop;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -346,6 +347,13 @@ namespace KindergartenSystem.Web.Controllers
                 return BadRequest("Unexpected error! Pleace contact administrator!");
             }
             return RedirectToAction("Mine", "Child");
+        }
+        public async Task<IActionResult> Workshops(string id)
+        {
+            List<WorkshopFormModel> workshops = new List<WorkshopFormModel>();
+            workshops.AddRange(await _childService.AllByChildAsync(id));
+            return View(workshops);
+
         }
     }
 }

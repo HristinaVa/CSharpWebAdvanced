@@ -40,13 +40,15 @@
             <div class="form-inline">
                @if (this.User.Identity?.IsAuthenticated ?? false)
             {
-                    <a class="ml-2 btn btn-warning" asp-controller="Child" asp-action="AddItem"
-                       asp-route-id="@Model.Id">Add Item</a>
+                    <a class="ml-2 btn btn-warning" asp-controller="Child" asp-action="Workshops"
+                       asp-route-id="@Model.Id">Workshops List</a>
+                    
                     @if ((IsUserTeacher && IsTeacherOfTheChild) || User.IsUserAdmin())
                     {
                         <a class="btn btn-warning" asp-controller="Child" asp-action="Edit"
                         asp-route-id="@Model.Id">Edit</a>
-
+                        <a class="ml-2 btn btn-warning" asp-controller="Child" asp-action="AddItem"
+                           asp-route-id="@Model.Id">Workshop</a>
                         <a class="ml-2 btn btn-danger" asp-controller="Child" asp-action="Delete"
                         asp-route-id="@Model.Id">Delete</a>
                         @if (Model.IsAttending)

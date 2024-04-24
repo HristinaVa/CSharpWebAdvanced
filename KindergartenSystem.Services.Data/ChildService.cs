@@ -6,6 +6,7 @@ using KindergartenSystem.Services.Data.Models.Child;
 using KindergartenSystem.Web.ViewModels.Child;
 using Microsoft.EntityFrameworkCore;
 using static KindergartenSystem.Common.EntityValidationConstants.ChildConst;
+using KindergartenSystem.Web.ViewModels.Workshop;
 
 
 namespace KindergartenSystem.Services.Data
@@ -16,6 +17,21 @@ namespace KindergartenSystem.Services.Data
         public ChildService(KindergartenDbContext dbContext)
         {
             _dbContext = dbContext;   
+        }
+
+        public async Task<IEnumerable<WorkshopFormModel>> AllByChildAsync(string id)
+        {
+            IEnumerable<WorkshopFormModel> workshopsByChild = await _dbContext.Workshops
+                .Where(x => x.ChildId.ToString() == id)
+                .Select(x => new WorkshopFormModel
+                {
+                    ChildId = x.ChildId.ToString(),
+                    CreatedOn = x.CreatedOn,
+                    Url = x.Url,
+                    Description = x.Description
+
+                }).ToArrayAsync();
+            return workshopsByChild;
         }
 
         public async Task<IEnumerable<AllChildrenByGroupViewModel>> AllByParentsAsync(string parentId)
