@@ -10,6 +10,10 @@
         public const string AdminRoleName = "Administrator";
         public const string AdminAreaName = "Admin";
         public const string AdminEmail = "admin@admin.bg";
+        public const string AdminPassword = "123456";
+        public const string UserPassword = "123456";
+        public const string UserParentPassword = "123456";
+        
         public const string CookieName = "Online";
         public const int MinsBeforeGoOffline = 10;
 

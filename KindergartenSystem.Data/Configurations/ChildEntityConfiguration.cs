@@ -39,7 +39,7 @@ namespace KindergartenSystem.Data.Configurations
                 Common.EntityValidationConstants.ChildConst.DateOfBirthFormat, CultureInfo.InvariantCulture),
                 ImageUrl = "https://img.freepik.com/free-vector/cute-happy-smiling-child-isolated-white_1308-32243.jpg",
                 ClassGroupId = 2,
-                ParentId = Guid.Parse("1AF4589C-7297-4DBD-AD7D-BB275E8820B4")
+                ParentId = Guid.Parse("3CBC521E-07D7-40E5-9D16-655769D51DFF")
             };
             children.Add(child);
             return children.ToArray();

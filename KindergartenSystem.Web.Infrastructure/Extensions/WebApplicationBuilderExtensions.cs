@@ -10,6 +10,7 @@ namespace KindergartenSystem.Web.Infrastructure.Extensions
 {
     public static class WebApplicationBuilderExtensions
     {
+
         /// <summary>
         /// This method registers all services with their interfaces and implementations of given assembly.
         /// The assembly is taken from the type of random service interface or implementation provided.
@@ -74,5 +75,7 @@ namespace KindergartenSystem.Web.Infrastructure.Extensions
         {
             return app.UseMiddleware<OnlineUsersMiddleware>();
         }
+        
+
     }
 }

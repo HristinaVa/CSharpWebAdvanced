@@ -1,4 +1,5 @@
-﻿using KindergartenSystem.Data.Models;
+﻿using KindergartenSystem.Data.Migrations;
+using KindergartenSystem.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using static KindergartenSystem.Common.GeneralApplicationConstants;
@@ -24,17 +25,7 @@ namespace KindergartenSystem.Data.Configurations
         {
             ICollection<Teacher> teachers = new HashSet<Teacher>();
             Teacher teacher;
-            teacher = new Teacher()
-            {
-                Name = "Silviq Ivanova",
-                ImageUrl = "https://st.depositphotos.com/1758000/2947/v/450/depositphotos_29477577-stock-illustration-eyewear-glasses-teacher-touching-chin.jpg",
-                PhoneNumber = "+359789000000",
-                EmailAddress = "ivanova.22@teacher.com",
-                ClassGroupId = 2,
-                UserId = "4b72b514-00e0-4754-ab43-4c53199afbb8"
-
-            };
-            teachers.Add(teacher);
+            
 
             /// <summary>
             /// Adding AdminTeacher to the database
@@ -47,7 +38,7 @@ namespace KindergartenSystem.Data.Configurations
                 PhoneNumber = "+359000000000",
                 EmailAddress = AdminEmail,
                 ClassGroupId = 1,
-                UserId = "1605dfd0-0033-408e-aae7-ca088e86985d"
+                UserId = "bcb4f072-ecca-43c9-ab26-c060c6f264e4"
 
             };
             teachers.Add(teacher);

@@ -32,7 +32,7 @@
             <a asp-area="" asp-controller="Child" asp-action="Details" asp-route-id="@Model.Id"
                class="btn btn-success">Details</a>
             <a asp-area="" asp-controller="Teacher" asp-action="AddItem" asp-route-id="@Model.Id"
-               class="btn btn-primary">Add Workshop</a>
+               class="btn btn-primary">Workshop</a>
             @if (this.User.Identity?.IsAuthenticated ?? false)
             {
                 @if ((IsUserTeacher && IsTeacherOfTheChild) || User.IsUserAdmin())

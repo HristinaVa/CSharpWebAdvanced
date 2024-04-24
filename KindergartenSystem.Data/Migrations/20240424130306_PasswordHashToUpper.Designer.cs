@@ -4,6 +4,7 @@ using KindergartenSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KindergartenSystem.Data.Migrations
 {
     [DbContext(typeof(KindergartenDbContext))]
-    partial class KindergartenDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240424130306_PasswordHashToUpper")]
+    partial class PasswordHashToUpper
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -150,7 +152,7 @@ namespace KindergartenSystem.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6d1f5e54-0d88-4c86-89b3-92b32c8070c3",
+                            Id = "15be12f3-74c3-4b14-a2b6-cd2c487cab4c",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "50029594-a854-49d3-ac11-e725009b9323",
                             Email = "username@user.com",
@@ -193,7 +195,7 @@ namespace KindergartenSystem.Data.Migrations
                             EmailConfirmed = false,
                             FirstName = "Admin",
                             LastName = "Admin",
-                            LockoutEnabled = true,
+                            LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.BG",
                             NormalizedUserName = "ADMIN@ADMIN.BG",
                             PasswordHash = "6F741B93409297B6B3BE618073B5F5899793CB18DDB45274FE6A636B1C62393A",
@@ -260,7 +262,7 @@ namespace KindergartenSystem.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("71d5f2cc-76cc-4de1-8bf4-8b6d2bfa0c60"),
+                            Id = new Guid("c304a362-51b3-42ba-9cc0-ffcdff145244"),
                             ClassGroupId = 2,
                             DateOfBirth = new DateTime(2019, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Alex",
@@ -351,19 +353,19 @@ namespace KindergartenSystem.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("91dd53ba-73b8-47b0-ba5b-4ead76778729"),
+                            Id = new Guid("f147420e-bfe3-4d8a-84ee-a4c2797a3059"),
                             KindergartenId = 1,
                             Url = "https://as2.ftcdn.net/v2/jpg/05/95/07/45/1000_F_595074521_hpNDWQChd0dx3pKmFXoX6VNukn2PNOGz.jpg"
                         },
                         new
                         {
-                            Id = new Guid("e066d3c3-73f1-4990-9e08-7994bd7a2c7e"),
+                            Id = new Guid("c39204df-ad09-416b-9897-4e01065e9027"),
                             KindergartenId = 1,
                             Url = "https://as1.ftcdn.net/v2/jpg/04/50/55/90/1000_F_450559026_CTK0vyFVr8d7ryOtZFrptDwT4mWP2IVf.jpg"
                         },
                         new
                         {
-                            Id = new Guid("0909894a-7f7c-4f06-aff5-450c2f24dc09"),
+                            Id = new Guid("d67089ff-a4d1-49a7-85b6-091c5931893e"),
                             KindergartenId = 1,
                             Url = "https://as2.ftcdn.net/v2/jpg/02/44/32/23/1000_F_244322317_eantlk9EzUZwcQ68xornkV4hxnGKz16T.jpg"
                         });
@@ -520,7 +522,7 @@ namespace KindergartenSystem.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("43c50b97-9c66-4556-b703-7a0734ce389d"),
+                            Id = new Guid("65a024a3-bc83-40d0-be77-412692300ee8"),
                             ClassGroupId = 1,
                             EmailAddress = "admin@admin.bg",
                             ImageUrl = "https://t4.ftcdn.net/jpg/04/75/00/99/360_F_475009987_zwsk4c77x3cTpcI3W1C1LU4pOSyPKaqi.jpg",

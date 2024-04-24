@@ -4,6 +4,7 @@ using KindergartenSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KindergartenSystem.Data.Migrations
 {
     [DbContext(typeof(KindergartenDbContext))]
-    partial class KindergartenDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240424070148_ChangesToTheDatabase")]
+    partial class ChangesToTheDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -150,7 +152,7 @@ namespace KindergartenSystem.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6d1f5e54-0d88-4c86-89b3-92b32c8070c3",
+                            Id = "c56dbbdd-4ce4-47d1-b622-84b5ec02b441",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "50029594-a854-49d3-ac11-e725009b9323",
                             Email = "username@user.com",
@@ -160,9 +162,9 @@ namespace KindergartenSystem.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USERNAME@USER.COM",
                             NormalizedUserName = "USERNAME@USER.COM",
-                            PasswordHash = "8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92",
+                            PasswordHash = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "C3CDC956-7B1E-4C75-BF5D-1A383F696FFC",
+                            SecurityStamp = "c3cdc956-7b1e-4c75-bf5d-1a383f696ffc",
                             TwoFactorEnabled = false,
                             UserName = "username@user.com"
                         },
@@ -178,27 +180,27 @@ namespace KindergartenSystem.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USERPARENT@USER.COM",
                             NormalizedUserName = "USERPARENT@USER.COM",
-                            PasswordHash = "E150A1EC81E8E93E1EAE2C3A77E66EC6DBD6A3B460F89C1D08AECF422EE401A0",
+                            PasswordHash = "e150a1ec81e8e93e1eae2c3a77e66ec6dbd6a3b460f89c1d08aecf422ee401a0",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "C3CDC956-7B1E-4C75-BF5D-1A383F696FFA",
+                            SecurityStamp = "c3cdc956-7b1e-4c75-bf5d-1a383f696ffa",
                             TwoFactorEnabled = false,
                             UserName = "userparent@user.com"
                         },
                         new
                         {
-                            Id = "bcb4f072-ecca-43c9-ab26-c060c6f264e4",
+                            Id = "bcb4f072-ecca-43c9-ab26-c060c6f364e4",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "50029594-a854-49d3-ac11-e725009b9327",
                             Email = "admin@admin.bg",
                             EmailConfirmed = false,
                             FirstName = "Admin",
                             LastName = "Admin",
-                            LockoutEnabled = true,
+                            LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.BG",
                             NormalizedUserName = "ADMIN@ADMIN.BG",
-                            PasswordHash = "6F741B93409297B6B3BE618073B5F5899793CB18DDB45274FE6A636B1C62393A",
+                            PasswordHash = "cf03042ca45f3cbff74bffadc0baead9cd92d4a8a8a574fbd2dd353ae78a378c",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "C3CDC956-7B1E-4C75-BF5D-1A383F696FFB",
+                            SecurityStamp = "c3cdc956-7b1e-4c75-bf5d-1a383f696ffb",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.bg"
                         });
@@ -260,7 +262,7 @@ namespace KindergartenSystem.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("71d5f2cc-76cc-4de1-8bf4-8b6d2bfa0c60"),
+                            Id = new Guid("300c072f-e7a8-4704-a44c-4cd73e076308"),
                             ClassGroupId = 2,
                             DateOfBirth = new DateTime(2019, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Alex",
@@ -351,19 +353,19 @@ namespace KindergartenSystem.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("91dd53ba-73b8-47b0-ba5b-4ead76778729"),
+                            Id = new Guid("5548d8d6-f20f-4a99-aa33-a89b8c8db1e6"),
                             KindergartenId = 1,
                             Url = "https://as2.ftcdn.net/v2/jpg/05/95/07/45/1000_F_595074521_hpNDWQChd0dx3pKmFXoX6VNukn2PNOGz.jpg"
                         },
                         new
                         {
-                            Id = new Guid("e066d3c3-73f1-4990-9e08-7994bd7a2c7e"),
+                            Id = new Guid("2cbca7fc-6a55-42e8-b894-92242823d8b8"),
                             KindergartenId = 1,
                             Url = "https://as1.ftcdn.net/v2/jpg/04/50/55/90/1000_F_450559026_CTK0vyFVr8d7ryOtZFrptDwT4mWP2IVf.jpg"
                         },
                         new
                         {
-                            Id = new Guid("0909894a-7f7c-4f06-aff5-450c2f24dc09"),
+                            Id = new Guid("1d72b9fb-09e2-4f46-b3b0-3dec9062dda2"),
                             KindergartenId = 1,
                             Url = "https://as2.ftcdn.net/v2/jpg/02/44/32/23/1000_F_244322317_eantlk9EzUZwcQ68xornkV4hxnGKz16T.jpg"
                         });
@@ -520,14 +522,14 @@ namespace KindergartenSystem.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("43c50b97-9c66-4556-b703-7a0734ce389d"),
+                            Id = new Guid("ec3e8e85-00df-4a2a-858d-b7148e66161c"),
                             ClassGroupId = 1,
                             EmailAddress = "admin@admin.bg",
                             ImageUrl = "https://t4.ftcdn.net/jpg/04/75/00/99/360_F_475009987_zwsk4c77x3cTpcI3W1C1LU4pOSyPKaqi.jpg",
                             IsWorking = false,
                             Name = "Admin Admin",
                             PhoneNumber = "+359000000000",
-                            UserId = "bcb4f072-ecca-43c9-ab26-c060c6f264e4"
+                            UserId = "bcb4f072-ecca-43c9-ab26-c060c6f364e4"
                         });
                 });
 
