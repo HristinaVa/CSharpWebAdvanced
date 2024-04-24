@@ -1,71 +1,10 @@
-//namespace KindergartenSystem.Services.Tests
-//{
-//    using Microsoft.EntityFrameworkCore;
 
-//    using Data;
-//    using Data.Interfaces;
-//    using KindergartenSystem.Data;
-
-//    using static DataSeed;
-//    using KindergartenSystem.Services.Data;
-
-//    public class TeacherServiceTests
-//    {
-//        // First way: Using InMemory Database
-//        // Pros: Testing is as close to the production scenario as possible
-//        // Cons: You are testing EFCore functionality as well, so this is not good UNIT test
-//        // Hard to arrange the scenario
-//        // Second way: Using Mock of IRepository
-//        // Pros: Good unit testing, tests single unit, easy push test data
-//        // Cons: You need to have repository pattern
-//        private DbContextOptions<KindergartenDbContext> dbOptions;
-//        private KindergartenDbContext dbContext;
-
-//        private ITeacherService teacherService;
-
-//        [OneTimeSetUp]
-//        public void OneTimeSetUp()
-//        {
-//            this.dbOptions = new DbContextOptionsBuilder<KindergartenDbContext>()
-//                .UseInMemoryDatabase("KindergartenInMemory" + Guid.NewGuid().ToString())
-//                .Options;
-//            this.dbContext = new KindergartenDbContext(this.dbOptions, false);
-
-//            this.dbContext.Database.EnsureCreated();
-//            SeedData(this.dbContext);
-
-//            this.teacherService = new TeacherService(this.dbContext);
-//        }
-
-//        [Test]
-//        public async Task AgentExistsByUserIdAsyncShouldReturnTrueWhenExists()
-//        {
-//            string existingAgentUserId = TeacherUser.Id.ToString();
-
-//            bool result = await this.teacherService.TeacherExistsByUserId(existingAgentUserId);
-
-//            Assert.IsTrue(result);
-//        }
-
-//        [Test]
-//        public async Task AgentExistsByUserIdAsyncShouldReturnFalseWhenNotExists()
-//        {
-//            string existingAgentUserId = TeacherUser.Id.ToString();
-
-//            bool result = await this.teacherService.TeacherExistsByUserId(existingAgentUserId);
-
-//            Assert.IsFalse(result);
-//        }
-//    }
-//}
 using KindergartenSystem.Data;
 
 using KindergartenSystem.Services.Data;
 using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Web.ViewModels.Teacher;
-using KindergartenSystem.Web.ViewModels.Workshop;
 using Microsoft.EntityFrameworkCore;
-using Moq;
 using static KindergartenSystem.Services.Tests.DataSeed;
 namespace KindergartenSystem.Services.Tests
 {
