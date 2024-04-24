@@ -14,23 +14,25 @@ namespace KindergartenSystem.Services.Tests
         {
             TeacherUser = new ApplicationUser()
             {
-                UserName = "ivanova.22@teacher.com",
-                NormalizedUserName = "IVANOVA.22@TEACHER.COM",
-                Email = "ivanova.22@teacher.com",
-                NormalizedEmail = "IVANOVA.22@TEACHER.COM",
+                Id = "df264ead-ecc2-4005-8907-f5ab23d53d20",
+                UserName = "marta@user.bg",
+                NormalizedUserName = "MARTA@USER.BG",
+                Email = "marta@user.bg",
+                NormalizedEmail = "MARTA@USER.BG",
                 EmailConfirmed = false,
-                PasswordHash = "e150a1ec81e8e93e1eae2c3a77e66ec6dbd6a3b460f89c1d08aecf422ee401a0",
-                SecurityStamp = "c3cdc956-7b1e-4c75-bf5d-1a383f696ffa",
+                PasswordHash = "AQAAAAEAACcQAAAAEBZnbomv84tIsdwCKMRlUAi+RUdNWwRbUcLZzqbL66FPiPjJ7CYZ0hu+qp2CKaKQAg==",
+                SecurityStamp = "CKIJ4B7MAASWW427TEMD5544JJOHRZUU",
                 TwoFactorEnabled = false,
-                FirstName = "Silviya",
-                LastName = "Ivanova",
-                ConcurrencyStamp = "50029594-a854-49d3-ac11-e725009b9326"
+                FirstName = "Mart",
+                LastName = "Mar",
+                ConcurrencyStamp = "02803441-9de8-4098-b60a-5ce1d804041e"
 
 
 
             };
             ParentUser = new ApplicationUser()
             {
+                
                 UserName = "hristina_87@mail.bg",
                 NormalizedUserName = "HRISTINA_87@MAIL.BG",
                 Email = "hristina_87@mail.bg",
@@ -45,10 +47,14 @@ namespace KindergartenSystem.Services.Tests
             };
             Teacher = new Teacher()
             {
-                PhoneNumber = "+359000112233",
-                ClassGroupId = 2,
-                ImageUrl = "https://st.depositphotos.com/1758000/2947/v/450/depositphotos_29477577-stock-illustration-eyewear-glasses-teacher-touching-chin.jpg",
-                User = TeacherUser
+                PhoneNumber = "+359000000000",
+                ClassGroupId = 1,
+                ImageUrl = "https://t4.ftcdn.net/jpg/04/75/00/99/360_F_475009987_zwsk4c77x3cTpcI3W1C1LU4pOSyPKaqi.jpg",
+                User = TeacherUser,
+                IsWorking = true,
+                UserId = TeacherUser.Id,
+                Name = "Mart Mar"
+                
             };
             Child = new Child()
             {
@@ -57,16 +63,16 @@ namespace KindergartenSystem.Services.Tests
                 LastName = "Ivanov",
                 DateOfBirth = DateTime.Today,
                 ImageUrl = "https://i.pinimg.com/736x/20/7c/9a/207c9a0c107ec57c0d97d5ae0bbbc851.jpg",
-                ClassGroupId = 2,
+                ClassGroupId = 1,
                 ParentId = Guid.Parse("7DD0AE27-C524-4327-AE16-BBF08677E10C"),
 
 
 
             };
-            context.Add(TeacherUser);
-            context.Add(ParentUser);
-            context.Add(Teacher);
-            context.Add(Child);
+            context.Users.Add(TeacherUser);
+            context.Users.Add(ParentUser);
+            context.Teachers.Add(Teacher);
+            context.Children.Add(Child);
             context.SaveChanges();
         }
     }

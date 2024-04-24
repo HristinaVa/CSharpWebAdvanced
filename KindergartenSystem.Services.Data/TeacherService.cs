@@ -97,7 +97,6 @@ namespace KindergartenSystem.Services.Data
             bool result = await _dbContext
                 .Teachers.Where(x => x.IsWorking)
                 .AnyAsync(a => a.UserId == userId);
-
             return result;
         }
         public async Task<bool> TeacherExistsById(string id)
@@ -111,9 +110,9 @@ namespace KindergartenSystem.Services.Data
         public async Task<TeacherFormModel> GetTeacherForEditAsync(string id)
         {
             var teacher = await _dbContext.Teachers           
-           .Where(x =>x.IsWorking && x.Id.ToString() == id).To<TeacherFormModel>()
+           .Where(x =>x.IsWorking && x.Id.ToString() == id)
+           .To<TeacherFormModel>()
            .FirstAsync();
-            
             return teacher;
 
         }

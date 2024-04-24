@@ -1,5 +1,7 @@
-﻿using KindergartenSystem.Data.Models;
+﻿using AutoMapper;
+using KindergartenSystem.Data.Models;
 using KindergartenSystem.Services.Mapping;
+using KindergartenSystem.Web.ViewModels.Child;
 using KindergartenSystem.Web.ViewModels.ClassGroup;
 using System.ComponentModel.DataAnnotations;
 using static KindergartenSystem.Common.EntityValidationConstants.Teacher;
@@ -25,5 +27,7 @@ namespace KindergartenSystem.Web.ViewModels.Teacher
         [Display(Name = "Class Group")]
         public int ClassGroupId { get; set; }
         public IEnumerable<ClassGroupSelectModel> ClassGroups { get; set; } = new HashSet<ClassGroupSelectModel>();
+
+        
     }
 }

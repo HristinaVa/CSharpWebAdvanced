@@ -1,4 +1,5 @@
-﻿using KindergartenSystem.Data.Models;
+﻿using KindergartenSystem.Data.Migrations;
+using KindergartenSystem.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -7,9 +8,11 @@ namespace KindergartenSystem.Data
 {
     public class KindergartenDbContext : IdentityDbContext<ApplicationUser>
     {
-        public KindergartenDbContext(DbContextOptions<KindergartenDbContext> options)
+        private readonly bool seedDb;
+        public KindergartenDbContext(DbContextOptions<KindergartenDbContext> options, bool seedDb = true)
             : base(options)
         {
+            this.seedDb = seedDb;
             if (!Database.IsRelational())
             {
                 Database.EnsureCreated();
