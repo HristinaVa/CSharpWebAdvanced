@@ -81,7 +81,6 @@ namespace KindergartenSystem.Web.Areas.Admin.Controllers
             }
 
             return RedirectToAction("All", "User", new { area = "Admin" });
-            //FOR NOW!!
         }
         public async Task<IActionResult> PendingParents()
         {
@@ -123,7 +122,7 @@ namespace KindergartenSystem.Web.Areas.Admin.Controllers
             var teacherExists = await _teacherService.TeacherExistsById(id);
             if (!teacherExists)
             {
-                return StatusCode(404);// for now temp data
+                return StatusCode(404);//temp data
             }
            
             
@@ -146,7 +145,7 @@ namespace KindergartenSystem.Web.Areas.Admin.Controllers
             var teacherExists = await _teacherService.TeacherExistsById(id);
             if (!teacherExists)
             {
-                return StatusCode(400);// for now temp data
+                return StatusCode(400);//temp data
             }
             
            
@@ -170,7 +169,7 @@ namespace KindergartenSystem.Web.Areas.Admin.Controllers
             var teacherExists = await _teacherService.TeacherExistsById(id);
             if (!teacherExists)
             {
-                return StatusCode(400);// for now temp data
+                return StatusCode(400);//temp data
             }
             
             try
@@ -190,7 +189,7 @@ namespace KindergartenSystem.Web.Areas.Admin.Controllers
             var teacherExists = await _teacherService.TeacherExistsById(id);
             if (!teacherExists)
             {
-                return StatusCode(400);// for now temp data
+                return StatusCode(400);//temp data
             }
             
             
