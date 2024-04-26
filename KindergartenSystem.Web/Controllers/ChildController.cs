@@ -295,7 +295,6 @@ namespace KindergartenSystem.Web.Controllers
             if (!isChildAttending)
             {
                 return BadRequest("The child is allready missing from class");
-                    //RedirectToAction("Mine", "Child"); //for now Error???
             }
             var teacherId = await _teacherService.GetTeacherByUserId(User.GetId()!);
             var isTeacherOfTheChild = await _childService.IsTeacherOfTheGroup(teacherId, id);
@@ -329,7 +328,6 @@ namespace KindergartenSystem.Web.Controllers
             if (isChildAttending)
             {
                 return BadRequest("The child is allready attend to class");
-                //RedirectToAction("Mine", "Child"); //for now Error???
             }
             var teacherId = await _teacherService.GetTeacherByUserId(User.GetId()!);
             var isTeacherOfTheChild = await _childService.IsTeacherOfTheGroup(teacherId, id);

@@ -9,6 +9,7 @@ namespace KindergartenSystem.Services.Data.Interfaces
         Task<IEnumerable<AllAgeGroupsViewModel>> AllAgeGroupsAsync(int id);
         Task<bool> ExistsById(int id);
         Task<AgeGroupDetailsViewModel> GetAgeGroupDetailsAsync(int id);
+        Task<IEnumerable<AllAgeGroupsViewModel>> GetAgeGroupsAsync();
 
 
 

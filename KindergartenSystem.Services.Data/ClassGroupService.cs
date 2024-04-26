@@ -1,5 +1,8 @@
 ﻿using KindergartenSystem.Data;
+using KindergartenSystem.Data.Models;
 using KindergartenSystem.Services.Data.Interfaces;
+using KindergartenSystem.Services.Mapping;
+using KindergartenSystem.Web.ViewModels.Child;
 using KindergartenSystem.Web.ViewModels.ClassGroup;
 using Microsoft.EntityFrameworkCore;
 
@@ -62,7 +65,21 @@ namespace KindergartenSystem.Services.Data
             }
             return model;
         }
+        public async Task<int> CreateClassGroupAsync(ClassGroupViewModel model)
+        {
+            ClassGroup classGroup = new ClassGroup()
+            {
+                Title = model.Title,
+                AgeGroupId = model.AgeGroupId,
 
+            };
+
+            await _dbContext.ClassGroups.AddAsync(classGroup);
+            await _dbContext.SaveChangesAsync();
             
+            return classGroup.Id;
+        }
+
+
     }
 }

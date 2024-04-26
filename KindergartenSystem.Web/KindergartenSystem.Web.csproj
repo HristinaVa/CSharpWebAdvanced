@@ -32,8 +32,4 @@
     <ProjectReference Include="..\KindergartenSystem.Web.ViewModels\KindergartenSystem.Web.ViewModels.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\Admin\ViewModels\" />
-  </ItemGroup>
-
 </Project>

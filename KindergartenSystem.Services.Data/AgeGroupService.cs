@@ -67,5 +67,12 @@ namespace KindergartenSystem.Services.Data
 
             return model;
         }
+        public async Task<IEnumerable<AllAgeGroupsViewModel>> GetAgeGroupsAsync()
+        {
+            IEnumerable<AllAgeGroupsViewModel> getAgeGroups = await _dbContext.AgeGroups.To<AllAgeGroupsViewModel>()
+                           .ToArrayAsync();
+
+            return getAgeGroups;
+        }
     }
 }

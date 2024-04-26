@@ -10,9 +10,6 @@ namespace KindergartenSystem.Web.ViewModels.AgeGroup
         public ICollection<ClassGroupSelectModel> ClassGroups { get; set; }
         public int ClassGroupsCount { get; set; }
 
-        //public ICollection<string> ClassGroupNames { get; set; }
-
-        // public string Title => throw new NotImplementedException();
-        //public ICollection<ClassGroupDetailsViewModel> ClassGroupDetails { get; set; }
+        
     }
 }

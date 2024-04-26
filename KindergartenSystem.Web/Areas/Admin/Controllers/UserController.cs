@@ -1,8 +1,14 @@
 ﻿using KindergartenSystem.Data.Models.Enums;
+using KindergartenSystem.Services.Data;
 using KindergartenSystem.Services.Data.Interfaces;
 using KindergartenSystem.Services.Data.Models.Teacher;
+using KindergartenSystem.Web.ViewModels.Child;
 using KindergartenSystem.Web.ViewModels.Teacher;
+using static KindergartenSystem.Common.GeneralApplicationConstants;
 using Microsoft.AspNetCore.Mvc;
+using KindergartenSystem.Web.ViewModels.ClassGroup;
+using KindergartenSystem.Web.ViewModels.AgeGroup;
+using KindergartenSystem.Web.Infrastructure.Extensions;
 
 namespace KindergartenSystem.Web.Areas.Admin.Controllers
 {
@@ -39,7 +45,7 @@ namespace KindergartenSystem.Web.Areas.Admin.Controllers
 
                 return BadRequest("The user is already teacher");
             }
-           
+
             return View();
 
 
@@ -95,7 +101,7 @@ namespace KindergartenSystem.Web.Areas.Admin.Controllers
                 return BadRequest("Parent Id is missing.");
             }
 
-           
+
             var result = await _userService.UpdateParentStatusAsync(parentId, newStatus);
 
             if (!result)
@@ -124,8 +130,8 @@ namespace KindergartenSystem.Web.Areas.Admin.Controllers
             {
                 return StatusCode(404);//temp data
             }
-           
-            
+
+
             try
             {
                 var model = await _teacherService.GetTeacherForEditAsync(id);
@@ -147,8 +153,8 @@ namespace KindergartenSystem.Web.Areas.Admin.Controllers
             {
                 return StatusCode(400);//temp data
             }
-            
-           
+
+
             try
             {
                 await _teacherService.EditTeacherInfoAsync(id, model);
@@ -171,7 +177,7 @@ namespace KindergartenSystem.Web.Areas.Admin.Controllers
             {
                 return StatusCode(400);//temp data
             }
-            
+
             try
             {
                 var model = await _teacherService.GetDeleteTeacherInfoAsync(id);
@@ -191,8 +197,8 @@ namespace KindergartenSystem.Web.Areas.Admin.Controllers
             {
                 return StatusCode(400);//temp data
             }
-            
-            
+
+
             try
             {
                 await _teacherService.DeleteTeacherAsync(id);
@@ -204,7 +210,64 @@ namespace KindergartenSystem.Web.Areas.Admin.Controllers
                 return StatusCode(500);
             }
         }
+        [HttpGet]
+        public async Task<IActionResult> AddClassGroup()
+        {
 
+            bool isUserAdmin = User.IsInRole(AdminRoleName);
+            if (!isUserAdmin)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            try
+            {
+                ClassGroupViewModel model = new ClassGroupViewModel()
+                {
+                    AgeGroups = await _ageGroupService.GetAgeGroupsAsync()
+                };
+                return View(model);
+            }
+            catch (Exception)
+            {
+
+                return BadRequest("Unexpexted error, please contatact with administrator!");
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddClassGroup(ClassGroupViewModel model)
+        {
+            bool isUserAdmin = User.IsInRole(AdminRoleName);
+            if (!isUserAdmin)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            bool ageGroupExists = await _ageGroupService.ExistsById(model.AgeGroupId);
+            if (!ageGroupExists)
+            {
+                ModelState.AddModelError(nameof(model.AgeGroupId), "Invalid age group!");
+            }
+            
+            if (!ModelState.IsValid)
+            {
+                model.AgeGroups = await _ageGroupService.GetAgeGroupsAsync();
+                return View(model);
+            }
+            try
+            {
+                await _classGroupService.CreateClassGroupAsync(model);
+                int ageGroupId = model.AgeGroupId;
+                return RedirectToAction("Details", "AgeGroup", new { id = ageGroupId, area = "" });
+            }
+            catch (Exception)
+            {
+
+                ModelState.AddModelError(string.Empty, "Unexpected error occured while adding new group!");
+
+                model.AgeGroups = await _ageGroupService.GetAgeGroupsAsync();
+                return View(model);
+            }
+
+        }
     }
 }
     

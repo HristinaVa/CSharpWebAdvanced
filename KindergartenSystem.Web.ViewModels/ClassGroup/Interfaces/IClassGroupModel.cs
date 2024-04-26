@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace KindergartenSystem.Web.ViewModels.ClassGroup.Interfaces
+﻿namespace KindergartenSystem.Web.ViewModels.ClassGroup.Interfaces
 {
     public interface IClassGroupModel
     {

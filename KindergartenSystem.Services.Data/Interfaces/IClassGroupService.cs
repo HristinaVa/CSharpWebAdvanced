@@ -8,5 +8,6 @@ namespace KindergartenSystem.Services.Data.Interfaces
         Task<bool> ExistsById(int id);
         Task<IEnumerable<string>> AllClassGroupsTitlesAsync();
         Task<ClassGroupDetailsViewModel> GetDetailsAsync(int id);
+        Task<int> CreateClassGroupAsync(ClassGroupViewModel model);
     }
 }
