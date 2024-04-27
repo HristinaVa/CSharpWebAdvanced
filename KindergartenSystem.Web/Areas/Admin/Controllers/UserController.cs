@@ -268,6 +268,61 @@ namespace KindergartenSystem.Web.Areas.Admin.Controllers
             }
 
         }
+        [HttpGet]
+        public async Task<IActionResult> EditGroup(int id)
+        {
+            var groupExists = await _classGroupService.ExistsById(id);
+            if (!groupExists)
+            {
+                return StatusCode(404);// for now temp data
+            }
+
+            if (User.IsUserAdmin() == false)
+            {
+                return StatusCode(401);
+            }
+            try
+            {
+                var model = await _classGroupService.GetGroupForEditAsync(id);
+                model.AgeGroups = await _ageGroupService.GetAgeGroupsAsync();
+                return View(model);
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(500);
+            }
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditGroup(int id, ClassGroupViewModel model)
+        {
+            var groupExists = await _classGroupService.ExistsById(id);
+            if (!groupExists)
+            {
+                return StatusCode(404);// for now temp data
+            }
+
+            if (User.IsUserAdmin() == false)
+            {
+                return StatusCode(401);
+            }
+            try
+            {
+                await _classGroupService.EditGroupInfoAsync(id, model);
+            }
+            catch (Exception)
+            {
+
+                ModelState.AddModelError(string.Empty, "Unexpected error! Pleace contact administrator!");
+                model.AgeGroups = await _ageGroupService.GetAgeGroupsAsync();
+
+                return View(model);
+            }
+            int ageGroupId = model.AgeGroupId;
+
+            return RedirectToAction("Details", "AgeGroup", new { id = ageGroupId, area = "" });
+        }
     }
 }
     

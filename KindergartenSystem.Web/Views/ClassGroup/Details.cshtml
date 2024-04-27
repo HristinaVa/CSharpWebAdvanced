@@ -25,6 +25,11 @@
             }
             <p>Phone: <b>@Model.Phone</b></p>
         }
-       
+@if (User.IsUserAdmin())
+        {
+            <a asp-area="Admin" asp-controller="User" asp-action="EditGroup" asp-route-id="@Model.Id"
+               class="btn btn-primary btn-lg">Edit Class Group</a>
+        }        
+
     </div>
 </div>

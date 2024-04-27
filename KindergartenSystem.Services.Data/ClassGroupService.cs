@@ -80,6 +80,23 @@ namespace KindergartenSystem.Services.Data
             return classGroup.Id;
         }
 
+        public async Task<ClassGroupViewModel> GetGroupForEditAsync(int id)
+        {
+            var group = await _dbContext.ClassGroups                           
+                      .Where(x => x.Id == id).To<ClassGroupViewModel>()
+                      .FirstAsync();
+            return group;
+        }
+        public async Task EditGroupInfoAsync(int id, ClassGroupViewModel model)
+        {
+            var group = await _dbContext.ClassGroups
+                .FirstAsync(x => x.Id == id);
+            group.Title = model.Title;
+            group.AgeGroupId = model.AgeGroupId;
+            
+            await _dbContext.SaveChangesAsync();
 
+
+        }
     }
 }
