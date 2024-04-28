@@ -274,7 +274,7 @@ namespace KindergartenSystem.Web.Areas.Admin.Controllers
             var groupExists = await _classGroupService.ExistsById(id);
             if (!groupExists)
             {
-                return StatusCode(404);// for now temp data
+                return StatusCode(404);
             }
 
             if (User.IsUserAdmin() == false)

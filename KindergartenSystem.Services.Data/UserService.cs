@@ -24,7 +24,7 @@ namespace KindergartenSystem.Services.Data
         {
             List<UserViewModel> users = new List<UserViewModel>();
             IEnumerable<UserViewModel> teachers = await _dbContext.Teachers
-                .Include(x => x.User).To<UserViewModel>().ToArrayAsync();
+                .Include(x => x.User).Where(x => x.IsWorking).To<UserViewModel>().ToArrayAsync();
             users.AddRange(teachers);
 
             IEnumerable<UserViewModel> parents = await _dbContext.Parents
@@ -78,7 +78,7 @@ namespace KindergartenSystem.Services.Data
         {
             
             bool result = await _dbContext
-                .Teachers
+                .Teachers.Where(x => x.IsWorking)
                 .AnyAsync(a => a.UserId == userId);
 
             return result;
